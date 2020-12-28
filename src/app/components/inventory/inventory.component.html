@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="row w-100per">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-6" *ngFor="let processor of processors">
+            <processor-block [processor]="processor">
+
+            </processor-block>
+            <!-- <div *ngIf="processor.basic.images.length>0">
+                <img [src]="processor.basic.images[0].src"/>
+            </div> -->
+            
+            <!-- <h1>{{processor.basic.name}}</h1> -->
+            <!-- <p>No of cores: {{processor.core}}</p>
+            <p>L2 cache: {{processor.l2cache}}</p>
+            <p>boostclock: {{processor.boostclock}}</p>
+            <p>No of thread: {{processor.thread}}</p>
+            <p>Clock: {{processor.clock}}</p> -->
+        </div>        
+    </div>
+</div>
