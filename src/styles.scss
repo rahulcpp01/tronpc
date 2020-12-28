@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+:root {
+    --primary-color: #288ACA;
+    --font-color: #424242;
+    --bg-color: #fff;    
+}
+.dark-mode{
+    --font-color: #e1e1ff;
+    --bg-color: #161625;
+}
+*{
+    background-color: var(--bg-color);
+    color: var(--font-color);
+    border-color: var(--font-color);
+    font-family: 'Ubuntu', sans-serif;
+}
+.w-100per{
+    width: 100%;
+}
