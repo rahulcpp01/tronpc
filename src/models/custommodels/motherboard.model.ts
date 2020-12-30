@@ -4,7 +4,7 @@ export interface MotherBoard{
     basic?: Product;
     description?:string;
     exclude?: string;
-
+    id?:number;
     MANUFACT_MOB?: string;
     MODEL_NO_MOB?: string;
     SOCKET_MOB?: string;

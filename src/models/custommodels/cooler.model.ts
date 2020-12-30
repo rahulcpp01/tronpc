@@ -4,7 +4,7 @@ export interface Cooler{
     basic?: Product;
     description?:string;
     exclude?: string;
-
+    id?:number;
     BRAND?: string;
     MODEL?: string;
     PART_NO?:string;    

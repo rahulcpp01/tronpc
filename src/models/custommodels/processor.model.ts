@@ -4,6 +4,7 @@ export interface Processor{
     basic?: Product;
     manf?:string;
     model?:string;
+    id?:number;
     part_number?:string;
     core?:number;
     thread?:number;
@@ -26,6 +27,8 @@ export interface Processor{
     lithiography?:string;
     type_of_ram?:string;
     warrenty?:string;
+    TDP?: number;
+    OPTANE_MEM_SUP?: string;
 
     description?:string;
     exclude?: string;

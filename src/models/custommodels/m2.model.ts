@@ -4,7 +4,7 @@ export interface M2{
     basic?: Product;
     description?:string;
     exclude?: string;
-
+    id?:number;
     
     MANUFACT?: string;
     MODEL?: string;

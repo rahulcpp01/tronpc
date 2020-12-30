@@ -4,7 +4,7 @@ export interface GPU{
     basic?: Product;
     description?:string;
     exclude?: string;
-
+    id?:number;
     BRAND?: string;
     MAKE?: string;
     MODEL?: string;

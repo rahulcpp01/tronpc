@@ -4,7 +4,7 @@ export interface HDD{
     basic?: Product;
     description?:string;
     exclude?: string;
-
+    id?:number;
 
     MANUFACT?: string;
     PART_NO?: string;
