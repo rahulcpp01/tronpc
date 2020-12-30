@@ -5,5 +5,10 @@
     <div class="no-image"  *ngIf="processor.basic.images && processor.basic.images.length == 0">
         No Image Found
     </div>
-    
+    <div class="productname">
+        {{processor.basic.name}}
+    </div>
+    <div class="price">
+        {{processor.basic.regular_price | currency:"&#8377;"}}
+    </div>
 </div>
