@@ -1,14 +1,14 @@
-<div class="w-100per" *ngIf="processor.basic">
-    <div class="img" *ngIf="processor.basic.images && processor.basic.images.length > 0">        
-        <img [src]="processor.basic.images[0].src" alt="processor.basic.images[0].alt">               
+<div class="w-100per" *ngIf="product">
+    <div class="img" *ngIf="product.images && product.images.length > 0">        
+        <img [src]="product.images[0].src" alt="product.images[0].alt">               
     </div>
-    <div class="no-image"  *ngIf="processor.basic.images && processor.basic.images.length == 0">
+    <div class="no-image"  *ngIf="product.images && product.images.length == 0">
         No Image Found
     </div>
     <div class="productname">
-        {{processor.basic.name}}
+        {{product.name}}
     </div>
     <div class="price">
-        {{processor.basic.regular_price | currency:"&#8377;"}}
+        {{product.regular_price | currency:"&#8377;"}}
     </div>
 </div>

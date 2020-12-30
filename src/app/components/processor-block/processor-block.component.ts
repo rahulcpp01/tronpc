@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Processor } from 'src/models/custommodels/processor.model';
+import { Product } from 'src/models/product/product';
 
 @Component({
   selector: 'processor-block',
@@ -7,8 +7,8 @@ import { Processor } from 'src/models/custommodels/processor.model';
   styleUrls: ['./processor-block.component.scss']
 })
 export class ProcessorBlockComponent implements OnInit {
-
-  @Input() processor: Processor={};
+  
+  
   constructor() { }
 
   ngOnInit(): void {

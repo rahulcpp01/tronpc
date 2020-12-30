@@ -7,8 +7,6 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
-
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {

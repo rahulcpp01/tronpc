@@ -10,7 +10,7 @@ export interface Product {
     slug?: string; //	Product slug.
     permalink?: string;//	Product URL.READ-ONLY
     date_created?: Date;	//The date the product was created, in the site's timezone.READ-ONLY
-    date_created_gmt: Date;	//The date the product was created, as GMT.READ-ONLY
+    date_created_gmt?: Date;	//The date the product was created, as GMT.READ-ONLY
     date_modified?: Date;	//The date the product was last modified, in the site's timezone.READ-ONLY
     date_modified_gmt?: Date	//The date the product was last modified, as GMT.READ-ONLY
     type?: string;	//Product type. Options: simple, grouped, external and variable. Default is simple.
@@ -62,13 +62,13 @@ export interface Product {
     parent_id?: number;//Product parent ID.
     purchase_note?: string;	//Optional note to send the customer after purchase.
     categories?: ProductCategories[];	//List of categories. See Product - Categories properties
-    tags: ProductTag[];//List of tags. See Product - Tags properties
+    tags?: ProductTag[];//List of tags. See Product - Tags properties
     images?: ProductImage[];//List of images. See Product - Images properties
     attributes?: ProductAttributes[];	//List of attributes. See Product - Attributes properties
     default_attributes?: ProductAttributes[]; //	Defaults variation attributes. See Product - Default attributes properties
     variations?: number[];	//List of variations IDs.READ-ONLY
     grouped_products?: number[]; //	List of grouped products ID.
-    menu_order: number;	//Menu order, used to custom sort products.
+    menu_order?: number;	//Menu order, used to custom sort products.
     meta_data?: ProductMeta[];	//Meta data. See Product - Meta data properties
     in_cart?: number;
 }

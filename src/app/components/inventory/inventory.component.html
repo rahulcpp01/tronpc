@@ -2,7 +2,7 @@
     <h3>Processors</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let processor of processors">
-            <processor-block [processor]="processor">
+            <processor-block [product]="processor.basic">
                 <!-- routerLink="/processor/{{processor.basic.id}}" -->
             </processor-block>            
         </div>        
@@ -12,6 +12,9 @@
     <div class="row w-100per m-0px">
         <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
             <!-- {{cases | json}} -->
+            <processor-block [product]="cases.basic">
+                <!-- routerLink="/processor/{{processor.basic.id}}" -->
+            </processor-block>   
         </div>
     </div>
 
@@ -37,8 +40,29 @@
     <h3>Mother Board</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
-            {{motherboard | json}}
+            <!-- {{motherboard | json}} -->
         </div>
     </div>
 
+    <h3>Power Supplies</h3>
+    <div class="row w-100per m-0px">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+            <!-- {{powersupply | json}} -->
+        </div>
+    </div>
+    <h3>RAM</h3>
+    <div class="row w-100per m-0px">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+            <!-- {{ram | json}} -->
+            <processor-block [product]="ram.basic">
+                <!-- routerLink="/processor/{{processor.basic.id}}" -->
+            </processor-block>   
+        </div>
+    </div>
+    <h3>SSD</h3>
+    <div class="row w-100per m-0px">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+            {{ssd | json}}
+        </div>
+    </div>
 </div>

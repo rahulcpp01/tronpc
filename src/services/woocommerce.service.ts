@@ -16,6 +16,9 @@ import { GPU } from 'src/models/custommodels/gpu.model';
 import { HDD } from 'src/models/custommodels/hdd.model';
 import { M2 } from 'src/models/custommodels/m2.model';
 import { MotherBoard } from 'src/models/custommodels/motherboard.model';
+import { PowerSupply } from 'src/models/custommodels/powersupply.model';
+import { RAM } from 'src/models/custommodels/ram.model';
+import { SSD } from 'src/models/custommodels/ssd.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +33,9 @@ export class WoocommerceService {
   private hddCategoryId: number = 26;
   private m2CategoryId: number = 27;
   private motherBoardCategoryId: number = 28;
-  
-
+  private powerSupplyCategoryId: number = 29;
+  private RAMCategoryId: number = 30;
+  private SSDCategoryId: number = 31;
   constructor(private httpClient: HttpClient) { }
 
 
@@ -136,6 +140,8 @@ export class WoocommerceService {
 
       type_of_ram: descJSON["type_of_ram"],
       warrenty: descJSON["warrenty"],
+      TDP: Number.parseInt(descJSON["TDP"]),
+      OPTANE_MEM_SUP: descJSON["OPTANE_MEM_SUP"],
       description: descJSON["description"],
       exclude: descJSON["exclude"]
     };
@@ -389,4 +395,120 @@ export class WoocommerceService {
     };
     return motherboard; 
   }
+
+  getAllPowerSupplies(){
+    return this.httpClient.get<Product[]>(`/products?category=`+ this.powerSupplyCategoryId);
+  }
+  PowerSuppliesFactory(products: Product[]){
+    let powersupplies: PowerSupply[] = [];
+    for(let i = 0; i< products.length; i++){
+      powersupplies.push(this.createPowerSupply(products[i]));           
+    } 
+    console.log(powersupplies);
+    return powersupplies;
+  }
+
+  createPowerSupply(product: Product): PowerSupply{
+    let desc: string = product.description;    
+    let regex = /(<([^>]+)>)/ig       //to remove html tag
+    let descJSON = JSON.parse(desc.replace(regex,""));
+    let powersupply: PowerSupply={
+      basic: product,
+      description: descJSON["description"],
+      exclude: descJSON["exclude"],
+
+      BRAND: descJSON["BRAND"],
+      MODEL: descJSON["MODEL"],
+      PART_NO: descJSON["PART_NO"],
+      FORM_FACTOR: descJSON["FORM_FACTOR"],
+      EFFIC: descJSON["EFFIC"],
+      WATT: descJSON["WATT"],     
+
+      LENGTH: descJSON["LENGTH"], 
+      MODULAR: descJSON["MODULAR"] ,
+      FAN: descJSON["FAN"] ,
+      EPS_CONECTOR: descJSON["EPS_CONECTOR"] ,
+      PCIE_6_2: Number.parseInt(descJSON["PCIE_6_2"]),
+      SATA: Number.parseInt(descJSON["SATA"]),
+      MOLEX_4: Number.parseInt(descJSON["MOLEX_4"]),
+      INTERNAL_2_5BAY: Number.parseInt(descJSON["INTERNAL_2_5BAY"]),
+      INTERNAL_3_5BAY: Number.parseInt(descJSON["INTERNAL_3_5BAY"]),
+      VOLUME: descJSON["VOLUME"] 
+    };
+    return powersupply; 
+  }
+
+  getAllRAMs(){
+    return this.httpClient.get<Product[]>(`/products?category=`+ this.RAMCategoryId);
+  }
+  RAMsFactory(products: Product[]){
+    let rams: RAM[] = [];
+    for(let i = 0; i< products.length; i++){
+      rams.push(this.createRAM(products[i]));           
+    } 
+    console.log(rams);
+    return rams;
+  }
+
+  createRAM(product: Product): RAM{
+    let desc: string = product.description;    
+    let regex = /(<([^>]+)>)/ig       //to remove html tag
+    let descJSON = JSON.parse(desc.replace(regex,""));
+    let ram: RAM={
+      basic: product,
+      description: descJSON["description"],
+      exclude: descJSON["exclude"],
+
+      MANUFACT: descJSON["MANUFACT"],
+      MODEL: descJSON["MODEL"],
+      PART_NO: descJSON["PART_NO"],
+      SPEED: descJSON["SPEED"],
+      MODULE: descJSON["MODULE"],
+      COLOUR: descJSON["COLOUR"],     
+
+      FIRST_WORLD_LAT: descJSON["FIRST_WORLD_LAT"],       
+      CAS_LAT: Number.parseInt(descJSON["CAS_LAT"]),
+      VOL: descJSON["VOL"] ,
+      TIMING: descJSON["TIMING"] ,
+      HEAT_SINK: descJSON["HEAT_SINK"] ,
+      ECC_REGISTERED: descJSON["ECC_REGISTERED"],
+      TDP: Number.parseInt(descJSON["TDP"])
+       
+    };
+    return ram; 
+  }
+
+  getAllSSDs(){
+    return this.httpClient.get<Product[]>(`/products?category=`+ this.SSDCategoryId);
+  }
+  SSDsFactory(products: Product[]){
+    let ssds: SSD[] = [];
+    for(let i = 0; i< products.length; i++){
+      ssds.push(this.createSSD(products[i]));           
+    } 
+    console.log(ssds);
+    return ssds;
+  }
+
+  createSSD(product: Product): SSD{
+    let desc: string = product.description;    
+    let regex = /(<([^>]+)>)/ig       //to remove html tag
+    let descJSON = JSON.parse(desc.replace(regex,""));
+    let ssd: SSD={
+      basic: product,
+      description: descJSON["description"],
+      exclude: descJSON["exclude"],
+
+      MANUFACT: descJSON["MANUFACT"],
+      MODEL: descJSON["MODEL"],
+      PART_NO: descJSON["PART_NO"],
+      CAPACITY: descJSON["CAPACITY"],
+      INTERFACE: descJSON["INTERFACE"],
+      FORM_FACT: descJSON["FORM_FACT"],         
+      TDP: Number.parseInt(descJSON["TDP"]),
+      TYPE: descJSON["TYPE"]        
+    };
+    return ssd; 
+  }
+
 }
