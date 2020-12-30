@@ -1,19 +1,44 @@
-<div class="container-fluid">
-    <div class="row w-100per">
-        <div class="col-lg-2 col-md-3 col-sm-4 col-6" *ngFor="let processor of processors">
+<div class="container-fluid">    
+    <h3>Processors</h3>
+    <div class="row w-100per m-0px">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let processor of processors">
             <processor-block [processor]="processor">
-
-            </processor-block>
-            <!-- <div *ngIf="processor.basic.images.length>0">
-                <img [src]="processor.basic.images[0].src"/>
-            </div> -->
-            
-            <!-- <h1>{{processor.basic.name}}</h1> -->
-            <!-- <p>No of cores: {{processor.core}}</p>
-            <p>L2 cache: {{processor.l2cache}}</p>
-            <p>boostclock: {{processor.boostclock}}</p>
-            <p>No of thread: {{processor.thread}}</p>
-            <p>Clock: {{processor.clock}}</p> -->
+                <!-- routerLink="/processor/{{processor.basic.id}}" -->
+            </processor-block>            
         </div>        
     </div>
+
+    <h3>Case</h3>
+    <div class="row w-100per m-0px">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+            <!-- {{cases | json}} -->
+        </div>
+    </div>
+
+    <h3>Cooler</h3>
+    <div class="row w-100per m-0px">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+            <!-- {{coolers | json}} -->
+        </div>
+    </div>
+
+    <h3>GPU</h3>
+    <div class="row w-100per m-0px">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+            <!-- {{gpu | json}} -->
+        </div>
+    </div>
+    <h3>HDD</h3>
+    <div class="row w-100per m-0px">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+            <!-- {{hdd | json}} -->
+        </div>
+    </div>
+    <h3>Mother Board</h3>
+    <div class="row w-100per m-0px">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+            {{motherboard | json}}
+        </div>
+    </div>
+
 </div>

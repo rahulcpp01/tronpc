@@ -10,6 +10,12 @@ import { Product } from 'src/models/product/product';
 import { Order } from 'src/models/orders/orders';
 import { ShippingLocation } from 'src/models/shipping/shipping.location';
 import { Processor } from 'src/models/custommodels/processor.model';
+import { Case } from 'src/models/custommodels/case.model';
+import { Cooler } from 'src/models/custommodels/cooler.model';
+import { GPU } from 'src/models/custommodels/gpu.model';
+import { HDD } from 'src/models/custommodels/hdd.model';
+import { M2 } from 'src/models/custommodels/m2.model';
+import { MotherBoard } from 'src/models/custommodels/motherboard.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +23,15 @@ import { Processor } from 'src/models/custommodels/processor.model';
 export class WoocommerceService {
 
   private url = environment.backend_api_url;
+  private processorCategoryId: number = 22;
+  private caseCategoryId: number = 23;
+  private coolerCategoryId: number = 24;
+  private gpuCategoryId: number = 25;
+  private hddCategoryId: number = 26;
+  private m2CategoryId: number = 27;
+  private motherBoardCategoryId: number = 28;
+  
+
   constructor(private httpClient: HttpClient) { }
 
 
@@ -79,50 +94,299 @@ export class WoocommerceService {
   }
 
   getAllProcessors(){
-    return this.httpClient.get<Product[]>(`/products?category=22`);
+    return this.httpClient.get<Product[]>(`/products?category=`+ this.processorCategoryId);
   }
-  processorFactory(products: Product[]){
+  processorsFactory(products: Product[]){
     let processors: Processor[]=[];
     for(let i = 0; i< products.length; i++){
-        
-      let desc: string = products[i].description;
-      if(desc.indexOf('{')!=-1){
-        let regex = /(<([^>]+)>)/ig       //to remove html tag
-        let descJSON = JSON.parse(desc.replace(regex,""));
-        let processor: Processor={
-          basic: products[i],
-          manf: descJSON["manf"],
-          model: descJSON["model"],
-          part_number: descJSON["part_number"],
-          core: Number.parseInt(descJSON["core"]),
-          thread: Number.parseInt(descJSON["thread"]),
-          core_clock: Number.parseInt(descJSON["core_clock"]),
-          boost_clock: Number.parseInt(descJSON["boost_clock"]),
-          tdp: Number.parseInt(descJSON["tdp"]),
-          series: descJSON["series"],
-          architecture: descJSON["architecture"],
-          core_family: descJSON["core_family"],
-          integrated_gpu: descJSON["integrated_gpu"],
-          socket: descJSON["socket"],
-          max_support_memory: Number.parseInt(descJSON["max_support_memory"]),
-          ecc_support: descJSON["ecc_support"],
-          cpu_cooler: descJSON["cpu_cooler"],
-          packaging: descJSON["packaging"],
-          l1_cache_instruction: descJSON["l1_cache_instruction"],
-          l1_cache_data: descJSON["l1_cache_data"],
-          l2_cache: descJSON["l2_cache"],
-          l3_cache: descJSON["l3_cache"],
-          lithiography: descJSON["lithiography"],
-
-          type_of_ram: descJSON["type_of_ram"],
-          warrenty: descJSON["warrenty"],
-          description: descJSON["description"],
-          exclude: descJSON["exclude"]
-        };
-        processors.push(processor);
-      }        
+      processors.push(this.createProcessor(products[i]));           
     } 
     console.log(processors);
     return processors;
+  }
+
+  createProcessor(product: Product): Processor{
+    let desc: string = product.description;    
+    let regex = /(<([^>]+)>)/ig       //to remove html tag
+    let descJSON = JSON.parse(desc.replace(regex,""));
+    let processor: Processor={
+      basic: product,
+      manf: descJSON["manf"],
+      model: descJSON["model"],
+      part_number: descJSON["part_number"],
+      core: Number.parseInt(descJSON["core"]),
+      thread: Number.parseInt(descJSON["thread"]),
+      core_clock: Number.parseInt(descJSON["core_clock"]),
+      boost_clock: Number.parseInt(descJSON["boost_clock"]),
+      tdp: Number.parseInt(descJSON["tdp"]),
+      series: descJSON["series"],
+      architecture: descJSON["architecture"],
+      core_family: descJSON["core_family"],
+      integrated_gpu: descJSON["integrated_gpu"],
+      socket: descJSON["socket"],
+      max_support_memory: Number.parseInt(descJSON["max_support_memory"]),
+      ecc_support: descJSON["ecc_support"],
+      cpu_cooler: descJSON["cpu_cooler"],
+      packaging: descJSON["packaging"],
+      l1_cache_instruction: descJSON["l1_cache_instruction"],
+      l1_cache_data: descJSON["l1_cache_data"],
+      l2_cache: descJSON["l2_cache"],
+      l3_cache: descJSON["l3_cache"],
+      lithiography: descJSON["lithiography"],
+
+      type_of_ram: descJSON["type_of_ram"],
+      warrenty: descJSON["warrenty"],
+      description: descJSON["description"],
+      exclude: descJSON["exclude"]
+    };
+    return processor;       
+  }
+
+  getAllCases(){
+    return this.httpClient.get<Product[]>(`/products?category=`+ this.caseCategoryId);
+  }
+  casesFactory(products: Product[]){
+    let cases: Case[] = [];
+    for(let i = 0; i< products.length; i++){
+      cases.push(this.createCase(products[i]));           
+    } 
+    console.log(cases);
+    return cases;
+  }
+
+  createCase(product: Product): Case{
+    let desc: string = product.description;    
+    let regex = /(<([^>]+)>)/ig       //to remove html tag
+    let descJSON = JSON.parse(desc.replace(regex,""));
+    let casev: Case={
+      basic: product,
+      description: descJSON["description"],
+      exclude: descJSON["exclude"],
+      BRAND: descJSON["BRAND"],
+      MODEL: descJSON["MODEL"],
+      PART_NO: descJSON["PART_NO"],
+      TYPE: descJSON["TYPE"],
+      COLOUR: descJSON["COLOUR"],
+      POWER_SUPPLY: descJSON["POWER_SUPPLY"],
+      SIDE_PANEL: descJSON["SIDE_PANEL"],
+      POWER_SUPPLY_SHROUD: descJSON["POWER_SUPPLY_SHROUD"],
+      FRONT_PANEL_USB: descJSON["FRONT_PANEL_USB"],
+      MOB_FORM_FACT: descJSON["MOB_FORM_FACT"],
+      FULL_HT_EXP_SLT: Number.parseInt(descJSON["FULL_HT_EXP_SLT"]),
+      HLF_HT_EXP_SLT: Number.parseInt(descJSON["HLF_HT_EXP_SLT"]),
+      MAX_GPU_LENGTH: Number.parseInt(descJSON["MAX_GPU_LENGTH"]),
+      DIMENTIONS: descJSON["DIMENTIONS"],
+      INTERNAL_2_5BAY: descJSON["INTERNAL_2_5BAY"],
+      INTERNAL_3_5BAY: descJSON["INTERNAL_3_5BAY"],
+      VOLUME: descJSON["VOLUME"],
+      OPTICAL_DRIVE: descJSON["DIMENTIONS"],
+      NO_OF_FAN: Number.parseInt(descJSON["NO_OF_FAN"]),
+      ARGB: descJSON["ARGB"]
+    };
+    return casev;       
+  }
+
+  getAllCoolers(){
+    return this.httpClient.get<Product[]>(`/products?category=`+ this.coolerCategoryId);
+  }
+  coolersFactory(products: Product[]){
+    let cases: Cooler[] = [];
+    for(let i = 0; i< products.length; i++){
+      cases.push(this.createCooler(products[i]));           
+    } 
+    console.log(cases);
+    return cases;
+  }
+
+  createCooler(product: Product): Cooler{
+    let desc: string = product.description;    
+    let regex = /(<([^>]+)>)/ig       //to remove html tag
+    let descJSON = JSON.parse(desc.replace(regex,""));
+    let cooler: Cooler={
+      basic: product,
+      description: descJSON["description"],
+      exclude: descJSON["exclude"],
+      BRAND: descJSON["BRAND"],
+      MODEL: descJSON["MODEL"],
+      PART_NO: descJSON["PART_NO"],
+      FAN_RPM: Number.parseInt(descJSON["FAN_RPM"]),
+      NOISE: descJSON["NOISE"],
+      BEARING: descJSON["BEARING"],
+      HEIGHT: descJSON["HEIGHT"],
+      WATER: descJSON["WATER"],
+      FAN: descJSON["FAN"],
+      CPU_SOCKET_LIST: descJSON["CPU_SOCKET_LIST"],      
+    };
+    return cooler; 
+  }
+
+  getAllGPUs(){
+    return this.httpClient.get<Product[]>(`/products?category=`+ this.gpuCategoryId);
+  }
+  gpusFactory(products: Product[]){
+    let gpu: GPU[] = [];
+    for(let i = 0; i< products.length; i++){
+      gpu.push(this.createGPU(products[i]));           
+    } 
+    console.log(gpu);
+    return gpu;
+  }
+
+  createGPU(product: Product): GPU{
+    let desc: string = product.description;    
+    let regex = /(<([^>]+)>)/ig       //to remove html tag
+    let descJSON = JSON.parse(desc.replace(regex,""));
+    let cooler: GPU={
+      basic: product,
+      description: descJSON["description"],
+      exclude: descJSON["exclude"],
+
+      BRAND: descJSON["BRAND"],
+      MAKE: descJSON["MAKE"],
+      MODEL: descJSON["MODEL"],
+      PART_NO: descJSON["PART_NO"],
+      MEMORY: descJSON["MEMORY"],
+      MEMORY_TYPE: descJSON["MEMORY_TYPE"],
+      EFFECT_MEM_CLK_GPU: descJSON["EFFECT_MEM_CLK_GPU"],
+      BOOST_CLK_GPU: Number.parseInt(descJSON["BOOST_CLK_GPU"]),
+      INTERFACE: descJSON["INTERFACE"],
+      SLI_CROSSFIRE: descJSON["SLI_CROSSFIRE"],
+      DVI_PORT_GPU: Number.parseInt(descJSON["DVI_PORT_GPU"]),
+      HDMI_PORT_GPU: Number.parseInt(descJSON["HDMI_PORT_GPU"]),
+      MINI_HDMI_PORT_GPU: Number.parseInt(descJSON["MINI_HDMI_PORT_GPU"]),
+      DISLAY_PORT_GPU: Number.parseInt(descJSON["DISLAY_PORT_GPU"]),
+      EXP_SLT_WIDTH: Number.parseInt(descJSON["EXP_SLT_WIDTH"]),
+      COOLING: descJSON["COOLING"],  
+      EXT_PWR: descJSON["EXT_PWR"], 
+      TDP: Number.parseInt(descJSON["TDP"])     
+    };
+    return cooler; 
+  }
+
+
+  getAllHDDs(){
+    return this.httpClient.get<Product[]>(`/products?category=`+ this.hddCategoryId);
+  }
+  hddsFactory(products: Product[]){
+    let hdds: HDD[] = [];
+    for(let i = 0; i< products.length; i++){
+      hdds.push(this.createHDD(products[i]));           
+    } 
+    console.log(hdds);
+    return hdds;
+  }
+
+  createHDD(product: Product): HDD{
+    let desc: string = product.description;    
+    let regex = /(<([^>]+)>)/ig       //to remove html tag
+    let descJSON = JSON.parse(desc.replace(regex,""));
+    let hdd: HDD={
+      basic: product,
+      description: descJSON["description"],
+      exclude: descJSON["exclude"],
+
+      MANUFACT: descJSON["MANUFACT"],
+      PART_NO: descJSON["PART_NO"],
+      CAPACITY: descJSON["CAPACITY"],
+      CACHE: descJSON["CACHE"],
+      FORM_FACT: descJSON["FORM_FACT"],
+      INTERFACE: descJSON["INTERFACE"],
+      VOL: descJSON["VOL"],     
+      TDP: Number.parseInt(descJSON["TDP"]),
+      RPM: Number.parseInt(descJSON["RPM"])      
+    };
+    return hdd; 
+  }
+
+  getAllM2s(){
+    return this.httpClient.get<Product[]>(`/products?category=`+ this.m2CategoryId);
+  }
+  M2sFactory(products: Product[]){
+    let m2s: M2[] = [];
+    for(let i = 0; i< products.length; i++){
+      m2s.push(this.createM2(products[i]));           
+    } 
+    console.log(m2s);
+    return m2s;
+  }
+
+  createM2(product: Product): M2{
+    let desc: string = product.description;    
+    let regex = /(<([^>]+)>)/ig       //to remove html tag
+    let descJSON = JSON.parse(desc.replace(regex,""));
+    let m2: M2={
+      basic: product,
+      description: descJSON["description"],
+      exclude: descJSON["exclude"],
+
+      MANUFACT: descJSON["MANUFACT"],
+      MODEL: descJSON["MODEL"],
+      PART_NO: descJSON["PART_NO"],
+      CAPACITY: descJSON["CAPACITY"],
+      INTERFACE: descJSON["INTERFACE"],
+      FORM_FACT: descJSON["FORM_FACT"],     
+      TDP: Number.parseInt(descJSON["TDP"]),
+      NVME: descJSON["NVME"] 
+    };
+    return m2; 
+  }
+
+
+  getAllMotherBoards(){
+    return this.httpClient.get<Product[]>(`/products?category=`+ this.motherBoardCategoryId);
+  }
+  motherBoardsFactory(products: Product[]){
+    let motherboards: MotherBoard[] = [];
+    for(let i = 0; i< products.length; i++){
+      motherboards.push(this.createMotherBoard(products[i]));           
+    } 
+    console.log(motherboards);
+    return motherboards;
+  }
+
+  createMotherBoard(product: Product): MotherBoard{
+    let desc: string = product.description;    
+    let regex = /(<([^>]+)>)/ig       //to remove html tag
+    let descJSON = JSON.parse(desc.replace(regex,""));
+    let motherboard: MotherBoard={
+      basic: product,
+      description: descJSON["description"],
+      exclude: descJSON["exclude"],
+
+      MANUFACT_MOB: descJSON["MANUFACT_MOB"],
+      MODEL_NO_MOB: descJSON["MODEL_NO_MOB"],
+      FORMFACT_MOB: descJSON["FORMFACT_MOB"],
+      SOCKET_MOB: descJSON["SOCKET_MOB"],
+      MEM_MAX: descJSON["MEM_MAX"],
+      MEM_TYPE_MOB: descJSON["MEM_TYPE_MOB"],  
+
+      MEM_SLOTS: Number.parseInt(descJSON["MEM_SLOTS"]),
+      MEM_SPEED: descJSON["MEM_SPEED"],
+      COLOUR: descJSON["COLOUR"],
+      SLI_CROSSFIRE: descJSON["SLI_CROSSFIRE"],
+      PCIE_16: Number.parseInt(descJSON["PCIE_16"]),
+      PCIE_8: Number.parseInt(descJSON["PCIE_8"]), 
+
+      PCIE_4: Number.parseInt(descJSON["PCIE_4"]),
+      PCIE_1: Number.parseInt(descJSON["PCIE_1"]), 
+      M2: descJSON["M2"],
+      M2GEN: Number.parseInt(descJSON["M2GEN"]),
+      M2COUNT: Number.parseInt(descJSON["M2COUNT"]), 
+      MSATA: descJSON["MSATA"],
+
+      ETHER: descJSON["ETHER"],
+      SATA_SPEED: descJSON["SATA_SPEED"],
+      SATA_SPD_CNT: Number.parseInt(descJSON["SATA_SPD_CNT"]), 
+      ONBOARD_VID: descJSON["ONBOARD_VID"],
+      USB_2_0: descJSON["USB_2_0"],
+      USB_3_1_Gen_1: descJSON["USB_3_1_Gen_1"],
+      USB_3_2_Gen_1: descJSON["USB_3_2_Gen_1"],
+      USB_3_2_Gen: descJSON["USB_3_2_Gen"],
+      ECC: descJSON["ECC"],
+      WIRELESS: descJSON["WIRELESS"],
+      RAID: descJSON["RAID"],
+      TDP: Number.parseInt(descJSON["TDP"]) 
+    };
+    return motherboard; 
   }
 }
