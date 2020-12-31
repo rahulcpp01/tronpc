@@ -4,7 +4,7 @@ import { Processor } from 'src/models/custommodels/processor.model';
 import { WoocommerceService } from 'src/services/woocommerce.service';
 
 @Component({
-  selector: 'app-processor',
+  selector: 'processor',
   templateUrl: './processor.component.html',
   styleUrls: ['./processor.component.scss']
 })
