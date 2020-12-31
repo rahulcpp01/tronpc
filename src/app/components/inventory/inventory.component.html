@@ -2,26 +2,40 @@
     <h3>Processors</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let processor of processors">
-            <processor-block [product]="processor.basic">
-                <!-- routerLink="/processor/{{processor.basic.id}}" -->
-            </processor-block>            
+           <product 
+                *ngIf="processor.basic" 
+                [regular_price]="processor.basic.regular_price!"
+                [imageurl]="processor.basic.images.length! > 0 ? processor.basic.images[0].src! : '' "
+                [onsale]="processor.basic.on_sale">
+
+           </product>        
         </div>        
     </div>
 
     <h3>Case</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let case of cases">
             <!-- {{cases | json}} -->
-            <processor-block [product]="cases.basic">
-                <!-- routerLink="/processor/{{processor.basic.id}}" -->
-            </processor-block>   
+            <product 
+                *ngIf="case.basic" 
+                [regular_price]="case.basic.regular_price!"
+                [imageurl]="case.basic.images.length! > 0 ? case.basic.images[0].src! : '' ">
+
+           </product>  
+            
         </div>
     </div>
 
     <h3>Cooler</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let cooler of coolers">
             <!-- {{coolers | json}} -->
+            <product 
+                *ngIf="cooler.basic" 
+                [regular_price]="cooler.basic.regular_price!"
+                [imageurl]="cooler.basic.images.length! > 0 ? cooler.basic.images[0].src! : '' ">
+
+           </product>  
         </div>
     </div>
 
@@ -54,15 +68,13 @@
     <div class="row w-100per m-0px">
         <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
             <!-- {{ram | json}} -->
-            <processor-block [product]="ram.basic">
-                <!-- routerLink="/processor/{{processor.basic.id}}" -->
-            </processor-block>   
+            
         </div>
     </div>
     <h3>SSD</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
-            {{ssd | json}}
+            <!-- {{ssd | json}} -->
         </div>
     </div>
 </div>

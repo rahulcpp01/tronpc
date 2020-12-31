@@ -12,8 +12,8 @@ import { AboutComponent } from './components/about/about.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { BuildComponent } from './components/build/build.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { ProcessorBlockComponent } from './components/processor-block/processor-block.component';
 import { ProcessorComponent } from './components/processor/processor.component';
+import { ProductComponent } from './components/product/product.component';
 
 const INTERCEPTORS: {}[] = [
   {
@@ -32,8 +32,8 @@ const INTERCEPTORS: {}[] = [
     InventoryComponent,
     BuildComponent,
     PageNotFoundComponent,
-    ProcessorBlockComponent,
-    ProcessorComponent
+    ProcessorComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,

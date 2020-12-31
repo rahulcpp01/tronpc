@@ -99,7 +99,7 @@ export class InventoryComponent implements OnInit {
     // this.productService.getAllSSDs().subscribe(product => {
     //   this.ssd = this.productService.SSDsFactory(product);
     // })
-
+    // if(!sessionStorage["processors"])
     this.productService.getAllProcessors().subscribe(product => {
       this.processors = this.productService.processorsFactory(product);
 

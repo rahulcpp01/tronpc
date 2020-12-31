@@ -106,6 +106,7 @@ export class WoocommerceService {
       processors.push(this.createProcessor(products[i]));           
     } 
     console.log(processors);
+    sessionStorage["processors"] = JSON.stringify(processors);
     return processors;
   }
 
@@ -115,6 +116,7 @@ export class WoocommerceService {
     let descJSON = JSON.parse(desc.replace(regex,""));
     let processor: Processor={
       basic: product,
+      id:product.id,
       manf: descJSON["manf"],
       model: descJSON["model"],
       part_number: descJSON["part_number"],
@@ -157,6 +159,7 @@ export class WoocommerceService {
       cases.push(this.createCase(products[i]));           
     } 
     console.log(cases);
+    sessionStorage["cases"] = JSON.stringify(cases);
     return cases;
   }
 
@@ -166,6 +169,7 @@ export class WoocommerceService {
     let descJSON = JSON.parse(desc.replace(regex,""));
     let casev: Case={
       basic: product,
+      id:product.id,
       description: descJSON["description"],
       exclude: descJSON["exclude"],
       BRAND: descJSON["BRAND"],
@@ -196,12 +200,13 @@ export class WoocommerceService {
     return this.httpClient.get<Product[]>(`/products?category=`+ this.coolerCategoryId);
   }
   coolersFactory(products: Product[]){
-    let cases: Cooler[] = [];
+    let coolers: Cooler[] = [];
     for(let i = 0; i< products.length; i++){
-      cases.push(this.createCooler(products[i]));           
+      coolers.push(this.createCooler(products[i]));           
     } 
-    console.log(cases);
-    return cases;
+    console.log(coolers);
+    sessionStorage["coolers"] = JSON.stringify(coolers);
+    return coolers;
   }
 
   createCooler(product: Product): Cooler{
@@ -210,6 +215,7 @@ export class WoocommerceService {
     let descJSON = JSON.parse(desc.replace(regex,""));
     let cooler: Cooler={
       basic: product,
+      id:product.id,
       description: descJSON["description"],
       exclude: descJSON["exclude"],
       BRAND: descJSON["BRAND"],
@@ -235,6 +241,7 @@ export class WoocommerceService {
       gpu.push(this.createGPU(products[i]));           
     } 
     console.log(gpu);
+    sessionStorage["gpu"] = JSON.stringify(gpu);
     return gpu;
   }
 
@@ -244,6 +251,7 @@ export class WoocommerceService {
     let descJSON = JSON.parse(desc.replace(regex,""));
     let cooler: GPU={
       basic: product,
+      id:product.id,
       description: descJSON["description"],
       exclude: descJSON["exclude"],
 
@@ -279,6 +287,7 @@ export class WoocommerceService {
       hdds.push(this.createHDD(products[i]));           
     } 
     console.log(hdds);
+    sessionStorage["hdds"] = JSON.stringify(hdds);
     return hdds;
   }
 
@@ -288,6 +297,7 @@ export class WoocommerceService {
     let descJSON = JSON.parse(desc.replace(regex,""));
     let hdd: HDD={
       basic: product,
+      id:product.id,
       description: descJSON["description"],
       exclude: descJSON["exclude"],
 
@@ -312,7 +322,8 @@ export class WoocommerceService {
     for(let i = 0; i< products.length; i++){
       m2s.push(this.createM2(products[i]));           
     } 
-    console.log(m2s);
+    console.log(m2s);    
+    sessionStorage["m2s"] = JSON.stringify(m2s);
     return m2s;
   }
 
@@ -322,6 +333,7 @@ export class WoocommerceService {
     let descJSON = JSON.parse(desc.replace(regex,""));
     let m2: M2={
       basic: product,
+      id:product.id,
       description: descJSON["description"],
       exclude: descJSON["exclude"],
 
@@ -346,7 +358,8 @@ export class WoocommerceService {
     for(let i = 0; i< products.length; i++){
       motherboards.push(this.createMotherBoard(products[i]));           
     } 
-    console.log(motherboards);
+    console.log(motherboards);    
+    sessionStorage["motherboards"] = JSON.stringify(motherboards);
     return motherboards;
   }
 
@@ -356,6 +369,7 @@ export class WoocommerceService {
     let descJSON = JSON.parse(desc.replace(regex,""));
     let motherboard: MotherBoard={
       basic: product,
+      id:product.id,
       description: descJSON["description"],
       exclude: descJSON["exclude"],
 
@@ -405,6 +419,7 @@ export class WoocommerceService {
       powersupplies.push(this.createPowerSupply(products[i]));           
     } 
     console.log(powersupplies);
+    sessionStorage["powersupplies"] = JSON.stringify(powersupplies);
     return powersupplies;
   }
 
@@ -414,6 +429,7 @@ export class WoocommerceService {
     let descJSON = JSON.parse(desc.replace(regex,""));
     let powersupply: PowerSupply={
       basic: product,
+      id:product.id,
       description: descJSON["description"],
       exclude: descJSON["exclude"],
 
@@ -446,7 +462,8 @@ export class WoocommerceService {
     for(let i = 0; i< products.length; i++){
       rams.push(this.createRAM(products[i]));           
     } 
-    console.log(rams);
+    console.log(rams);    
+    sessionStorage["rams"] = JSON.stringify(rams);
     return rams;
   }
 
@@ -456,6 +473,7 @@ export class WoocommerceService {
     let descJSON = JSON.parse(desc.replace(regex,""));
     let ram: RAM={
       basic: product,
+      id:product.id,
       description: descJSON["description"],
       exclude: descJSON["exclude"],
 
@@ -487,6 +505,7 @@ export class WoocommerceService {
       ssds.push(this.createSSD(products[i]));           
     } 
     console.log(ssds);
+    sessionStorage["ssds"] = JSON.stringify(ssds);
     return ssds;
   }
 
@@ -496,6 +515,7 @@ export class WoocommerceService {
     let descJSON = JSON.parse(desc.replace(regex,""));
     let ssd: SSD={
       basic: product,
+      id:product.id,
       description: descJSON["description"],
       exclude: descJSON["exclude"],
 
