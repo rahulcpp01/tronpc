@@ -12,8 +12,8 @@ import { AboutComponent } from './components/about/about.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { BuildComponent } from './components/build/build.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { ProcessorComponent } from './components/processor/processor.component';
 import { ProductComponent } from './components/product/product.component';
+import { DescriptionComponent } from './components/description/description.component';
 const INTERCEPTORS: {}[] = [
   {
     provide: HTTP_INTERCEPTORS,
@@ -31,8 +31,8 @@ const INTERCEPTORS: {}[] = [
     InventoryComponent,
     BuildComponent,
     PageNotFoundComponent,
-    ProcessorComponent,
-    ProductComponent
+    ProductComponent,
+    DescriptionComponent
   ],
   imports: [
     BrowserModule,

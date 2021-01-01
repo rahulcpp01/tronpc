@@ -3,7 +3,6 @@ import { Processor } from 'src/models/custommodels/processor.model';
 import { Product } from 'src/models/product/product';
 import { ProductImage } from 'src/models/product/product.image';
 import { WoocommerceService } from 'src/services/woocommerce.service';
-import { ProcessorComponent } from '../processor/processor.component';
 
 @Component({
   selector: 'product',
@@ -12,9 +11,10 @@ import { ProcessorComponent } from '../processor/processor.component';
 })
 export class ProductComponent implements OnInit {
 
-  public image: string="";
+  public image: string = "";
   public regularprice: number= 0;
   public productAvailable: boolean = false;
+  public product_name: string = "";
 
   @Input() id : number= 0;
   @Input() type : string =  "";
@@ -29,6 +29,7 @@ export class ProductComponent implements OnInit {
     if(product.basic.images.length > 0){
       this.image = product.basic.images[0].src;
     }
+    this.product_name = product.basic.name;
     this.productAvailable = true;
   }
 

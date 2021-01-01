@@ -41,42 +41,52 @@ export class HomeComponent implements OnInit {
       console.log(cattype);
       switch(cattype){
         case 'motherboard':{
+          await this.productService.waitForSession("motherboards");
           this.featuredmotherboards.push(this.productService.createMotherBoard(this.featuredProducts[i]));
           break;
         }
         case 'processor':{
+          await this.productService.waitForSession("processors");
           this.featuredprocessors.push(this.productService.createProcessor(this.featuredProducts[i]));
           break;
         }
         case 'case':{
+          await this.productService.waitForSession("cases");
           this.featuredcases.push(this.productService.createCase(this.featuredProducts[i]));
           break;
         }
         case 'cooler':{
+          await this.productService.waitForSession("coolers");
           this.featuredcoolers.push(this.productService.createCooler(this.featuredProducts[i]));
           break;
         }
         case 'gpu':{
+          await this.productService.waitForSession("gpu");
           this.featuredgpus.push(this.productService.createGPU(this.featuredProducts[i]));
           break;
         }
         case 'hdd':{
+          await this.productService.waitForSession("hdds");
           this.featuredhdds.push(this.productService.createHDD(this.featuredProducts[i]));
           break;
         }
         case 'm2':{
+          await this.productService.waitForSession("m2s");
           this.featuredm2s.push(this.productService.createM2(this.featuredProducts[i]));
           break;
         }
         case 'powersupply':{
+          await this.productService.waitForSession("powersupplies");
           this.featuredpowersupplys.push(this.productService.createPowerSupply(this.featuredProducts[i]));
           break;
         }
         case 'ram':{
+          await this.productService.waitForSession("rams");
           this.featuredrams.push(this.productService.createRAM(this.featuredProducts[i]));
           break;
         }
         case 'ssd':{
+          await this.productService.waitForSession("ssds");
           this.featuredssds.push(this.productService.createSSD(this.featuredProducts[i]));
           break;
         }
