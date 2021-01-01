@@ -6,7 +6,7 @@
                 *ngIf="processor.basic" 
                 [id]="processor.id!"
                 [type]='"processors"'
-                routerLink="/processor/{{processor.id!}}">
+                routerLink="/description/processors/{{processor.id!}}">
 
            </product>        
         </div>        
@@ -19,7 +19,8 @@
             <product 
                 *ngIf="case.basic" 
                 [id]="case.id!"
-                [type]='"cases"'>
+                [type]='"cases"'
+                routerLink="/description/cases/{{case.id!}}">
             </product>           
         </div>
     </div>
@@ -31,7 +32,8 @@
             <product 
             *ngIf="cooler.basic" 
             [id]="cooler.id!"
-            [type]='"coolers"'>
+            [type]='"coolers"'
+            routerLink="/description/coolers/{{cooler.id!}}">
         </product>  
         </div>
     </div>
@@ -43,7 +45,8 @@
             <product 
             *ngIf="gpu.basic" 
             [id]="gpu.id!"
-            [type]='"gpu"'>
+            [type]='"gpu"'
+            routerLink="/description/gpu/{{gpu.id!}}">
         </product>  
         </div>
     </div>
@@ -54,7 +57,8 @@
             <product 
             *ngIf="hdd.basic" 
             [id]="hdd.id!"
-            [type]='"hdds"'>
+            [type]='"hdds"'
+            routerLink="/description/hdds/{{hdd.id!}}">
         </product> 
         </div>
     </div>
@@ -65,7 +69,8 @@
             <product 
             *ngIf="m2.basic" 
             [id]="m2.id!"
-            [type]='"m2s"'>
+            [type]='"m2s"'
+            routerLink="/description/m2s/{{m2.id!}}">
         </product> 
         </div>
     </div>
@@ -76,7 +81,8 @@
             <product 
             *ngIf="motherboard.basic" 
             [id]="motherboard.id!"
-            [type]='"motherboards"'>
+            [type]='"motherboards"'
+            routerLink="/description/motherboards/{{motherboard.id!}}">
         </product> 
         </div>
     </div>
@@ -88,7 +94,8 @@
             <product 
             *ngIf="powersupply.basic" 
             [id]="powersupply.id!"
-            [type]='"powersupplies"'>
+            [type]='"powersupplies"'
+            routerLink="/description/powersupplies/{{powersupply.id!}}">
         </product> 
         </div>
     </div>
@@ -99,7 +106,8 @@
             <product 
             *ngIf="ram.basic" 
             [id]="ram.id!"
-            [type]='"rams"'>
+            [type]='"rams"'
+            routerLink="/description/rams/{{ram.id!}}">
         </product> 
         </div>
     </div>
@@ -110,7 +118,8 @@
             <product 
             *ngIf="ssd.basic" 
             [id]="ssd.id!"
-            [type]='"ssds"'>
+            [type]='"ssds"'
+            routerLink="/description/ssds/{{ssd.id!}}">
         </product> 
         </div>
     </div>
