@@ -1,1 +1,5 @@
-{{processor | json}}
+<!-- {{processor | json}} -->
+<div *ngFor="let item of processor | keyvalue">
+    {{item.key}}:{{item.value}}
+</div>
+

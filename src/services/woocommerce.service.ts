@@ -46,8 +46,10 @@ export class WoocommerceService {
   getAllOnSaleProducts(pageNumber: number = 1): Observable<Product[]> {
     return this.httpClient.get<Product[]>(`/products?page=${pageNumber}&per_page=10&on_sale=true`);
   }
-  getFeaturedProducts() {
-    return this.httpClient.get<Product[]>(`/products?page=1&per_page=10&featured=true`);
+  LoadFeaturedProducts() {
+    this.httpClient.get<Product[]>(`/products?featured=true`).subscribe( product =>
+      sessionStorage["featured_products"] = JSON.stringify(product)
+    );
   }
   getAllCategories(): Observable<CategoryModel[]> {
     //console.log(`${this.url}/products/categories?per_page=100&hide_empty=true&parent=0`);
@@ -538,5 +540,15 @@ export class WoocommerceService {
 
   getProductFromSession(id: number, type: string){
     return this.getProductsFromSession(type).find((x: { id: number; })=> x.id == id);
+  }
+  
+  async waitForSession(item: string){
+    while(!sessionStorage[item]){
+      await this.delay(1000);
+    }   
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }

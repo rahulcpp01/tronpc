@@ -58,6 +58,17 @@
         </product> 
         </div>
     </div>
+    <h3>M2s</h3>
+    <div class="row w-100per m-0px">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let m2 of m2s">
+            <!-- {{hdd | json}} -->
+            <product 
+            *ngIf="m2.basic" 
+            [id]="m2.id!"
+            [type]='"m2s"'>
+        </product> 
+        </div>
+    </div>
     <h3>Mother Board</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let motherboard of motherboards">
