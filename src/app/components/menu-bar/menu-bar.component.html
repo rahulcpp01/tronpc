@@ -1,6 +1,6 @@
-<header class="header">
+<!-- <header class="header">
     <a routerLink="/" class="logo">
-        <!-- <img src="../../../assets//images/logo.svg" alt="logo"> -->
+        <!-- <img src="../../../assets//images/logo.svg" alt="logo"> 
     </a>
     <input class="menu-btn" type="checkbox" id="menu-btn" />
     <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
@@ -17,4 +17,30 @@
     </label>
     <span>Enable Dark Mode!</span>
     </div>
+  </header> -->
+
+
+
+  <header class="header">
+    <a class="logo" [ngClass]="this.darkmode?'dark':''">
+        <!-- <img src="../../../assets//images/logo.svg" alt="logo"> -->
+    </a>
+    <input class="menu-btn" type="checkbox" id="menu-btn" />
+    <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+    <input type="text" class="search">
+    <ul class="menu">
+      <li><a routerLink="/home">Home</a></li>
+      <li><a routerLink="/inventory">Inventory</a></li>
+      <li><a routerLink="/build">Build</a></li>
+      <li><a routerLink="/about">About</a></li>
+    </ul>
+    <div class="theme-switch-wrapper">
+      <label class="theme-switch" for="checkbox">
+          <input type="checkbox" id="checkbox" [checked]="darkmode" (change)="toggleDarkmode()"/>
+          <div class="slider round"></div>
+    </label>
+    <span>Enable Dark Mode!</span>
+    </div>
   </header>
+
+

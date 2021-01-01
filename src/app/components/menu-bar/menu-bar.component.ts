@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnInit,Renderer2, ViewChild } from '@angular/core';
+import { WoocommerceService } from 'src/services/woocommerce.service';
 
 @Component({
   selector: 'menu-bar',
@@ -10,7 +11,8 @@ export class MenuBarComponent implements OnInit {
 
   darkmode: boolean= false;
   constructor(@Inject(DOCUMENT) private document: Document,
-  private renderer: Renderer2) { }
+  private renderer: Renderer2,
+  private productService: WoocommerceService) { }
 
   ngOnInit(): void {
     // debugger;
@@ -31,5 +33,12 @@ export class MenuBarComponent implements OnInit {
       this.renderer.removeClass(this.document.body, 'dark-mode');
     }
     
+  }
+
+  search(val: string){
+    this.productService.searchProducts(val).subscribe(x=>{
+      console.clear();
+      console.log(x);
+    })
   }
 }
