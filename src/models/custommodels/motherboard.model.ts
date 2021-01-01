@@ -39,4 +39,6 @@ export interface MotherBoard{
     WIRELESS?: string;
     RAID?: string;
     TDP?: number;
+    CPU_SUPPORTED_LIST?:string;
+
 }

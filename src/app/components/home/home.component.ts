@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from 'src/models/product/product';
+import { WoocommerceService } from 'src/services/woocommerce.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  featuredProducts!: Product[];
+  constructor(private productService :WoocommerceService) { }
 
   ngOnInit(): void {
+
+    this.productService.getFeaturedProducts().subscribe( p =>{
+      this.featuredProducts = p;
+    })
   }
+
+  
 
 }

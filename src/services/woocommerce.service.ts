@@ -90,7 +90,7 @@ export class WoocommerceService {
   }
   getProductsBySale(pageNumber: number = 1): Observable<Product[]> {
 
-    return this.httpClient.get<Product[]>(`/products?page=${pageNumber}&per_page=5&on_sale=true`);
+    return this.httpClient.get<Product[]>(`/products?on_sale=true`);
   }
   getListOfProducts(pageNumber: number = 1): Observable<Product[]> {
 
@@ -107,7 +107,7 @@ export class WoocommerceService {
     } 
     console.log(processors);
     sessionStorage["processors"] = JSON.stringify(processors);
-    return processors;
+    // return processors;
   }
 
   createProcessor(product: Product): Processor{
@@ -149,7 +149,7 @@ export class WoocommerceService {
     };
     return processor;       
   }
-
+ 
   getAllCases(){
     return this.httpClient.get<Product[]>(`/products?category=`+ this.caseCategoryId);
   }
@@ -160,7 +160,7 @@ export class WoocommerceService {
     } 
     console.log(cases);
     sessionStorage["cases"] = JSON.stringify(cases);
-    return cases;
+    // return cases;
   }
 
   createCase(product: Product): Case{
@@ -206,7 +206,7 @@ export class WoocommerceService {
     } 
     console.log(coolers);
     sessionStorage["coolers"] = JSON.stringify(coolers);
-    return coolers;
+    // return coolers;
   }
 
   createCooler(product: Product): Cooler{
@@ -242,7 +242,7 @@ export class WoocommerceService {
     } 
     console.log(gpu);
     sessionStorage["gpu"] = JSON.stringify(gpu);
-    return gpu;
+    // return gpu;
   }
 
   createGPU(product: Product): GPU{
@@ -288,7 +288,7 @@ export class WoocommerceService {
     } 
     console.log(hdds);
     sessionStorage["hdds"] = JSON.stringify(hdds);
-    return hdds;
+    // return hdds;
   }
 
   createHDD(product: Product): HDD{
@@ -324,7 +324,7 @@ export class WoocommerceService {
     } 
     console.log(m2s);    
     sessionStorage["m2s"] = JSON.stringify(m2s);
-    return m2s;
+    // return m2s;
   }
 
   createM2(product: Product): M2{
@@ -360,7 +360,7 @@ export class WoocommerceService {
     } 
     console.log(motherboards);    
     sessionStorage["motherboards"] = JSON.stringify(motherboards);
-    return motherboards;
+    // return motherboards;
   }
 
   createMotherBoard(product: Product): MotherBoard{
@@ -405,7 +405,8 @@ export class WoocommerceService {
       ECC: descJSON["ECC"],
       WIRELESS: descJSON["WIRELESS"],
       RAID: descJSON["RAID"],
-      TDP: Number.parseInt(descJSON["TDP"]) 
+      TDP: Number.parseInt(descJSON["TDP"]),
+      CPU_SUPPORTED_LIST: descJSON["CPU_SUPPORTED_LIST"]  
     };
     return motherboard; 
   }
@@ -420,7 +421,7 @@ export class WoocommerceService {
     } 
     console.log(powersupplies);
     sessionStorage["powersupplies"] = JSON.stringify(powersupplies);
-    return powersupplies;
+    // return powersupplies;
   }
 
   createPowerSupply(product: Product): PowerSupply{
@@ -464,7 +465,7 @@ export class WoocommerceService {
     } 
     console.log(rams);    
     sessionStorage["rams"] = JSON.stringify(rams);
-    return rams;
+    // return rams;
   }
 
   createRAM(product: Product): RAM{
@@ -506,7 +507,7 @@ export class WoocommerceService {
     } 
     console.log(ssds);
     sessionStorage["ssds"] = JSON.stringify(ssds);
-    return ssds;
+    // return ssds;
   }
 
   createSSD(product: Product): SSD{
@@ -531,4 +532,11 @@ export class WoocommerceService {
     return ssd; 
   }
 
+  getProductsFromSession( type: string){
+    return JSON.parse(sessionStorage[type]);
+  }
+
+  getProductFromSession(id: number, type: string){
+    return this.getProductsFromSession(type).find((x: { id: number; })=> x.id == id);
+  }
 }

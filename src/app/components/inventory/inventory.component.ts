@@ -25,13 +25,13 @@ export class InventoryComponent implements OnInit {
   public processors: Processor[]=[];
   public cases: Case[] = [];
   public coolers: Cooler[] = [];
-  public gpu: GPU[] = [];
-  public hdd: HDD[] = [];
-  public m2: M2[] = [];
-  public motherboard: MotherBoard[] = [];
-  public powersupply: PowerSupply[] = [];
-  public ram: RAM[] = [];
-  public ssd: SSD[] = [];
+  public gpus: GPU[] = [];
+  public hdds: HDD[] = [];
+  public m2s: M2[] = [];
+  public motherboards: MotherBoard[] = [];
+  public powersupplys: PowerSupply[] = [];
+  public rams: RAM[] = [];
+  public ssds: SSD[] = [];
 
   constructor(private productService: WoocommerceService,
     private router: Router) {    
@@ -100,48 +100,57 @@ export class InventoryComponent implements OnInit {
     //   this.ssd = this.productService.SSDsFactory(product);
     // })
     // if(!sessionStorage["processors"])
-    this.productService.getAllProcessors().subscribe(product => {
-      this.processors = this.productService.processorsFactory(product);
+    // this.productService.getAllProcessors().subscribe(product => {
+    //   this.processors = this.productService.processorsFactory(product);
 
-      this.productService.getAllCases().subscribe(product => {
-        this.cases = this.productService.casesFactory(product);
+    //   this.productService.getAllCases().subscribe(product => {
+    //     this.cases = this.productService.casesFactory(product);
 
-        this.productService.getAllCoolers().subscribe(product => {
-          this.coolers = this.productService.coolersFactory(product);
+    //     this.productService.getAllCoolers().subscribe(product => {
+    //       this.coolers = this.productService.coolersFactory(product);
 
-          this.productService.getAllGPUs().subscribe(product => {
-            this.gpu = this.productService.gpusFactory(product);
+    //       this.productService.getAllGPUs().subscribe(product => {
+    //         this.gpus = this.productService.gpusFactory(product);
 
-            this.productService.getAllHDDs().subscribe(product => {
-              this.hdd = this.productService.hddsFactory(product);
+    //         this.productService.getAllHDDs().subscribe(product => {
+    //           this.hdds = this.productService.hddsFactory(product);
 
-              this.productService.getAllM2s().subscribe(product => {
-                this.m2 = this.productService.M2sFactory(product);
+    //           this.productService.getAllM2s().subscribe(product => {
+    //             this.m2s = this.productService.M2sFactory(product);
 
-                this.productService.getAllMotherBoards().subscribe(product => {
-                  this.motherboard = this.productService.motherBoardsFactory(product);
+    //             this.productService.getAllMotherBoards().subscribe(product => {
+    //               this.motherboards = this.productService.motherBoardsFactory(product);
 
-                  this.productService.getAllPowerSupplies().subscribe(product => {
-                    this.powersupply = this.productService.PowerSuppliesFactory(product);
-                    this.productService.getAllRAMs().subscribe(product => {
-                      this.ram = this.productService.RAMsFactory(product);
+    //               this.productService.getAllPowerSupplies().subscribe(product => {
+    //                 this.powersupplys = this.productService.PowerSuppliesFactory(product);
+    //                 this.productService.getAllRAMs().subscribe(product => {
+    //                   this.rams = this.productService.RAMsFactory(product);
 
-                      this.productService.getAllSSDs().subscribe(product => {
-                        this.ssd = this.productService.SSDsFactory(product);
-                      })
-                    })
+    //                   this.productService.getAllSSDs().subscribe(product => {
+    //                     this.ssds = this.productService.SSDsFactory(product);
+    //                   })
+    //                 })
 
-                  })
-                })
+    //               })
+    //             })
                 
-              })
+    //           })
 
-            })
-          })
-        })
-      })
-    });
-
+    //         })
+    //       })
+    //     })
+    //   })
+    // });
+    this.processors = JSON.parse(sessionStorage["processors"]);
+    this.cases = JSON.parse(sessionStorage["cases"]);
+    this.coolers = JSON.parse(sessionStorage["coolers"]);
+    this.gpus = JSON.parse(sessionStorage["gpu"]);
+    this.hdds = JSON.parse(sessionStorage["hdds"]);
+    this.m2s = JSON.parse(sessionStorage["m2s"]);
+    this.motherboards = JSON.parse(sessionStorage["motherboards"]);
+    this.powersupplys = JSON.parse(sessionStorage["powersupplies"]);
+    this.rams = JSON.parse(sessionStorage["rams"]);
+    this.ssds = JSON.parse(sessionStorage["ssds"]);
   }
   
 }

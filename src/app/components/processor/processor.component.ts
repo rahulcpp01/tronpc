@@ -15,9 +15,8 @@ export class ProcessorComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.productService.getSingleProduct(Number.parseInt(this.route.snapshot.params["id"])).subscribe( product =>{
-      this.processor=this.productService.createProcessor(product);
-    })
+      this.processor=this.productService.getProductFromSession(this.route.snapshot.params["id"],"processors")
+   
   }
 
 }
