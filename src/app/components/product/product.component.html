@@ -1,15 +1,9 @@
-<div class="w-100per">
-    <h6 *ngIf="onsale">SALE</h6>
+<div class="w-100per" *ngIf="productAvailable">
+    <h6 *ngIf="false">SALE</h6>
     <div class="img">        
-        <img [src]="imageurl" alt="No Image found">               
+        <img [src]="image" alt="No Image found">               
     </div>
     <div>
-        {{regular_price | currency:"&#8377;"}}
+        {{regularprice | currency:"&#8377;"}}
     </div>
-    <star-rating value="5"
-     totalstars="5" 
-     checkedcolor="red" 
-     uncheckedcolor="black" 
-     size="24px" 
-     readonly="false"></star-rating>
 </div>

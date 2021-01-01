@@ -4,9 +4,9 @@
         <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let processor of processors">
            <product 
                 *ngIf="processor.basic" 
-                [regular_price]="processor.basic.regular_price!"
-                [imageurl]="processor.basic.images.length! > 0 ? processor.basic.images[0].src! : '' "
-                [onsale]="processor.basic.on_sale">
+                [id]="processor.id!"
+                [type]='"processors"'
+                routerLink="/processor/{{processor.id!}}">
 
            </product>        
         </div>        
@@ -18,11 +18,9 @@
             <!-- {{cases | json}} -->
             <product 
                 *ngIf="case.basic" 
-                [regular_price]="case.basic.regular_price!"
-                [imageurl]="case.basic.images.length! > 0 ? case.basic.images[0].src! : '' ">
-
-           </product>  
-            
+                [id]="case.id!"
+                [type]='"cases"'>
+            </product>           
         </div>
     </div>
 
@@ -31,50 +29,78 @@
         <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let cooler of coolers">
             <!-- {{coolers | json}} -->
             <product 
-                *ngIf="cooler.basic" 
-                [regular_price]="cooler.basic.regular_price!"
-                [imageurl]="cooler.basic.images.length! > 0 ? cooler.basic.images[0].src! : '' ">
-
-           </product>  
+            *ngIf="cooler.basic" 
+            [id]="cooler.id!"
+            [type]='"coolers"'>
+        </product>  
         </div>
     </div>
 
     <h3>GPU</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let gpu of gpus">
             <!-- {{gpu | json}} -->
+            <product 
+            *ngIf="gpu.basic" 
+            [id]="gpu.id!"
+            [type]='"gpu"'>
+        </product>  
         </div>
     </div>
     <h3>HDD</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let hdd of hdds">
             <!-- {{hdd | json}} -->
+            <product 
+            *ngIf="hdd.basic" 
+            [id]="hdd.id!"
+            [type]='"hdds"'>
+        </product> 
         </div>
     </div>
     <h3>Mother Board</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let motherboard of motherboards">
             <!-- {{motherboard | json}} -->
+            <product 
+            *ngIf="motherboard.basic" 
+            [id]="motherboard.id!"
+            [type]='"motherboards"'>
+        </product> 
         </div>
     </div>
 
     <h3>Power Supplies</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let powersupply of powersupplys">
             <!-- {{powersupply | json}} -->
+            <product 
+            *ngIf="powersupply.basic" 
+            [id]="powersupply.id!"
+            [type]='"powersupplies"'>
+        </product> 
         </div>
     </div>
     <h3>RAM</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let ram of rams">
             <!-- {{ram | json}} -->
-            
+            <product 
+            *ngIf="ram.basic" 
+            [id]="ram.id!"
+            [type]='"rams"'>
+        </product> 
         </div>
     </div>
     <h3>SSD</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6">
+        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let ssd of ssds">
             <!-- {{ssd | json}} -->
+            <product 
+            *ngIf="ssd.basic" 
+            [id]="ssd.id!"
+            [type]='"ssds"'>
+        </product> 
         </div>
     </div>
 </div>

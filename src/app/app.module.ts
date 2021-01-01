@@ -14,7 +14,6 @@ import { BuildComponent } from './components/build/build.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ProcessorComponent } from './components/processor/processor.component';
 import { ProductComponent } from './components/product/product.component';
-
 const INTERCEPTORS: {}[] = [
   {
     provide: HTTP_INTERCEPTORS,
