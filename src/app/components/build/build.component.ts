@@ -54,7 +54,7 @@ export class BuildComponent implements OnInit {
   }
 
   processorChanged(selectedprocessor:any){
-    console.log(selectedprocessor.value);
+    // console.log(selectedprocessor.value);
     this.motherboards=[];
     let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
     let dummyprocessor = selectedprocessor.value.toUpperCase().split(" ").join("");
