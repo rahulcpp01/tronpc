@@ -50,7 +50,7 @@ export class WoocommerceService {
     return this.httpClient.get<Product[]>(`/products?page=1&per_page=10&featured=true`);
   }
   getAllCategories(): Observable<CategoryModel[]> {
-    console.log(`${this.url}/products/categories?per_page=100&hide_empty=true&parent=0`);
+    //console.log(`${this.url}/products/categories?per_page=100&hide_empty=true&parent=0`);
     return this.httpClient.get<CategoryModel[]>(`/products/categories?per_page=100&hide_empty=true&parent=0`);
   }
   getSingleProduct(id: number): Observable<Product> {
@@ -60,19 +60,19 @@ export class WoocommerceService {
     return this.httpClient.get<Product[]>(`/products?search=${keyword}`);
   }
   getAllCategoriesbyId(id: number): Observable<Product[]> {
-    console.log(`${this.url}/products?category=${id}`);
+    //console.log(`${this.url}/products?category=${id}`);
     return this.httpClient.get<Product[]>(`/products?category=${id}`);
   }
   getAllCategoriesbyName(name: string): Observable<Product[]> {
-    console.log(`${this.url}/products?category=${name}`);
+   // console.log(`${this.url}/products?category=${name}`);
     return this.httpClient.get<Product[]>(`/products?category=${name}`);
   }
   getProductVariationById(prodId: number, variationId: number): Observable<Product[]> {
-    console.log(`${this.url}/products/${prodId}/variations/${variationId}`);
+   // console.log(`${this.url}/products/${prodId}/variations/${variationId}`);
     return this.httpClient.get<Product[]>(`/products/${prodId}/variations/${variationId}`);
   }
   getProductVariationsByProductId(prodId: number): Observable<Product[]> {
-    console.log(`${this.url}/products/${prodId}/variations`);
+    //console.log(`${this.url}/products/${prodId}/variations`);
     return this.httpClient.get<Product[]>(`/products/${prodId}/variations`);
   }
   getShippingZone(): Observable<ShippingZone[]> {
@@ -105,7 +105,7 @@ export class WoocommerceService {
     for(let i = 0; i< products.length; i++){
       processors.push(this.createProcessor(products[i]));           
     } 
-    console.log(processors);
+    //console.log(processors);
     sessionStorage["processors"] = JSON.stringify(processors);
     // return processors;
   }
@@ -158,7 +158,7 @@ export class WoocommerceService {
     for(let i = 0; i< products.length; i++){
       cases.push(this.createCase(products[i]));           
     } 
-    console.log(cases);
+    //console.log(cases);
     sessionStorage["cases"] = JSON.stringify(cases);
     // return cases;
   }
@@ -204,7 +204,7 @@ export class WoocommerceService {
     for(let i = 0; i< products.length; i++){
       coolers.push(this.createCooler(products[i]));           
     } 
-    console.log(coolers);
+    //console.log(coolers);
     sessionStorage["coolers"] = JSON.stringify(coolers);
     // return coolers;
   }
@@ -240,7 +240,7 @@ export class WoocommerceService {
     for(let i = 0; i< products.length; i++){
       gpu.push(this.createGPU(products[i]));           
     } 
-    console.log(gpu);
+    //console.log(gpu);
     sessionStorage["gpu"] = JSON.stringify(gpu);
     // return gpu;
   }
@@ -286,7 +286,7 @@ export class WoocommerceService {
     for(let i = 0; i< products.length; i++){
       hdds.push(this.createHDD(products[i]));           
     } 
-    console.log(hdds);
+    //console.log(hdds);
     sessionStorage["hdds"] = JSON.stringify(hdds);
     // return hdds;
   }
@@ -322,7 +322,7 @@ export class WoocommerceService {
     for(let i = 0; i< products.length; i++){
       m2s.push(this.createM2(products[i]));           
     } 
-    console.log(m2s);    
+    //console.log(m2s);    
     sessionStorage["m2s"] = JSON.stringify(m2s);
     // return m2s;
   }
@@ -358,7 +358,7 @@ export class WoocommerceService {
     for(let i = 0; i< products.length; i++){
       motherboards.push(this.createMotherBoard(products[i]));           
     } 
-    console.log(motherboards);    
+    //console.log(motherboards);    
     sessionStorage["motherboards"] = JSON.stringify(motherboards);
     // return motherboards;
   }
@@ -419,7 +419,7 @@ export class WoocommerceService {
     for(let i = 0; i< products.length; i++){
       powersupplies.push(this.createPowerSupply(products[i]));           
     } 
-    console.log(powersupplies);
+    //console.log(powersupplies);
     sessionStorage["powersupplies"] = JSON.stringify(powersupplies);
     // return powersupplies;
   }
@@ -463,7 +463,7 @@ export class WoocommerceService {
     for(let i = 0; i< products.length; i++){
       rams.push(this.createRAM(products[i]));           
     } 
-    console.log(rams);    
+    //console.log(rams);    
     sessionStorage["rams"] = JSON.stringify(rams);
     // return rams;
   }
@@ -505,7 +505,7 @@ export class WoocommerceService {
     for(let i = 0; i< products.length; i++){
       ssds.push(this.createSSD(products[i]));           
     } 
-    console.log(ssds);
+    //console.log(ssds);
     sessionStorage["ssds"] = JSON.stringify(ssds);
     // return ssds;
   }

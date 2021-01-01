@@ -21,7 +21,7 @@ export class ProductComponent implements OnInit {
   constructor(private productService: WoocommerceService) { }
    
   ngOnInit() {
-    console.log("id"+ this.id);
+    // console.log("id"+ this.id);
     let product= this.productService.getProductFromSession(this.id,this.type);
     if(product.basic.regular_price > 0){
       this.regularprice = product.basic.regular_price; 
