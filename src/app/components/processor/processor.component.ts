@@ -11,12 +11,19 @@ import { WoocommerceService } from 'src/services/woocommerce.service';
 export class ProcessorComponent implements OnInit {
 
   public processor: Processor={};
+  public excludedlist: string = "";
   constructor(private productService: WoocommerceService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-      this.processor=this.productService.getProductFromSession(this.route.snapshot.params["id"],"processors")
-   
+    this.processor=this.productService.getProductFromSession(this.route.snapshot.params["id"],"processors");
+    
+    // this.excludedlist = this.processor.exclude!;
+    // for(let key in this.processor){
+    //   if(this.excludedlist.toLocaleLowerCase().split(" ").join("").indexOf(key.toLocaleLowerCase().split(" ").join("")) != -1){
+    //     console.log(key);
+    //   }
+    // }
   }
 
 }

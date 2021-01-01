@@ -5,7 +5,101 @@
 <h1>Featured Products</h1>
 
 <div class="row w-100per m-0px">
-    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let product of featuredProducts">
-          
+    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let product of featuredprocessors">
+        <product 
+            *ngIf="product.basic" 
+            [id]="product.id!"
+            [type]='"processors"'
+            routerLink="/processor/{{product.id!}}">
+        </product>
     </div>        
+
+    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" 
+        *ngFor="let product of featuredcases">
+        <product 
+            *ngIf="product.basic" 
+            [id]="product.id!"
+            [type]='"cases"'
+            routerLink="/processor/{{product.id!}}">
+        </product>
+    </div>  
+
+    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6"
+        *ngFor="let product of featuredcoolers">
+        <product 
+            *ngIf="product.basic" 
+            [id]="product.id!"
+            [type]='"coolers"'
+            routerLink="/processor/{{product.id!}}">
+        </product>
+    </div>  
+    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" 
+        *ngFor="let product of featuredgpus">
+        <product 
+            *ngIf="product.basic" 
+            [id]="product.id!"
+            [type]='"gpu"'
+            routerLink="/processor/{{product.id!}}">
+        </product>
+    </div>  
+
+    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" 
+        *ngFor="let product of featuredhdds">
+        <product 
+            *ngIf="product.basic" 
+            [id]="product.id!"
+            [type]='"hdds"'
+            routerLink="/processor/{{product.id!}}">
+        </product>
+    </div>  
+
+    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" 
+        *ngFor="let product of featuredm2s">
+        <product 
+            *ngIf="product.basic" 
+            [id]="product.id!"
+            [type]='"processors"'
+            routerLink="/processor/{{product.id!}}">
+        </product>
+    </div> 
+
+    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" 
+        *ngFor="let product of featuredmotherboards">
+        <product 
+            *ngIf="product.basic" 
+            [id]="product.id!"
+            [type]='"motherboards"'
+            routerLink="/processor/{{product.id!}}">
+        </product>
+    </div> 
+
+    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" 
+        *ngFor="let product of featuredpowersupplys">
+        <product 
+            *ngIf="product.basic" 
+            [id]="product.id!"
+            [type]='"powersupplies"'
+            routerLink="/processor/{{product.id!}}">
+        </product>
+    </div> 
+
+    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" 
+        *ngFor="let product of featuredrams">
+        <product 
+            *ngIf="product.basic" 
+            [id]="product.id!"
+            [type]='"rams"'
+            routerLink="/processor/{{product.id!}}">
+        </product>
+    </div> 
+
+    <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" 
+        *ngFor="let product of featuredssds">
+        <product 
+            *ngIf="product.basic" 
+            [id]="product.id!"
+            [type]='"ssds"'
+            routerLink="/processor/{{product.id!}}">
+        </product>
+    </div> 
 </div>

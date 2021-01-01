@@ -33,19 +33,61 @@ export class HomeComponent implements OnInit {
   public featuredssds: SSD[] = [];
   constructor(private productService :WoocommerceService) { }
 
-  ngOnInit(): void {
-
-    this.productService.getFeaturedProducts().subscribe( p =>{
-      this.featuredProducts = p;
-      console.log(p);
-      this.featuredProducts
-      for(let i=0; i<this.featuredProducts.length; i++){
-
+  async ngOnInit() {
+    await this.productService.waitForSession("featured_products");
+    this.featuredProducts = JSON.parse(sessionStorage["featured_products"]);
+    for(let i=0; i<this.featuredProducts.length; i++){
+      let cattype = this.findCategory(this.featuredProducts[i]);
+      console.log(cattype);
+      switch(cattype){
+        case 'motherboard':{
+          this.featuredmotherboards.push(this.productService.createMotherBoard(this.featuredProducts[i]));
+          break;
+        }
+        case 'processor':{
+          this.featuredprocessors.push(this.productService.createProcessor(this.featuredProducts[i]));
+          break;
+        }
+        case 'case':{
+          this.featuredcases.push(this.productService.createCase(this.featuredProducts[i]));
+          break;
+        }
+        case 'cooler':{
+          this.featuredcoolers.push(this.productService.createCooler(this.featuredProducts[i]));
+          break;
+        }
+        case 'gpu':{
+          this.featuredgpus.push(this.productService.createGPU(this.featuredProducts[i]));
+          break;
+        }
+        case 'hdd':{
+          this.featuredhdds.push(this.productService.createHDD(this.featuredProducts[i]));
+          break;
+        }
+        case 'm2':{
+          this.featuredm2s.push(this.productService.createM2(this.featuredProducts[i]));
+          break;
+        }
+        case 'powersupply':{
+          this.featuredpowersupplys.push(this.productService.createPowerSupply(this.featuredProducts[i]));
+          break;
+        }
+        case 'ram':{
+          this.featuredrams.push(this.productService.createRAM(this.featuredProducts[i]));
+          break;
+        }
+        case 'ssd':{
+          this.featuredssds.push(this.productService.createSSD(this.featuredProducts[i]));
+          break;
+        }
+        default:{
+          break;
+        }
       }
-      
-    })
+    }
   }
-
-  
+  findCategory(product: Product){
+    return product.categories?.[0].name;
+  } 
 
 }
