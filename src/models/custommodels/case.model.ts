@@ -10,6 +10,7 @@ export interface Case{
     MODEL?:string;
     PART_NO?:string;
     TYPE?:string;
+    COMP_TYPE?:string;
     COLOUR?:string;
     POWER_SUPPLY?:string;
     SIDE_PANEL?:string;

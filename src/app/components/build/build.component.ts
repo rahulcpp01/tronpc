@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Case } from 'src/models/custommodels/case.model';
 import { Cooler } from 'src/models/custommodels/cooler.model';
 import { GPU } from 'src/models/custommodels/gpu.model';
@@ -29,6 +29,12 @@ export class BuildComponent implements OnInit {
   public powersupplys: PowerSupply[] = [];
   public rams: RAM[] = [];
   public ssds: SSD[] = [];
+
+
+  public m2selectable : boolean = true;   //  disable m.2 based on moherboard
+  public multiplem2: boolean = false;     //  if mother board allows multiple m2 
+  public multiplem2array: number[] = [];  //  to display multiple m2s
+  public ssdhddarray: number[] = [];      //  to display multiple ssds hdds
 
 
   public selectedProcessor!: Processor;
@@ -84,5 +90,30 @@ export class BuildComponent implements OnInit {
     }
   }
 
+  motherBoardChanged(selectedmotherboard: any){
+    this.m2selectable = true;
+    let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
+    let tempselectedmotherboard = dummymotherboards.find(x=>x.MODEL_NO_MOB === selectedmotherboard.value);
+    let m2count = tempselectedmotherboard?.M2COUNT;  
+    this.ssdhddarray = new Array(tempselectedmotherboard?.SATA_SPD_CNT);
 
+    if(m2count === 0){
+      this.m2selectable = false;
+      this.multiplem2 = false;
+      this.multiplem2array = new Array(m2count);
+      
+    }else{
+      this.multiplem2 = true;
+      this.multiplem2array = new Array(m2count);
+    }
+
+    this.selectCaseBasedOnMotherBoard(tempselectedmotherboard?.FORMFACT_MOB!);
+  }
+
+  selectCaseBasedOnMotherBoard(comptype: string){
+    this.cases = [];
+    let tempcases: Case[] = JSON.parse(sessionStorage["cases"]);
+    this.cases = tempcases.filter(x => x.COMP_TYPE === comptype);
+
+  }
 }
