@@ -178,6 +178,7 @@ export class WoocommerceService {
       MODEL: descJSON["MODEL"],
       PART_NO: descJSON["PART_NO"],
       TYPE: descJSON["TYPE"],
+      COMP_TYPE: descJSON["COMP_TYPE"],
       COLOUR: descJSON["COLOUR"],
       POWER_SUPPLY: descJSON["POWER_SUPPLY"],
       SIDE_PANEL: descJSON["SIDE_PANEL"],

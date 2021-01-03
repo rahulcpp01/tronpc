@@ -4,52 +4,81 @@
 
 <h5>Processors</h5>
 <select (change)="processorChanged(selectedprocessor)" #selectedprocessor>
+    <option value="" selected disabled> Please select</option>
     <option *ngFor="let processor of processors">{{processor.model}}</option>
 </select>
 
+
+<h5>motherboards</h5>
+<select (change)="motherBoardChanged(selectedmotherboard)" #selectedmotherboard>
+    <option value="" selected disabled> Please select</option>
+    <option *ngFor="let motherboard of motherboards">{{motherboard.MODEL_NO_MOB}}</option>
+</select>
+
+<h5>rams</h5>
+<select>
+    <option value="" selected disabled> Please select</option>
+    <option *ngFor="let ram of rams">{{ram.MANUFACT}}</option>
+</select>
+
+<div *ngIf="!multiplem2">
+    <h5>m.2</h5>
+    <select [disabled]="!m2selectable">
+        <option value="" selected disabled> Please select</option>
+        <option *ngFor="let m2 of m2s">{{m2.MANUFACT}}</option>
+    </select>
+</div>
+
+
+
+<div *ngIf="multiplem2">
+    <span *ngFor="let i of multiplem2array; let ind = index">
+        <span>m.2 - {{ ind }}</span>
+        <select>
+            <option value="" selected disabled> Please select</option>
+            <option *ngFor="let m2 of m2s">{{m2.MANUFACT}}</option>
+        </select>
+    </span>
+</div>
+
+
+<h5>SATA ssds & hdd</h5>
+<span *ngFor="let i of ssdhddarray; let ind = index">
+    <select>
+        <option value="" selected disabled> Please select</option>
+        <option *ngFor="let ssd of ssds">SSD-{{ssd.MODEL}}</option>    
+        <option *ngFor="let hdd of hdds">HDD-{{hdd.MANUFACT}}</option>
+    </select>
+</span>
+
+
 <h5>Cases</h5>
 <select>
+    <option value="" selected disabled> Please select</option>
     <option *ngFor="let case of cases">{{case.MODEL}}</option>
 </select>
 
 <h5>Coolers</h5>
 <select>
+    <option value="" selected disabled> Please select</option>
     <option *ngFor="let cooler of coolers">{{cooler.MODEL}}</option>
 </select>
 
 
 <h5>gpus</h5>
 <select>
+    <option value="" selected disabled> Please select</option>
     <option *ngFor="let gpu of gpus">{{gpu.MODEL}}</option>
 </select>
 
-<h5>hdds</h5>
-<select>
-    <option *ngFor="let hdd of hdds">{{hdd.MANUFACT}}</option>
-</select>
 
 
-<h5>m2s</h5>
-<select>
-    <option *ngFor="let m2 of m2s">{{m2.MANUFACT}}</option>
-</select>
-
-<h5>motherboards</h5>
-<select>
-    <option *ngFor="let motherboard of motherboards">{{motherboard.MODEL_NO_MOB}}</option>
-</select>
 
 <h5>powersupplys</h5>
 <select>
+    <option value="" selected disabled> Please select</option>
     <option *ngFor="let power of powersupplys">{{power.MODEL}}</option>
 </select>
 
-<h5>rams</h5>
-<select>
-    <option *ngFor="let ram of rams">{{ram.MANUFACT}}</option>
-</select>
 
-<h5>ssds</h5>
-<select>
-    <option *ngFor="let ssd of ssds">{{ssd.MODEL}}</option>
-</select>
+
