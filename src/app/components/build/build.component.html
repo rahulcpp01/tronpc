@@ -132,17 +132,34 @@
                M.2
             </div>
             <div class="select-item-div" *ngIf="multiplem2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-6 subm2s" *ngFor="let i of multiplem2array; let ind = index">
-                            <span (click)="showM2()">{{ ind +1 }}</span>
+                <div class="container h-100per">
+                    <div class="row h-100per">
+                        <div class="col-6 subm2s" (click)="showM2()" *ngFor="let i of multiplem2array; let ind = index">
+                            <span>{{ ind +1 }}</span>
+                            <img *ngIf="selectedMultipleM2 && selectedMultipleM2.length > ind" 
+                            [scr]="selectedMultipleM2[ind].basic.images.length > 0 ? selectedMultipleM2[ind].basic.images[0].src : ''">
                         </div>
                     </div>
                 </div>               
             </div>
         </div>
         <div class="col-lg-3 col-md-4 col-6 build-items">
-            <div>Select SATA</div>
+            <div class="select-item-div" *ngIf="ssdhddarray.length > 0"
+            [ngClass]="!selectedSATACompatible?'not-compatible-border':''"
+            (click)="this.popup=!this.popup;this.popupSelectedItem='sata'">
+               SATA
+            </div>
+            <div class="select-item-div" *ngIf="multiplem2">
+                <div class="container h-100per">
+                    <div class="row h-100per">
+                        <div class="col-6 subm2s" (click)="showSATA()" *ngFor="let i of multiplem2array; let ind = index">
+                            <span>{{ ind +1 }}</span>
+                            <img *ngIf="selectedMultipleM2 && selectedMultipleM2.length > ind" 
+                            [scr]="selectedMultipleM2[ind].basic.images.length > 0 ? selectedMultipleM2[ind].basic.images[0].src : ''">
+                        </div>
+                    </div>
+                </div>               
+            </div>
         </div>
     </div>
 </div>

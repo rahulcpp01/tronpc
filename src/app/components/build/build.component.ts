@@ -47,11 +47,14 @@ export class BuildComponent implements OnInit {
   public selectedRam!: RAM;
   public selectedM2!: M2;
   public selectedMultipleM2!: M2[];
+  public selectedSataSSD!: SSD[];
+  public selectedSataHDD!: HDD[];
 
   public selectedProcessorCompatible: boolean = true;
   public selectedMotherBoardCompatible: boolean = true;
   public selectedRamCompatible: boolean = true;
   public selectedM2Compatible: boolean = true;
+  public selectedSATACompatible: boolean = true;
 
 
   public buildPrice: number = 0;
@@ -228,7 +231,10 @@ export class BuildComponent implements OnInit {
       this.selectedM2 = selected;
     }else{
       this.selectedM2={};
-      if(this.multiplem2array.length<this.selectedMultipleM2.length){
+      if(!this.selectedMultipleM2){
+        this.selectedMultipleM2=[];
+      }
+      if(this.multiplem2array.length > this.selectedMultipleM2.length){
         this.selectedMultipleM2.push(selected);
       }
     }
@@ -236,6 +242,7 @@ export class BuildComponent implements OnInit {
     this.checkCompatibility();
     this.calculateTotalPrice();
   }
+  
 
   checkCompatibility(){
 
