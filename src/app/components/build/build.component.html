@@ -8,7 +8,6 @@
     <option *ngFor="let processor of processors">{{processor.model}}</option>
 </select>
 
-
 <h5>motherboards</h5>
 <select (change)="motherBoardChanged(selectedmotherboard)" #selectedmotherboard>
     <option value="" selected disabled> Please select</option>
@@ -81,4 +80,152 @@
 </select>
 
 
+<h1>Total Price = {{buildPrice}}</h1>
+<div class="container-fluid building">
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-6 build-items">
+            <div class="select-item-div" 
+            [ngClass]="!selectedProcessorCompatible?'not-compatible-border':''" 
+            (click)="this.popup=!this.popup;this.popupSelectedItem='processors'">
+                Processors
+                <div *ngIf="selectedProcessor">
+                    <div class="img">
+                        <img [src]="selectedProcessor.basic?.images.length > 0? selectedProcessor.basic?.images[0].src : ''" alt="No img">
+                    </div>
+                    {{selectedProcessor.model}}
+                    {{selectedProcessor.basic?.regular_price | currency:"&#8377;" }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6 build-items">
+            <div class="select-item-div"
+            [ngClass]="!selectedMotherBoardCompatible?'not-compatible-border':''"
+             (click)="this.popup=!this.popup;this.popupSelectedItem='motherboards'">
+                MotherBoard
+                <div *ngIf="selectedMotherBoard">
+                    <div class="img">
+                        <img [src]="selectedMotherBoard.basic?.images.length > 0 ? selectedMotherBoard.basic?.images[0].src: ''" alt="No img">
+                    </div>
+                    {{selectedMotherBoard.MODEL_NO_MOB}}
+                    {{selectedMotherBoard.basic?.regular_price | currency:"&#8377;" }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6 build-items">
+            <div class="select-item-div" 
+            [ngClass]="!selectedRamCompatible?'not-compatible-border':''"
+            (click)="this.popup=!this.popup;this.popupSelectedItem='rams'">
+                Select RAM
+                <div *ngIf="selectedRam">
+                    <div class="img">
+                        <img [src]="selectedRam.basic?.images.length > 0 ? selectedRam.basic?.images[0].src: ''" alt="No img">
+                    </div>
+                    {{selectedRam.basic?.name}}
+                    {{selectedRam.basic?.regular_price | currency:"&#8377;" }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6 build-items">
+            <div class="select-item-div" *ngIf="!multiplem2"
+            [ngClass]="!selectedM2Compatible?'not-compatible-border':''"
+            (click)="showM2()">
+               M.2
+            </div>
+            <div class="select-item-div" *ngIf="multiplem2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-6 subm2s" *ngFor="let i of multiplem2array; let ind = index">
+                            <span (click)="showM2()">{{ ind +1 }}</span>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6 build-items">
+            <div>Select SATA</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal transparent" [ngClass]="popup?'d-block':''">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Select a {{popupSelectedItem}}</h5>
+          <button type="button" class="close" (click)="this.popup=!this.popup">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <contaner-element [ngSwitch]="popupSelectedItem">
+                <div class="processors" *ngSwitchCase="'processors'">
+                    Processor
+                    <div *ngFor="let processor of processors" class="processor">
+
+                        <div class="img">        
+                            <img [src]="processor.basic?.images.length > 0 ? processor.basic?.images[0]!.src:''" alt="No Image">               
+                        </div>
+                        {{processor.model}}
+                        {{processor.basic?.regular_price | currency:"&#8377;"}}
+
+                        <button (click)="procecessorSelected(processor)">
+                            Add
+                        </button>
+                    </div>
+                </div>
+                <div class="motherboards" *ngSwitchCase="'motherboards'">
+                    motherboards
+                    <div *ngFor="let motherboard of motherboards" class="motherboards">
+
+                        <div class="img">        
+                            <img [src]="motherboard.basic?.images.length > 0 ? motherboard.basic?.images[0]!.src:''" alt="No Image">               
+                        </div>
+                        {{motherboard.MODEL_NO_MOB}}
+                        {{motherboard.basic?.regular_price | currency:"&#8377;"}}
+
+                        <button (click)="motherboardSelected(motherboard)">
+                            Add
+                        </button>
+                    </div>
+                </div>
+                <div class="rams" *ngSwitchCase="'rams'">
+                    RAMS
+                    <div *ngFor="let ram of rams" class="rams">
+
+                        <div class="img">        
+                            <img [src]="ram.basic?.images.length > 0 ? ram.basic?.images[0]!.src:''" alt="No Image">               
+                        </div>
+
+                        {{ram.MANUFACT}}
+                        {{ram.basic?.regular_price | currency:"&#8377;"}}
+
+                        <button (click)="ramSelected(ram)">
+                            Add
+                        </button>
+                    </div>
+                </div>
+                <div class="m2s" *ngSwitchCase="'m2s'">
+                    M.2
+                    <div *ngFor="let m2 of m2s" class="m2s">
+
+                        <div class="img">        
+                            <img [src]="m2.basic?.images.length > 0 ? m2.basic?.images[0]!.src:''" alt="No Image">               
+                        </div>
+
+                        {{m2.MANUFACT}}
+                        {{m2.basic?.regular_price | currency:"&#8377;"}}
+
+                        <button (click)="m2Selected(m2)">
+                            Add
+                        </button>
+                    </div>
+                </div>
+                <div *ngSwitchDefault>
+                    Defaults
+                </div>
+            </contaner-element>
+        </div>        
+      </div>
+    </div>
+</div>
 

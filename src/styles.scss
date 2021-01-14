@@ -5,6 +5,7 @@
     --primary-color: #288ACA;
     --font-color: #424242;
     --bg-color: #fff;    
+    --not-compatible: #e22626;
 }
 .dark-mode{
     --font-color: #e1e1ff;
@@ -22,5 +23,13 @@
 .m-0px{
     margin: 0px;
 }
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+
+.transparent{
+    background: rgba(0,0,0,0.7);
+}
+.modal {
+    overflow-y: auto !important;
+}
+.not-compatible-border{
+    border-color: var(--not-compatible) !important;
+}
