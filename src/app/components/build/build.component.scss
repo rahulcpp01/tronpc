@@ -1,0 +1,26 @@
+.building{
+    .build-items{
+        height: 30%;
+        min-height: 30%;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        .select-item-div{
+            border: 3px dashed var(--primary-color);
+            height: 190px;
+            text-align: center;
+            .img,img{
+                width: 100px;
+                height: 100px;
+            }
+        }
+    }
+}
+
+
+.modal-body{
+    .img,img{
+        width: 100px;
+        height: 100px;
+    }
+}
