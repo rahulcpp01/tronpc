@@ -10,7 +10,6 @@ export interface Processor{
     thread?:number;
     core_clock?: number;
     boost_clock?: number;
-    tdp?: number;
     series?: string;
     architecture?:string;
     core_family?:string;

@@ -15,4 +15,6 @@ export interface Cooler{
     WATER?: string;
     FAN?:number;
     CPU_SOCKET_LIST?: string;
+    RADIATOR?: string;
+    TDP?: number; 
 }

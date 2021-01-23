@@ -27,4 +27,11 @@ export interface Case{
     OPTICAL_DRIVE?:string;
     NO_OF_FAN?:number;
     ARGB?:string;
+    MAX_CPU_HEIGHT?: string;
+    PSU_SUPPORT_LENGTH?: string;
+    RADIATOR_SUP_FRONT?: string;
+    RADIATOR_SUP_REAR?: string;
+    RADIATOR_SUP_SIDE?: string;
+    RADIATOR_SUP_TOP?: string;
+    TDP?: number; 
 }

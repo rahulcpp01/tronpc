@@ -14,6 +14,8 @@ import { BuildComponent } from './components/build/build.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ProductComponent } from './components/product/product.component';
 import { DescriptionComponent } from './components/description/description.component';
+
+import { AgmCoreModule } from '@agm/core';
 const INTERCEPTORS: {}[] = [
   {
     provide: HTTP_INTERCEPTORS,
@@ -36,6 +38,9 @@ const INTERCEPTORS: {}[] = [
   ],
   imports: [
     BrowserModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCjOBUeVzRsg2WIcCgD06Tye4sz8WC9S0A'
+    }),
     AppRoutingModule,
     HttpClientModule
   ],

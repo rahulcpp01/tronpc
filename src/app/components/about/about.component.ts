@@ -6,9 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
-
   constructor() { }
-
+  lat = 51.678418;
+  lng = 7.809007;
   ngOnInit(): void {
   }
 
