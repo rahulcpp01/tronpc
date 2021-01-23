@@ -80,7 +80,7 @@
 </select>
 
 
-<h1>Total Price = {{buildPrice}}</h1>
+<h1>Total Price = {{buildPrice}}</h1><h4>Total TDP {{totalTDP}}</h4>
 <div class="container-fluid building">
     <div class="row">
         <div class="col-lg-3 col-md-4 col-6 build-items">
@@ -114,14 +114,28 @@
         <div class="col-lg-3 col-md-4 col-6 build-items">
             <div class="select-item-div" 
             [ngClass]="!selectedRamCompatible?'not-compatible-border':''"
-            (click)="this.popup=!this.popup;this.popupSelectedItem='rams'">
+            >
                 Select RAM
-                <div *ngIf="selectedRam">
-                    <div class="img">
+                <div>
+                    <div class="container h-100per">
+                        <div class="row h-100per">
+                            <div class="col-6 subm2s" (click)="this.popup=!this.popup;this.popupSelectedItem='rams'"
+                             *ngFor="let i of ramArray; let ind = index">
+                                <span>{{ ind +1 }}</span>
+                                <img *ngIf="selectedRam && selectedRam.length > ind"
+                                [src]="selectedRam[ind].basic?.images.length > 0 ? selectedRam[ind].basic?.images[0].src: ''">
+                                <div *ngIf="selectedRam && selectedRam.length > ind">{{selectedRam[ind].basic?.name}}</div>
+                                <div *ngIf="selectedRam && selectedRam.length > ind">
+                                    {{selectedRam[ind].basic?.regular_price | currency:"&#8377;" }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                    <!-- <div class="img">
                         <img [src]="selectedRam.basic?.images.length > 0 ? selectedRam.basic?.images[0].src: ''" alt="No img">
                     </div>
                     {{selectedRam.basic?.name}}
-                    {{selectedRam.basic?.regular_price | currency:"&#8377;" }}
+                    {{selectedRam.basic?.regular_price | currency:"&#8377;" }} -->
                 </div>
             </div>
         </div>
@@ -159,6 +173,32 @@
                         </div>
                     </div>
                 </div>               
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6 build-items">
+            <div class="select-item-div"             
+            (click)="this.popup=!this.popup;this.popupSelectedItem='cooler'">
+                COOLER
+                <div *ngIf="selectedCooler">
+                    <div class="img">
+                        <img [src]="selectedCooler.basic?.images.length > 0? selectedCooler.basic?.images[0].src : ''" alt="No img">
+                    </div>
+                    {{selectedCooler.MODEL}}
+                    {{selectedCooler.basic?.regular_price | currency:"&#8377;" }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6 build-items">
+            <div class="select-item-div"             
+            (click)="this.popup=!this.popup;this.popupSelectedItem='case'">
+                CASE
+                <div *ngIf="selectedCASE">
+                    <div class="img">
+                        <img [src]="selectedCASE.basic?.images.length > 0? selectedCASE.basic?.images[0].src : ''" alt="No img">
+                    </div>
+                    {{selectedCASE.MODEL}}
+                    {{selectedCASE.basic?.regular_price | currency:"&#8377;" }}
+                </div>
             </div>
         </div>
     </div>
@@ -233,6 +273,38 @@
                         {{m2.basic?.regular_price | currency:"&#8377;"}}
 
                         <button (click)="m2Selected(m2)">
+                            Add
+                        </button>
+                    </div>
+                </div>
+                <div class="cooler" *ngSwitchCase="'cooler'">
+                    cooler
+                    <div *ngFor="let cooler of coolers" class="cooler">
+
+                        <div class="img">        
+                            <img [src]="cooler.basic?.images.length > 0 ? cooler.basic?.images[0]!.src:''" alt="No Image">               
+                        </div>
+
+                        {{cooler.MODEL}}
+                        {{cooler.basic?.regular_price | currency:"&#8377;"}}
+
+                        <button (click)="selectCooler(cooler)">
+                            Add
+                        </button>
+                    </div>
+                </div>
+                <div class="case" *ngSwitchCase="'case'">
+                    CASE
+                    <div *ngFor="let case of cases" class="cases">
+
+                        <div class="img">        
+                            <img [src]="case.basic?.images.length > 0 ? case.basic?.images[0]!.src:''" alt="No Image">               
+                        </div>
+
+                        {{case.MODEL}}
+                        {{case.basic?.regular_price | currency:"&#8377;"}}
+
+                        <button (click)="selectCase(case)">
                             Add
                         </button>
                     </div>

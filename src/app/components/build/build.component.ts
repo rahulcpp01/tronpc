@@ -40,15 +40,18 @@ export class BuildComponent implements OnInit {
   public multiplem2: boolean = false;     //  if mother board allows multiple m2 
   public multiplem2array: number[] = [];  //  to display multiple m2s
   public ssdhddarray: number[] = [];      //  to display multiple ssds hdds
+  public ramArray: number[] = [];
 
 
   public selectedProcessor!: Processor;
   public selectedMotherBoard!: MotherBoard;
-  public selectedRam!: RAM;
+  public selectedRam!: RAM[];
   public selectedM2!: M2;
   public selectedMultipleM2!: M2[];
   public selectedSataSSD!: SSD[];
   public selectedSataHDD!: HDD[];
+  public selectedCASE!: Case;
+  public selectedCooler!: Cooler;
 
   public selectedProcessorCompatible: boolean = true;
   public selectedMotherBoardCompatible: boolean = true;
@@ -58,6 +61,7 @@ export class BuildComponent implements OnInit {
 
 
   public buildPrice: number = 0;
+  public totalTDP: number = 0;
   
   constructor(private productService: WoocommerceService) {    
   }
@@ -146,7 +150,10 @@ export class BuildComponent implements OnInit {
         this.buildPrice+=Number.parseFloat(this.selectedMotherBoard.basic?.regular_price||"");
       }
       if(this.selectedRam){
-        this.buildPrice+=Number.parseFloat(this.selectedRam.basic?.regular_price||"");
+        this.selectedRam.forEach(x =>{
+          this.buildPrice+=Number.parseFloat(x.basic?.regular_price||"");
+        })
+        
       }
       if(!this.multiplem2){
         if(this.selectedM2){
@@ -159,6 +166,12 @@ export class BuildComponent implements OnInit {
             this.buildPrice+=Number.parseFloat(this.selectedMultipleM2[index].basic?.regular_price||"");
           }
         }
+      }
+      if(this.selectedCooler){
+        this.buildPrice+=Number.parseFloat(this.selectedCooler.basic?.regular_price||"");
+      }
+      if(this.selectedCASE){
+        this.buildPrice+=Number.parseFloat(this.selectedCASE.basic?.regular_price||"");
       }
       
   }
@@ -176,9 +189,11 @@ export class BuildComponent implements OnInit {
         this.motherboards.push(dummymotherboards[i]);
       }            
     }
-
+    this.clearSelectedRAM();
+    this.updateCooler();
     this.checkCompatibility();
     this.calculateTotalPrice();
+    this.calculateTotalTDP();
   }
 
   motherboardSelected(selected: MotherBoard){
@@ -202,18 +217,25 @@ export class BuildComponent implements OnInit {
     }
 
     this.selectCaseBasedOnMotherBoard(tempselectedmotherboard?.FORMFACT_MOB!);
-
+    this.clearSelectedRAM();
+    this.updateRAM();
     this.checkCompatibility();
     this.calculateTotalPrice();
+    this.calculateTotalTDP();
   }
 
   ramSelected(selected: RAM){
-    this.selectedRam = selected;
+    
+    if(!this.selectedRam){
+      this.selectedRam=[];
+    }
+    this.selectedRam.push(selected);
     this.popup = false;
 
 
     this.checkCompatibility();
     this.calculateTotalPrice();
+    this.calculateTotalTDP();
   }
 
   showM2(){
@@ -241,6 +263,7 @@ export class BuildComponent implements OnInit {
 
     this.checkCompatibility();
     this.calculateTotalPrice();
+    this.calculateTotalTDP();
   }
   
 
@@ -252,11 +275,89 @@ export class BuildComponent implements OnInit {
       if(this.selectedMotherBoard){
         this.selectedMotherBoardCompatible = this.motherboards.find( x => (x.basic?.id||0) == this.selectedMotherBoard.basic?.id) ? true: false;        
       }
-      if(this.selectedRam){
-        this.selectedRamCompatible = this.rams.find( x => (x.basic?.id||0) == this.selectedRam.basic?.id) ? true: false;        
-      }
+      // if(this.selectedRam){
+      //   this.selectedRamCompatible = this.rams.find( x => (x.basic?.id||0) == this.selectedRam.basic?.id) ? true: false;        
+      // }
       if(this.selectedM2){
         // this.selectedM2Compatible = !this.m2selectable; //&& this.m2s.find( x => (x.basic?.id||0) == this.selectedRam.basic?.id) 
       }
+  }
+
+  updateRAM(){
+    if(this.selectedMotherBoard){
+      this.ramArray = new Array(this.selectedMotherBoard?.MEM_SLOTS);
+      let tempram: RAM[] = JSON.parse(sessionStorage["rams"]);
+      this.rams = tempram.filter(x => x.MEM_TYPE_RAM === this.selectedMotherBoard.MEM_TYPE_MOB);
+    }    
+  }
+
+
+  clearSelectedRAM(){
+    this.selectedRam=[];
+    this.ramArray =[];
+  }
+  selectCase(cse: Case)
+  {
+    this.selectedCASE = cse;
+    this.popup=false;
+
+    this.checkCompatibility();
+    this.calculateTotalPrice();
+    this.calculateTotalTDP();
+  }
+  selectCooler(coolr: Cooler){
+    this.selectedCooler = coolr;
+    this.popup=false;
+
+    this.checkCompatibility();
+    this.calculateTotalPrice();
+    this.calculateTotalTDP();
+  }
+
+  updateCooler(){
+    debugger;
+    this.coolers=[];
+    let tempcooler: Cooler[] = JSON.parse(sessionStorage["coolers"]);
+    
+    tempcooler.forEach( cooler =>{
+      if((cooler.CPU_SOCKET_LIST?.toUpperCase().split(" ").join("").indexOf(this.selectedProcessor.socket?.toUpperCase().split(" ").join("")||''))!=-1){
+        this.coolers.push(cooler);
+      }
+    })  
+    
+  }
+
+  calculateTotalTDP(){
+    this.totalTDP = 0;
+    if(this.selectedProcessor){
+      this.totalTDP+=Number.parseFloat(this.selectedProcessor.TDP?.toString()||"");
+    }
+    if(this.selectedMotherBoard){
+      this.totalTDP+=Number.parseFloat(this.selectedMotherBoard.TDP?.toString()||"");
+    }
+    if(this.selectedRam){
+      this.selectedRam.forEach(x =>{
+        this.totalTDP+=Number.parseFloat(x.TDP?.toString()||"");
+      })
+      
+    }
+    if(!this.multiplem2){
+      if(this.selectedM2){
+        this.totalTDP+=Number.parseFloat(this.selectedM2.TDP?.toString()||"");
+      }
+    }else{
+      if(this.selectedMultipleM2){
+        for (let index = 0; index < this.selectedMultipleM2.length; index++) {
+          //const element = this.selectedMultipleM2[index];
+          this.totalTDP+=Number.parseFloat(this.selectedMultipleM2[index].TDP?.toString()||"");
+        }
+      }
+    }
+    if(this.selectedCooler){
+      this.totalTDP+=Number.parseFloat(this.selectedCooler.TDP?.toString()||"");
+    }
+    if(this.selectedCASE){
+      this.totalTDP+=Number.parseFloat(this.selectedCASE.TDP?.toString()||"");
+    }
   }
 }

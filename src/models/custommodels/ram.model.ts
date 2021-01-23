@@ -18,6 +18,6 @@ export interface RAM{
     HEAT_SINK?: string;
     ECC_REGISTERED?: string;
     TDP?: number;
-
+    MEM_TYPE_RAM?: string;
 
 }

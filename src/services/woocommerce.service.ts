@@ -126,7 +126,6 @@ export class WoocommerceService {
       thread: Number.parseInt(descJSON["thread"]),
       core_clock: Number.parseInt(descJSON["core_clock"]),
       boost_clock: Number.parseInt(descJSON["boost_clock"]),
-      tdp: Number.parseInt(descJSON["tdp"]),
       series: descJSON["series"],
       architecture: descJSON["architecture"],
       core_family: descJSON["core_family"],
@@ -194,7 +193,14 @@ export class WoocommerceService {
       VOLUME: descJSON["VOLUME"],
       OPTICAL_DRIVE: descJSON["DIMENTIONS"],
       NO_OF_FAN: Number.parseInt(descJSON["NO_OF_FAN"]),
-      ARGB: descJSON["ARGB"]
+      ARGB: descJSON["ARGB"],
+      MAX_CPU_HEIGHT: descJSON["MAX_CPU_HEIGHT"],
+      PSU_SUPPORT_LENGTH: descJSON["PSU_SUPPORT_LENGTH"],
+      RADIATOR_SUP_FRONT: descJSON["RADIATOR_SUP_FRONT"],
+      RADIATOR_SUP_REAR: descJSON["RADIATOR_SUP_REAR"],
+      RADIATOR_SUP_SIDE: descJSON["RADIATOR_SUP_SIDE"],
+      RADIATOR_SUP_TOP: descJSON["RADIATOR_SUP_TOP"],
+      TDP: Number.parseInt(descJSON["TDP"])   
     };
     return casev;       
   }
@@ -230,7 +236,9 @@ export class WoocommerceService {
       HEIGHT: descJSON["HEIGHT"],
       WATER: descJSON["WATER"],
       FAN: descJSON["FAN"],
-      CPU_SOCKET_LIST: descJSON["CPU_SOCKET_LIST"],      
+      CPU_SOCKET_LIST: descJSON["CPU_SOCKET_LIST"],
+      RADIATOR: descJSON["RADIATOR"],
+      TDP: Number.parseInt(descJSON["TDP"])           
     };
     return cooler; 
   }
@@ -494,7 +502,8 @@ export class WoocommerceService {
       TIMING: descJSON["TIMING"] ,
       HEAT_SINK: descJSON["HEAT_SINK"] ,
       ECC_REGISTERED: descJSON["ECC_REGISTERED"],
-      TDP: Number.parseInt(descJSON["TDP"])
+      TDP: Number.parseInt(descJSON["TDP"]),
+      MEM_TYPE_RAM: descJSON["MEM_TYPE_RAM"]
        
     };
     return ram; 
