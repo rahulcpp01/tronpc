@@ -145,6 +145,8 @@ export class WoocommerceService {
       warrenty: descJSON["warrenty"],
       TDP: Number.parseInt(descJSON["TDP"]),
       OPTANE_MEM_SUP: descJSON["OPTANE_MEM_SUP"],
+      RAM_TYPE:descJSON["RAM_TYPE"],
+      MEMORY_CHANNEL: descJSON["MEMORY_CHANNEL"],
       description: descJSON["description"],
       exclude: descJSON["exclude"]
     };
@@ -417,6 +419,9 @@ export class WoocommerceService {
       WIRELESS: descJSON["WIRELESS"],
       RAID: descJSON["RAID"],
       TDP: Number.parseInt(descJSON["TDP"]),
+      PART_NO:  descJSON["PART_NO"],
+      CHIPSET: descJSON["CHIPSET"],
+      MEMORY_CHANNEL: descJSON["MEMORY_CHANNEL"],
       CPU_SUPPORTED_LIST: descJSON["CPU_SUPPORTED_LIST"]  
     };
     return motherboard; 
