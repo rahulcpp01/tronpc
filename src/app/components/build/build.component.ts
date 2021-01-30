@@ -70,70 +70,84 @@ export class BuildComponent implements OnInit {
     //   this.processors=product
     //   console.log(product);
     // })
-    await this.productService.waitForSession('processors');
-    this.processors = JSON.parse(sessionStorage["processors"]);
+    // await this.productService.waitForSession('processors');
+    // this.processors = JSON.parse(sessionStorage["processors"]);
     
-    await this.productService.waitForSession('cases');
-    this.cases = JSON.parse(sessionStorage["cases"]);
+    // await this.productService.waitForSession('cases');
+    // this.cases = JSON.parse(sessionStorage["cases"]);
 
-    await this.productService.waitForSession('coolers');
-    this.coolers = JSON.parse(sessionStorage["coolers"]);
+    // await this.productService.waitForSession('coolers');
+    // this.coolers = JSON.parse(sessionStorage["coolers"]);
 
-    await this.productService.waitForSession('gpu');
-    this.gpus = JSON.parse(sessionStorage["gpu"]);
+    // await this.productService.waitForSession('gpu');
+    // this.gpus = JSON.parse(sessionStorage["gpu"]);
 
-    await this.productService.waitForSession('hdds');
-    this.hdds = JSON.parse(sessionStorage["hdds"]);
+    // await this.productService.waitForSession('hdds');
+    // this.hdds = JSON.parse(sessionStorage["hdds"]);
 
-    await this.productService.waitForSession('m2s');
-    this.m2s = JSON.parse(sessionStorage["m2s"]);
+    // await this.productService.waitForSession('m2s');
+    // this.m2s = JSON.parse(sessionStorage["m2s"]);
 
-    await this.productService.waitForSession('motherboards');
-    this.motherboards = JSON.parse(sessionStorage["motherboards"]);
+    // await this.productService.waitForSession('motherboards');
+    // this.motherboards = JSON.parse(sessionStorage["motherboards"]);
 
-    await this.productService.waitForSession('powersupplies');
-    this.powersupplys = JSON.parse(sessionStorage["powersupplies"]);
+    // await this.productService.waitForSession('powersupplies');
+    // this.powersupplys = JSON.parse(sessionStorage["powersupplies"]);
 
-    await this.productService.waitForSession('rams');
-    this.rams = JSON.parse(sessionStorage["rams"]);
+    // await this.productService.waitForSession('rams');
+    // this.rams = JSON.parse(sessionStorage["rams"]);
 
-    await this.productService.waitForSession('ssds');
-    this.ssds = JSON.parse(sessionStorage["ssds"]);
+    // await this.productService.waitForSession('ssds');
+    // this.ssds = JSON.parse(sessionStorage["ssds"]);
+    this.productService.getAllProcessors().subscribe(products =>{
+      this.productService.processorsFactory(products);
+      this.processors = JSON.parse(sessionStorage["processors"]);
+    });
   }
 
-  processorChanged(selectedprocessor:any){
-    // console.log(selectedprocessor.value);
-    this.motherboards=[];
-    let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
-    let dummyprocessor = selectedprocessor.value.toUpperCase().split(" ").join("");
-    for(let i=0; i< dummymotherboards.length; i++){
-      let list= dummymotherboards[i].CPU_SUPPORTED_LIST?.toUpperCase().split(" ").join("");
-      if(list?.indexOf(dummyprocessor)!=-1){
-        this.motherboards.push(dummymotherboards[i]);
-      }            
-    }
-  }
+  // processorChanged(selectedprocessor:any){
+  //   // console.log(selectedprocessor.value);
+  //   this.motherboards=[];
+  //   let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
+  //   debugger;
+  //   let dummyprocessor = selectedprocessor.value.toUpperCase().split(" ").join("");
+  //   for(let i=0; i< dummymotherboards.length; i++){
+  //     let list= dummymotherboards[i].CPU_SUPPORTED_LIST?.toUpperCase().split(" ").join("");
+  //     if(list?.indexOf(dummyprocessor)!=-1){
+  //       this.motherboards.push(dummymotherboards[i]);
+  //     }            
+  //   }
+  // }
 
-  motherBoardChanged(selectedmotherboard: any){
-    this.m2selectable = true;
-    let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
-    let tempselectedmotherboard = dummymotherboards.find(x=>x.MODEL_NO_MOB === selectedmotherboard.value);
-    let m2count = tempselectedmotherboard?.M2COUNT;  
-    this.ssdhddarray = new Array(tempselectedmotherboard?.SATA_SPD_CNT);
+  // motherBoardChanged(selectedmotherboard: any){
+  //   this.m2selectable = true;
+  //   let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
+  //   let tempselectedmotherboard = dummymotherboards.find(x=>x.MODEL_NO_MOB === selectedmotherboard.value);
+  //   let m2count = tempselectedmotherboard?.M2COUNT;  
+  //   this.ssdhddarray = new Array(tempselectedmotherboard?.SATA_SPD_CNT);
 
-    if(m2count === 0){
-      this.m2selectable = false;
-      this.multiplem2 = false;
-      this.multiplem2array = new Array(m2count);
+  //   if(m2count === 0){
+  //     this.m2selectable = false;
+  //     this.multiplem2 = false;
+  //     this.multiplem2array = new Array(m2count);
       
-    }else{
-      this.multiplem2 = true;
-      this.multiplem2array = new Array(m2count);
-    }
+  //   }else{
+  //     this.multiplem2 = true;
+  //     this.multiplem2array = new Array(m2count);
+  //   }
 
-    this.selectCaseBasedOnMotherBoard(tempselectedmotherboard?.FORMFACT_MOB!);
+    
+  //   this.selectCaseBasedOnMotherBoard(tempselectedmotherboard?.FORMFACT_MOB!);
+    
+  // }
+
+  selectM2BasedOnMotherBoard(supportedm2: string){
+    debugger;
+    let tempmsids= supportedm2.split(' ').join().toLocaleString().toUpperCase();
+    
+    let tempm2: M2[] = JSON.parse(sessionStorage["m2s"]);
+    this.m2s = tempm2.filter(x => tempmsids.indexOf(x.FORM_FACT || '')!=-1);
   }
-
   selectCaseBasedOnMotherBoard(comptype: string){
     this.cases = [];
     let tempcases: Case[] = JSON.parse(sessionStorage["cases"]);
@@ -182,7 +196,8 @@ export class BuildComponent implements OnInit {
 
     this.motherboards=[];
     let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
-    let dummyprocessor = selected.basic?.name?.toUpperCase().split(" ").join("");
+    
+    let dummyprocessor = selected.model?.toUpperCase().split(" ").join("");
     for(let i=0; i< dummymotherboards.length; i++){
       let list= dummymotherboards[i].CPU_SUPPORTED_LIST?.toUpperCase().split(" ").join("");
       if(list?.indexOf(dummyprocessor||'')!=-1){
@@ -199,12 +214,15 @@ export class BuildComponent implements OnInit {
   motherboardSelected(selected: MotherBoard){
     this.selectedMotherBoard = selected;
     this.popup = false;
-
+    debugger;
     this.m2selectable = true;
     let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
-    let tempselectedmotherboard = dummymotherboards.find(x=>x.MODEL_NO_MOB === selected.basic?.name);
-    let m2count = tempselectedmotherboard?.M2COUNT;  
-    this.ssdhddarray = new Array(tempselectedmotherboard?.SATA_SPD_CNT);
+    // let tempselectedmotherboard = dummymotherboards.find(x=>x.MODEL_NO_MOB === selected.basic?.name);
+    // let m2count = tempselectedmotherboard?.M2COUNT;  
+    // this.ssdhddarray = new Array(tempselectedmotherboard?.SATA_SPD_CNT);
+    
+    let m2count = selected.M2COUNT;  
+    this.ssdhddarray = new Array(selected.SATA_SPD_CNT);
 
     if(m2count === 0){
       this.m2selectable = false;
@@ -216,7 +234,9 @@ export class BuildComponent implements OnInit {
       this.multiplem2array = new Array(m2count);
     }
 
-    this.selectCaseBasedOnMotherBoard(tempselectedmotherboard?.FORMFACT_MOB!);
+    //this.selectCaseBasedOnMotherBoard(tempselectedmotherboard?.FORMFACT_MOB!);
+    this.selectCaseBasedOnMotherBoard(selected?.FORMFACT_MOB!);
+    this.selectM2BasedOnMotherBoard(selected.M2!);
     this.clearSelectedRAM();
     this.updateRAM();
     this.checkCompatibility();
@@ -225,6 +245,7 @@ export class BuildComponent implements OnInit {
   }
 
   ramSelected(selected: RAM){
+    
     
     if(!this.selectedRam){
       this.selectedRam=[];
@@ -315,7 +336,6 @@ export class BuildComponent implements OnInit {
   }
 
   updateCooler(){
-    debugger;
     this.coolers=[];
     let tempcooler: Cooler[] = JSON.parse(sessionStorage["coolers"]);
     

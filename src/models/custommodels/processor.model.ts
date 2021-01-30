@@ -28,7 +28,8 @@ export interface Processor{
     warrenty?:string;
     TDP?: number;
     OPTANE_MEM_SUP?: string;
-
+    RAM_TYPE?: string;
+    MEMORY_CHANNEL?: string;
     description?:string;
     exclude?: string;
 }

@@ -1,7 +1,7 @@
 <!-- <div style="margin-top: 70px;" *ngFor="let i of processors">
     <h1>{{i.name}}-{{i.regular_price}}</h1>
 </div> -->
-
+<!-- 
 <h5>Processors</h5>
 <select (change)="processorChanged(selectedprocessor)" #selectedprocessor>
     <option value="" selected disabled> Please select</option>
@@ -77,7 +77,7 @@
 <select>
     <option value="" selected disabled> Please select</option>
     <option *ngFor="let power of powersupplys">{{power.MODEL}}</option>
-</select>
+</select> -->
 
 
 <h1>Total Price = {{buildPrice}}</h1><h4>Total TDP {{totalTDP}}</h4>
@@ -222,7 +222,7 @@
                         <div class="img">        
                             <img [src]="processor.basic?.images.length > 0 ? processor.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
-                        {{processor.model}}
+                        {{processor.basic?.name}}
                         {{processor.basic?.regular_price | currency:"&#8377;"}}
 
                         <button (click)="procecessorSelected(processor)">
@@ -237,7 +237,7 @@
                         <div class="img">        
                             <img [src]="motherboard.basic?.images.length > 0 ? motherboard.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
-                        {{motherboard.MODEL_NO_MOB}}
+                        {{motherboard.basic?.name}}
                         {{motherboard.basic?.regular_price | currency:"&#8377;"}}
 
                         <button (click)="motherboardSelected(motherboard)">
@@ -253,7 +253,7 @@
                             <img [src]="ram.basic?.images.length > 0 ? ram.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
 
-                        {{ram.MANUFACT}}
+                        {{ram.basic?.name}}
                         {{ram.basic?.regular_price | currency:"&#8377;"}}
 
                         <button (click)="ramSelected(ram)">
@@ -269,7 +269,7 @@
                             <img [src]="m2.basic?.images.length > 0 ? m2.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
 
-                        {{m2.MANUFACT}}
+                        {{m2.basic?.name}}
                         {{m2.basic?.regular_price | currency:"&#8377;"}}
 
                         <button (click)="m2Selected(m2)">
@@ -285,7 +285,7 @@
                             <img [src]="cooler.basic?.images.length > 0 ? cooler.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
 
-                        {{cooler.MODEL}}
+                        {{cooler.basic?.name}}
                         {{cooler.basic?.regular_price | currency:"&#8377;"}}
 
                         <button (click)="selectCooler(cooler)">
@@ -301,7 +301,7 @@
                             <img [src]="case.basic?.images.length > 0 ? case.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
 
-                        {{case.MODEL}}
+                        {{case.basic?.name}}
                         {{case.basic?.regular_price | currency:"&#8377;"}}
 
                         <button (click)="selectCase(case)">
