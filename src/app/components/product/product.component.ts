@@ -18,11 +18,12 @@ export class ProductComponent implements OnInit {
 
   @Input() id : number= 0;
   @Input() type : string =  "";
+  @Input() product!: Product;
   constructor(private productService: WoocommerceService) { }
    
   ngOnInit() {
     // console.log("id"+ this.id);
-    let product= this.productService.getProductFromSession(this.id,this.type);
+    let product= this.product? this.product:this.productService.getProductFromSession(this.id,this.type);
     if(product.basic.regular_price > 0){
       this.regularprice = product.basic.regular_price; 
     }

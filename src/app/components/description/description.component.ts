@@ -37,10 +37,17 @@ export class DescriptionComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.processor=this.productService.getProductFromSession(this.route.snapshot.params["id"],"processors");
+    if(sessionStorage[this.route.snapshot.params["type"]]){
       this.product=this.productService.getProductFromSession(this.route.snapshot.params["id"],
       this.route.snapshot.params["type"]);
-      this.fillDisplayCategory();
+    }else{
+      this.product=this.productService.getProductFromSession(this.route.snapshot.params["id"],
+      "featured_products");
+      
+    }
+    this.fillDisplayCategory();
+    // this.processor=this.productService.getProductFromSession(this.route.snapshot.params["id"],"processors");
+      
 
     // this.excludedlist = this.processor.exclude!;
     // for(let key in this.processor){

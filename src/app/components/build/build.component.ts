@@ -376,8 +376,6 @@ export class BuildComponent implements OnInit {
     if(this.selectedCooler){
       this.totalTDP+=Number.parseFloat(this.selectedCooler.TDP?.toString()||"");
     }
-    if(this.selectedCASE){
-      this.totalTDP+=Number.parseFloat(this.selectedCASE.TDP?.toString()||"");
-    }
+    
   }
 }
