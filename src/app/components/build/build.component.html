@@ -84,11 +84,15 @@
 <div class="container-fluid building">
     <div class="row">
         <div class="col-lg-3 col-md-4 col-6 build-items">
+            Processors
+            <span class="close" (click)="clearSelectedProcessor()">
+                X
+            </span>
             <div class="select-item-div" 
             [ngClass]="!selectedProcessorCompatible?'not-compatible-border':''" 
             (click)="this.popup=!this.popup;this.popupSelectedItem='processors'">
-                Processors
-                <div *ngIf="selectedProcessor">
+                
+                <div *ngIf="selectedProcessor">                    
                     <div class="img">
                         <img [src]="selectedProcessor.basic?.images.length > 0? selectedProcessor.basic?.images[0].src : ''" alt="No img">
                     </div>
@@ -98,10 +102,14 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-4 col-6 build-items">
+            MotherBoard
+            <span class="close" (click)="clearSelectedMotherBoard()">
+                X
+            </span>
             <div class="select-item-div"
             [ngClass]="!selectedMotherBoardCompatible?'not-compatible-border':''"
              (click)="this.popup=!this.popup;this.popupSelectedItem='motherboards'">
-                MotherBoard
+                
                 <div *ngIf="selectedMotherBoard">
                     <div class="img">
                         <img [src]="selectedMotherBoard.basic?.images.length > 0 ? selectedMotherBoard.basic?.images[0].src: ''" alt="No img">
@@ -112,10 +120,14 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-4 col-6 build-items">
+            Select RAM
+            <span class="close" (click)="clearSelectedRAM2()">
+                X
+            </span>
             <div class="select-item-div" 
             [ngClass]="!selectedRamCompatible?'not-compatible-border':''"
             >
-                Select RAM
+                
                 <div>
                     <div class="container h-100per">
                         <div class="row h-100per">
@@ -140,10 +152,14 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-4 col-6 build-items">
+            M.2
+            <span class="close" (click)="clearSelectedM22()">
+                X
+            </span>
             <div class="select-item-div" *ngIf="!multiplem2"
             [ngClass]="!selectedM2Compatible?'not-compatible-border':''"
             (click)="showM2()">
-               M.2
+               
             </div>
             <div class="select-item-div" *ngIf="multiplem2">
                 <div class="container h-100per">
@@ -158,27 +174,40 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-4 col-6 build-items">
-            <div class="select-item-div" *ngIf="ssdhddarray.length > 0"
+            <!-- <div class="select-item-div" *ngIf="ssdhddarray.length > 0"
             [ngClass]="!selectedSATACompatible?'not-compatible-border':''"
             (click)="this.popup=!this.popup;this.popupSelectedItem='sata'">
-               SATA
-            </div>
-            <div class="select-item-div">
-                <div class="container h-100per">
-                    <div class="row h-100per">
-                        <div class="col-6 subm2s" (click)="showSATA()" *ngFor="let i of ssdhddarray; let ind = index">
+               
+            </div> -->
+            SATA
+            <span class="close" (click)="clearSelectedSATA2()">
+                X
+            </span>
+            <div class="select-item-div">                                
+                <div class="container h-100per">                    
+                    <div class="row h-100per">                        
+                        <div class="col-6 satas" (click)="this.popup=!this.popup;this.popupSelectedItem='sata'" *ngFor="let i of ssdhddarray; let ind = index">
                             <span>{{ ind +1 }}</span>
                             <img *ngIf="selectedSataSSD && selectedSataSSD.length > ind" 
                             [scr]="selectedSataSSD[ind].basic.images.length > 0 ? selectedSataSSD[ind].basic.images[0].src : ''">
+                            <div *ngIf="ind>selectedSataSSD.length">
+                                <img *ngIf="selectedSataHDD && selectedSataHDD.length + selectedSataSSD.length > ind" 
+                                [scr]="selectedSataHDD[selectedSataSSD.length-ind].basic.images.length > 0 ? selectedSataSSD[selectedSataSSD.length-ind].basic.images[0].src : ''">
+                            </div>
+                            
                         </div>
                     </div>
                 </div>               
             </div>
         </div>
         <div class="col-lg-3 col-md-4 col-6 build-items">
+            COOLER
+            <span class="close" (click)="clearSelectedCooler()">
+                X
+            </span>
             <div class="select-item-div"             
             (click)="this.popup=!this.popup;this.popupSelectedItem='cooler'">
-                COOLER
+                
                 <div *ngIf="selectedCooler">
                     <div class="img">
                         <img [src]="selectedCooler.basic?.images.length > 0? selectedCooler.basic?.images[0].src : ''" alt="No img">
@@ -189,15 +218,36 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-4 col-6 build-items">
+            CASE
+            <span class="close" (click)="clearSelectedCase()">
+                X
+            </span>
             <div class="select-item-div"             
             (click)="this.popup=!this.popup;this.popupSelectedItem='case'">
-                CASE
+                
                 <div *ngIf="selectedCASE">
                     <div class="img">
                         <img [src]="selectedCASE.basic?.images.length > 0? selectedCASE.basic?.images[0].src : ''" alt="No img">
                     </div>
                     {{selectedCASE.MODEL}}
                     {{selectedCASE.basic?.regular_price | currency:"&#8377;" }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-6 build-items">
+            Power Supplie
+            <span class="close" (click)="clearSelectedPowerSupply()">
+                X
+            </span>
+            <div class="select-item-div"             
+            (click)="this.popup=!this.popup;this.popupSelectedItem='powersupply'">
+                
+                <div *ngIf="selectPowerSupply">
+                    <div class="img">
+                        <img [src]="selectPowerSupply.basic?.images.length > 0? selectPowerSupply.basic?.images[0].src : ''" alt="No img">
+                    </div>
+                    {{selectPowerSupply.MODEL}}
+                    {{selectPowerSupply.basic?.regular_price | currency:"&#8377;" }}
                 </div>
             </div>
         </div>
@@ -277,6 +327,36 @@
                         </button>
                     </div>
                 </div>
+                <div class="sata" *ngSwitchCase="'sata'">
+                    SSDs
+                    <div *ngFor="let ssd of ssds" class="ssds">
+
+                        <div class="img">        
+                            <img [src]="ssd.basic?.images.length > 0 ? ssd.basic?.images[0]!.src:''" alt="No Image">               
+                        </div>
+
+                        {{ssd.basic?.name}}
+                        {{ssd.basic?.regular_price | currency:"&#8377;"}}
+
+                        <button (click)="selectSSD(ssd)">
+                            Add
+                        </button>
+                    </div>
+                    HDDS
+                    <div *ngFor="let hdd of hdds" class="hdds">
+
+                        <div class="img">        
+                            <img [src]="hdd.basic?.images.length > 0 ? hdd.basic?.images[0]!.src:''" alt="No Image">               
+                        </div>
+
+                        {{hdd.basic?.name}}
+                        {{hdd.basic?.regular_price | currency:"&#8377;"}}
+
+                        <button (click)="selectHDD(hdd)">
+                            Add
+                        </button>
+                    </div>
+                </div>
                 <div class="cooler" *ngSwitchCase="'cooler'">
                     cooler
                     <div *ngFor="let cooler of coolers" class="cooler">
@@ -305,6 +385,22 @@
                         {{case.basic?.regular_price | currency:"&#8377;"}}
 
                         <button (click)="selectCase(case)">
+                            Add
+                        </button>
+                    </div>
+                </div>
+                <div class="case" *ngSwitchCase="'powersupply'">
+                    Power Supply
+                    <div *ngFor="let powersply of powersupplys" class="powersupply">
+
+                        <div class="img">        
+                            <img [src]="powersply.basic?.images.length > 0 ? powersply.basic?.images[0]!.src:''" alt="No Image">               
+                        </div>
+
+                        {{powersply.basic?.name}}
+                        {{powersply.basic?.regular_price | currency:"&#8377;"}}
+
+                        <button (click)="selectPowerSupply(powersply)">
                             Add
                         </button>
                     </div>
