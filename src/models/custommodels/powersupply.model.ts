@@ -22,4 +22,8 @@ export interface PowerSupply{
     INTERNAL_2_5BAY?: number;
     INTERNAL_3_5BAY?: number;
     VOLUME?: string;
+    
+    COLOUR?: string;
+    _24PIN_LENGTH?: string;
+    EPS_PIN_LENGTH?: string;
 }

@@ -9,7 +9,7 @@ export interface Case{
     BRAND?:string;
     MODEL?:string;
     PART_NO?:string;
-    TYPE?:string;
+    TYPE?:string;               ///not using
     COMP_TYPE?:string;
     COLOUR?:string;
     POWER_SUPPLY?:string;
@@ -33,5 +33,13 @@ export interface Case{
     RADIATOR_SUP_REAR?: string;
     RADIATOR_SUP_SIDE?: string;
     RADIATOR_SUP_TOP?: string;
-    TDP?: number; 
+
+    FRONT_FAN_SUP?: string;
+    TOP_FAN_SUP?: string;
+    REAR_FAN_SUP?: string;
+
+    FAN?: string;
+    ARGB_FAN?: string;
+    RGB_FAN?: string;
+    PSU_SUP_LENGTH?: string;
 }

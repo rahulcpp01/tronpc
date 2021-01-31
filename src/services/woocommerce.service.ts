@@ -202,7 +202,13 @@ export class WoocommerceService {
       RADIATOR_SUP_REAR: descJSON["RADIATOR_SUP_REAR"],
       RADIATOR_SUP_SIDE: descJSON["RADIATOR_SUP_SIDE"],
       RADIATOR_SUP_TOP: descJSON["RADIATOR_SUP_TOP"],
-      TDP: Number.parseInt(descJSON["TDP"])   
+      FRONT_FAN_SUP: descJSON["FRONT_FAN_SUP"],
+      TOP_FAN_SUP: descJSON["TOP_FAN_SUP"],
+      REAR_FAN_SUP: descJSON["REAR_FAN_SUP"],
+      FAN: descJSON["FAN"],
+      ARGB_FAN: descJSON["ARGB_FAN"],
+      RGB_FAN: descJSON["RGB_FAN"],
+      PSU_SUP_LENGTH: descJSON["PSU_SUP_LENGTH"]
     };
     return casev;       
   }
@@ -466,7 +472,10 @@ export class WoocommerceService {
       MOLEX_4: Number.parseInt(descJSON["MOLEX_4"]),
       INTERNAL_2_5BAY: Number.parseInt(descJSON["INTERNAL_2_5BAY"]),
       INTERNAL_3_5BAY: Number.parseInt(descJSON["INTERNAL_3_5BAY"]),
-      VOLUME: descJSON["VOLUME"] 
+      VOLUME: descJSON["VOLUME"],
+      COLOUR: descJSON["COLOUR"] ,
+      _24PIN_LENGTH: descJSON["_24PIN_LENGTH"] ,
+      EPS_PIN_LENGTH: descJSON["EPS_PIN_LENGTH"]  
     };
     return powersupply; 
   }
