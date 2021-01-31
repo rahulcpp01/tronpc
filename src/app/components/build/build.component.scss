@@ -9,10 +9,18 @@
             border: 3px dashed var(--primary-color);
             height: 190px;
             text-align: center;
+            overflow-y: auto;
             .img,img{
                 width: 100px;
                 height: 100px;
-            }
+            }            
+        }
+        .close{
+            display: inline;
+            background-color: red;
+            color: var(--bg-color);
+            width: 20px;
+            height: 20px;
         }
     }
 }

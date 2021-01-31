@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Case } from 'src/models/custommodels/case.model';
 import { Cooler } from 'src/models/custommodels/cooler.model';
@@ -52,6 +53,7 @@ export class BuildComponent implements OnInit {
   public selectedSataHDD!: HDD[];
   public selectedCASE!: Case;
   public selectedCooler!: Cooler;
+  public selectedPowerSupply!: PowerSupply;
 
   public selectedProcessorCompatible: boolean = true;
   public selectedMotherBoardCompatible: boolean = true;
@@ -142,7 +144,6 @@ export class BuildComponent implements OnInit {
   // }
 
   selectM2BasedOnMotherBoard(supportedm2: string){
-    debugger;
     let tempmsids= supportedm2.split(' ').join().toLocaleString().toUpperCase();
     
     let tempm2: M2[] = JSON.parse(sessionStorage["m2s"]);
@@ -155,22 +156,34 @@ export class BuildComponent implements OnInit {
 
   }
 
+  selectHDDs(){
+    this.hdds = JSON.parse(sessionStorage["hdds"]);
+  }
+  selectSSDs(){
+    this.ssds = JSON.parse(sessionStorage["ssds"]);
+  }
+  selectCases(){
+    this.cases = JSON.parse(sessionStorage["cases"]);
+  }
+  selectPowerSupplies(){
+    this.powersupplys = JSON.parse(sessionStorage["powersupplies"]);
+  }
   calculateTotalPrice(){
       this.buildPrice = 0;
-      if(this.selectedProcessor){
+      if(this.selectedProcessor && Object.keys(this.selectedProcessor).length >0){
         this.buildPrice+=Number.parseFloat(this.selectedProcessor.basic?.regular_price||"");
       }
-      if(this.selectedMotherBoard){
+      if(this.selectedMotherBoard  && Object.keys(this.selectedMotherBoard).length >0){
         this.buildPrice+=Number.parseFloat(this.selectedMotherBoard.basic?.regular_price||"");
       }
-      if(this.selectedRam){
+      if(this.selectedRam  && Object.keys(this.selectedRam).length >0){
         this.selectedRam.forEach(x =>{
           this.buildPrice+=Number.parseFloat(x.basic?.regular_price||"");
         })
         
       }
       if(!this.multiplem2){
-        if(this.selectedM2){
+        if(this.selectedM2 && Object.keys(this.selectedM2).length >0){
           this.buildPrice+=Number.parseFloat(this.selectedM2.basic?.regular_price||"");
         }
       }else{
@@ -181,19 +194,36 @@ export class BuildComponent implements OnInit {
           }
         }
       }
-      if(this.selectedCooler){
+      //SATA
+      if(this.ssdhddarray.length>0){
+        this.selectedSataSSD.forEach(x =>{
+          this.buildPrice+=Number.parseFloat(x.basic?.regular_price||"");
+        })
+        this.selectedSataHDD.forEach(x =>{
+          this.buildPrice+=Number.parseFloat(x.basic?.regular_price||"");
+        })
+      }
+
+      if(this.selectedCooler && Object.keys(this.selectedCooler).length >0){
         this.buildPrice+=Number.parseFloat(this.selectedCooler.basic?.regular_price||"");
       }
-      if(this.selectedCASE){
+      if(this.selectedCASE && Object.keys(this.selectedCASE).length >0){
         this.buildPrice+=Number.parseFloat(this.selectedCASE.basic?.regular_price||"");
       }
-      
+      if(this.selectedPowerSupply && Object.keys(this.selectedPowerSupply).length >0){
+        this.buildPrice+=Number.parseFloat(this.selectedPowerSupply.basic?.regular_price||"");
+      }
   }
   procecessorSelected(selected: Processor)
   {
     this.selectedProcessor=selected;
     this.popup=false;
-
+    this.clearSelectedMotherBoard();
+    // this.clearSelectedRAM();
+    // this.clearSelectedM2();
+    // this.clearSelectedSATA();
+    // this.clearSelectedCase();
+    // this.clearSelectedCooler();
     this.motherboards=[];
     let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
     
@@ -204,7 +234,7 @@ export class BuildComponent implements OnInit {
         this.motherboards.push(dummymotherboards[i]);
       }            
     }
-    this.clearSelectedRAM();
+    
     this.updateCooler();
     this.checkCompatibility();
     this.calculateTotalPrice();
@@ -212,9 +242,14 @@ export class BuildComponent implements OnInit {
   }
 
   motherboardSelected(selected: MotherBoard){
+    this.clearSelectedRAM();
+    this.clearSelectedM2();
+    this.clearSelectedSATA();
+    this.clearSelectedCase();
+    this.clearSelectedCooler();
+    this.clearSelectedPowerSupply();
     this.selectedMotherBoard = selected;
     this.popup = false;
-    debugger;
     this.m2selectable = true;
     let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
     // let tempselectedmotherboard = dummymotherboards.find(x=>x.MODEL_NO_MOB === selected.basic?.name);
@@ -237,7 +272,12 @@ export class BuildComponent implements OnInit {
     //this.selectCaseBasedOnMotherBoard(tempselectedmotherboard?.FORMFACT_MOB!);
     this.selectCaseBasedOnMotherBoard(selected?.FORMFACT_MOB!);
     this.selectM2BasedOnMotherBoard(selected.M2!);
-    this.clearSelectedRAM();
+
+    this.selectHDDs();
+    this.selectSSDs();
+    this.selectCases();
+    this.selectPowerSupplies();
+    
     this.updateRAM();
     this.checkCompatibility();
     this.calculateTotalPrice();
@@ -250,13 +290,19 @@ export class BuildComponent implements OnInit {
     if(!this.selectedRam){
       this.selectedRam=[];
     }
-    this.selectedRam.push(selected);
+    if(this.ramArray.length>this.selectedRam.length){
+      this.selectedRam.push(selected);
+      this.checkCompatibility();
+      this.calculateTotalPrice();
+      this.calculateTotalTDP();
+    }else{
+      alert("You have added max number of supported RAMS");
+    }
+    
     this.popup = false;
 
 
-    this.checkCompatibility();
-    this.calculateTotalPrice();
-    this.calculateTotalTDP();
+    
   }
 
   showM2(){
@@ -291,10 +337,10 @@ export class BuildComponent implements OnInit {
   checkCompatibility(){
 
       if(this.selectedProcessor){
-        this.selectedProcessorCompatible = this.processors.find( x => (x.basic?.id||0) == this.selectedProcessor.basic?.id) ? true: false;     
+        //this.selectedProcessorCompatible = this.processors.find( x => (x.basic?.id||0) == this.selectedProcessor.basic?.id) ? true: false;     
       }
       if(this.selectedMotherBoard){
-        this.selectedMotherBoardCompatible = this.motherboards.find( x => (x.basic?.id||0) == this.selectedMotherBoard.basic?.id) ? true: false;        
+        //this.selectedMotherBoardCompatible = this.motherboards.find( x => (x.basic?.id||0) == this.selectedMotherBoard.basic?.id) ? true: false;        
       }
       // if(this.selectedRam){
       //   this.selectedRamCompatible = this.rams.find( x => (x.basic?.id||0) == this.selectedRam.basic?.id) ? true: false;        
@@ -311,11 +357,102 @@ export class BuildComponent implements OnInit {
       this.rams = tempram.filter(x => x.MEM_TYPE_RAM === this.selectedMotherBoard.MEM_TYPE_MOB);
     }    
   }
+  clearSelectedProcessor(){
+    this.selectedProcessor={};
+    this.clearSelectedMotherBoard();
+  }
 
-
+  clearSelectedMotherBoard(){
+    this.selectedMotherBoard = {};
+    this.clearSelectedRAM();
+    this.clearSelectedM2();
+    this.clearSelectedSATA();
+    this.clearSelectedCase();
+    this.clearSelectedCooler();
+    this.clearSelectedPowerSupply();
+  }
   clearSelectedRAM(){
     this.selectedRam=[];
     this.ramArray =[];
+    this.calculateTotalPrice();
+    this.calculateTotalTDP();
+  }
+  clearSelectedRAM2(){
+    this.selectedRam=[];
+    this.calculateTotalPrice();
+    this.calculateTotalTDP();
+  }
+
+  clearSelectedM2(){
+    this.selectedM2 = {};
+    this.selectedMultipleM2=[];
+    // this.multiplem2 = false;
+    this.multiplem2array=[];
+    this.calculateTotalPrice();
+    this.calculateTotalTDP();
+  }
+  clearSelectedM22(){
+    this.selectedM2 = {};
+    this.selectedMultipleM2=[];
+    // this.multiplem2 = false;
+    this.calculateTotalPrice();
+    this.calculateTotalTDP();
+  }
+
+  clearSelectedSATA(){
+    this.ssdhddarray = [];
+    this.selectedSataSSD = [];
+    this.selectedSataHDD =[];
+    this.calculateTotalPrice();
+    this.calculateTotalTDP();
+  }
+
+  clearSelectedSATA2(){
+    this.selectedSataSSD = [];
+    this.selectedSataHDD =[];
+    this.calculateTotalPrice();
+    this.calculateTotalTDP();
+  }
+
+  clearSelectedCooler(){
+    this.selectedCooler = {}
+    this.calculateTotalPrice();
+    this.calculateTotalTDP();
+  }
+  clearSelectedCase(){
+    this.selectedCASE = {}
+    this.calculateTotalPrice();
+    this.calculateTotalTDP();
+  }
+  clearSelectedPowerSupply()
+  {
+    this.selectedPowerSupply = {};
+    this.calculateTotalPrice();
+    this.calculateTotalTDP();
+  }
+  selectHDD(hdd: HDD){
+    if(this.ssdhddarray.length > (this.selectedSataHDD.length + this.selectedSataSSD.length)){
+      this.selectedSataHDD.push(hdd); 
+      this.checkCompatibility();
+      this.calculateTotalPrice();
+      this.calculateTotalTDP();
+    }else{
+      alert("You have added Maximum number of SSD's and HDDS allowed by processor");
+    }
+    this.popup=false;
+  }
+  selectSSD(ssd: SSD){
+    if(this.ssdhddarray.length > (this.selectedSataHDD.length + this.selectedSataSSD.length)){
+     
+    this.selectedSataSSD.push(ssd);
+
+    this.checkCompatibility();
+    this.calculateTotalPrice();
+    this.calculateTotalTDP();
+    }else{
+      alert("You have added Maximum number of SSD's and HDDS allowed by processor");
+    }
+    this.popup=false;
   }
   selectCase(cse: Case)
   {
@@ -334,7 +471,14 @@ export class BuildComponent implements OnInit {
     this.calculateTotalPrice();
     this.calculateTotalTDP();
   }
+  selectPowerSupply(power: PowerSupply){
+    this.selectedPowerSupply = power;
+    this.popup=false;
 
+    this.checkCompatibility();
+    this.calculateTotalPrice();
+    this.calculateTotalTDP();
+  }
   updateCooler(){
     this.coolers=[];
     let tempcooler: Cooler[] = JSON.parse(sessionStorage["coolers"]);
@@ -349,20 +493,20 @@ export class BuildComponent implements OnInit {
 
   calculateTotalTDP(){
     this.totalTDP = 0;
-    if(this.selectedProcessor){
+    if(this.selectedProcessor && Object.keys(this.selectedProcessor).length >0){
       this.totalTDP+=Number.parseFloat(this.selectedProcessor.TDP?.toString()||"");
     }
-    if(this.selectedMotherBoard){
+    if(this.selectedMotherBoard  && Object.keys(this.selectedMotherBoard).length >0){
       this.totalTDP+=Number.parseFloat(this.selectedMotherBoard.TDP?.toString()||"");
     }
-    if(this.selectedRam){
+    if(this.selectedRam  && Object.keys(this.selectedRam).length >0){
       this.selectedRam.forEach(x =>{
         this.totalTDP+=Number.parseFloat(x.TDP?.toString()||"");
       })
       
     }
     if(!this.multiplem2){
-      if(this.selectedM2){
+      if(this.selectedM2 && Object.keys(this.selectedM2).length >0){
         this.totalTDP+=Number.parseFloat(this.selectedM2.TDP?.toString()||"");
       }
     }else{
@@ -373,9 +517,19 @@ export class BuildComponent implements OnInit {
         }
       }
     }
-    if(this.selectedCooler){
+    //SATA
+    if(this.ssdhddarray.length>0){
+      this.selectedSataSSD.forEach(x =>{
+        this.totalTDP+=Number.parseFloat(x.TDP?.toString()||"");
+      })
+      this.selectedSataHDD.forEach(x =>{
+        this.totalTDP+=Number.parseFloat(x.TDP?.toString()||"");
+      })
+    }
+
+    if(this.selectedCooler && Object.keys(this.selectedCooler).length >0){
       this.totalTDP+=Number.parseFloat(this.selectedCooler.TDP?.toString()||"");
     }
-    
+        
   }
 }
