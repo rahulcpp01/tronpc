@@ -5,7 +5,6 @@ import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { CartModel } from 'src/models/cartModel';
 import { Product } from 'src/models/product/product';
-import { EncryptDecryptService } from './encrypt-decrypt.service';
 import { Order } from 'src/models/orders/orders';
 
 @Injectable({
@@ -23,16 +22,15 @@ export class CartService {
     private checkouterror$ = new BehaviorSubject<string>("");
 
     constructor(private httpClient: HttpClient,
-        private storage: Storage,
         private router: Router) {
         this.totalAmount = 0;
-        this.storage.get('cart').then(data => {
-            if (data) {
-                this.cartDataArray = data;
-                this.cartData$.next(this.cartDataArray);
-                this.calculateTotal();
-            }
-        });
+        // this.storage.get('cart').then(data => {
+        //     if (data) {
+        //         this.cartDataArray = data;
+        //         this.cartData$.next(this.cartDataArray);
+        //         this.calculateTotal();
+        //     }
+        // });
     }
 
     get cartData(): Observable<CartModel> {
@@ -57,7 +55,8 @@ export class CartService {
             // If there is a match, that means the index is not equal to -1
             if (index > -1) {
                 this.calculateTotal();
-                this.storage.set('cart', this.cartDataArray).then();
+                //this.storage.set('cart', this.cartDataArray).then();
+                localStorage["cart"] = this.cartDataArray;
                 //await toast.present().then();
                 this.cartData$.next(this.cartDataArray);
             }
@@ -69,7 +68,8 @@ export class CartService {
                 this.calculateTotal();
                 //await toast.present().then();
                 this.cartDataArray.count = this.cartDataArray.productData.length;
-                this.storage.set('cart', this.cartDataArray).then();
+                //this.storage.set('cart', this.cartDataArray).then();
+                localStorage["cart"] = this.cartDataArray;
                 this.cartData$.next(this.cartDataArray);
             }
         }
@@ -80,7 +80,8 @@ export class CartService {
             this.cartDataArray.productData.push({ ...product, in_cart: 1 });
             this.cartDataArray.count = this.cartDataArray.productData.length;
             this.calculateTotal();
-            this.storage.set('cart', this.cartDataArray).then();
+            //this.storage.set('cart', this.cartDataArray).then();
+            localStorage["cart"] = this.cartDataArray;
             // await alert.present().then();
             this.cartData$.next(this.cartDataArray);
             // Related and Upselling Product
@@ -94,7 +95,8 @@ export class CartService {
 
         this.cartData$.next(this.cartDataArray);
         this.totalAmount$.next(this.totalAmount);
-        this.storage.set('cart', this.cartDataArray).then();
+        //this.storage.set('cart', this.cartDataArray).then();
+        localStorage["cart"] = this.cartDataArray;
         let updatedIds: number[] = []; 
         this.associatedProductIds = updatedIds;
         this.$associatedProductIds.next(updatedIds);
@@ -118,7 +120,8 @@ export class CartService {
     updateQuantity(indexOfProduct: number, newInCartValue: number) {
         this.cartDataArray.productData[indexOfProduct].in_cart = newInCartValue;
         this.calculateTotal();
-        this.storage.set('cart', this.cartDataArray).then();
+        //this.storage.set('cart', this.cartDataArray).then();
+        localStorage["cart"] = this.cartDataArray;
         this.cartData$.next(this.cartDataArray);
         this.totalAmount$.next(this.totalAmount);
     }
@@ -128,7 +131,8 @@ export class CartService {
             count: 0,
             productData: []
         };
-        this.storage.set('cart', this.cartDataArray).then();
+        //this.storage.set('cart', this.cartDataArray).then();
+        localStorage["cart"] = this.cartDataArray;
         this.calculateTotal();
         this.cartData$.next(this.cartDataArray);
     }
@@ -141,7 +145,8 @@ export class CartService {
     }
 
     clearCart() {
-        return this.storage.remove('cart');
+        //return this.storage.remove('cart');
+        localStorage.removeItem("cart");
     }
 
     getAllPaymentGateways() {
@@ -155,18 +160,11 @@ export class CartService {
 
         this.httpClient.post(`/orders`, { ...orderData })
             .subscribe(async (newOrderDetails: any) => {
+                debugger;
                 this.emptyCart();
-                const navigationExtras: NavigationExtras = {
-                    state: {
-                        message: 'Order Placed',
-                        products: this.cartDataArray.productData,
-                        orderId: newOrderDetails.id,
-                        total: parseFloat(newOrderDetails.total)
-                    }
-                }
-
-                this.router.navigate(['/thankyou'], navigationExtras).then();
+                
             }, async error => {
+                debugger;
                 console.log(error);              
                 this.checkouterror$.next(error.error.message);
             });

@@ -15,6 +15,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { ProductComponent } from './components/product/product.component';
 import { DescriptionComponent } from './components/description/description.component';
 
+import { FormsModule } from '@angular/forms';
+
 import { AgmCoreModule } from '@agm/core';
 const INTERCEPTORS: {}[] = [
   {
@@ -38,6 +40,7 @@ const INTERCEPTORS: {}[] = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCjOBUeVzRsg2WIcCgD06Tye4sz8WC9S0A'
     }),
