@@ -36,6 +36,10 @@ export class MenuBarComponent implements OnInit {
     
   }
 
+  goback(){
+    this._location.back()
+  }
+
   search(val: string){
     this.productService.searchProducts(val).subscribe(x=>{
       console.clear();
