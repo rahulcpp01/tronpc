@@ -31,9 +31,24 @@ export class HomeComponent implements OnInit {
   public featuredpowersupplys: PowerSupply[] = [];
   public featuredrams: RAM[] = [];
   public featuredssds: SSD[] = [];
+
+  public showGadget:  boolean = false;
+  public showSquare: boolean = true;
   constructor(private productService :WoocommerceService) { }
 
   async ngOnInit() {
+
+    setTimeout(()=>{
+      debugger;
+      this.showGadget= true;
+    },2000);
+
+    setTimeout(()=>{
+      debugger;
+      this.showSquare= false;
+    },2400);
+    
+
     await this.productService.waitForSession("featured_products");
     this.featuredProducts = JSON.parse(sessionStorage["featured_products"]);
     for(let i=0; i<this.featuredProducts.length; i++){

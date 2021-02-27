@@ -1,5 +1,5 @@
 import { ThrowStmt } from '@angular/compiler';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { environment } from 'src/environments/environment.prod';
 import { Case } from 'src/models/custommodels/case.model';
 import { Cooler } from 'src/models/custommodels/cooler.model';
@@ -23,7 +23,7 @@ import { WoocommerceService } from 'src/services/woocommerce.service';
   templateUrl: './build.component.html',
   styleUrls: ['./build.component.scss']
 })
-export class BuildComponent implements OnInit {
+export class BuildComponent implements OnInit, OnDestroy {
 
   public processors: Processor[] = [];
   public cases: Case[] = [];
@@ -99,7 +99,105 @@ export class BuildComponent implements OnInit {
   constructor(private productService: WoocommerceService,
     private cartService: CartService) {
   }
-  async ngOnInit() {
+  ngOnDestroy(): void {
+    this.saveBuildLocally()
+  }
+  saveBuildLocally() {
+    if (this.selectedProcessor && Object.keys(this.selectedProcessor).length > 0) {
+      localStorage["selectedProcessor"]=JSON.stringify(this.selectedProcessor);
+    }
+    if (this.selectedMotherBoard && Object.keys(this.selectedMotherBoard).length > 0) {
+      localStorage["selectedMotherBoard"]= JSON.stringify(this.selectedMotherBoard);
+    }
+    if (this.selectedRam && Object.keys(this.selectedRam).length > 0) {
+      localStorage["selectedRam"]= JSON.stringify(this.selectedRam);
+    }
+    localStorage["multiplem2"]= this.multiplem2;
+    if (!this.multiplem2) {
+      if (this.selectedM2 && Object.keys(this.selectedM2).length > 0) {
+        localStorage["selectedM2"]= JSON.stringify(this.selectedM2);
+      }
+    } else {
+      if (this.selectedMultipleM2) {
+        localStorage["selectedMultipleM2"]= JSON.stringify(this.selectedMultipleM2);
+      }
+    }
+    //SATA
+    localStorage["ssdhddarray"]= this.ssdhddarray;
+    if (this.ssdhddarray.length > 0) {
+      localStorage["selectedSataSSD"]= JSON.stringify(this.selectedSataSSD);
+      localStorage["selectedSataHDD"]= JSON.stringify(this.selectedSataHDD);      
+    }
+
+    if (this.selectedCooler && Object.keys(this.selectedCooler).length > 0) {
+      localStorage["selectedCooler"]= JSON.stringify(this.selectedCooler);
+    }
+    if (this.selectedCASE && Object.keys(this.selectedCASE).length > 0) {
+      localStorage["selectedCASE"]= JSON.stringify(this.selectedCASE);
+    }
+    if (this.selectedPowerSupply && Object.keys(this.selectedPowerSupply).length > 0) {
+      localStorage["selectedPowerSupply"]= JSON.stringify(this.selectedPowerSupply);
+    }
+  }
+
+  clearLocalStorage(){
+    localStorage.removeItem("selectedProcessor");
+    localStorage.removeItem("selectedMotherBoard");
+    localStorage.removeItem("selectedRam");
+    localStorage.removeItem("multiplem2");
+    localStorage.removeItem("selectedM2");
+    localStorage.removeItem("selectedMultipleM2");
+    localStorage.removeItem("ssdhddarray");
+    localStorage.removeItem("selectedSataSSD");
+    localStorage.removeItem("selectedSataHDD");
+    localStorage.removeItem("selectedCooler");
+    localStorage.removeItem("selectedCASE");
+    localStorage.removeItem("selectedPowerSupply");
+  }
+
+  loadBuildFromLocal(){
+    if(localStorage["selectedProcessor"]){
+      //this.selectedProcessor = JSON.parse(localStorage["selectedProcessor"]);
+      this.procecessorSelected(JSON.parse(localStorage["selectedProcessor"]));
+    }
+    if(localStorage["selectedMotherBoard"]){
+      //this.selectedMotherBoard = JSON.parse(localStorage["selectedMotherBoard"]);
+      this.motherboardSelected(JSON.parse(localStorage["selectedMotherBoard"]));
+    }
+    if (localStorage["selectedRam"]) {
+      this.selectedRam = JSON.parse(localStorage["selectedRam"]);
+    }
+    if (localStorage["multiplem2"]=="false") {
+      if (localStorage["selectedRam"]) {
+        this.selectedM2 = localStorage["selectedM2"];
+      }
+    } else {
+      if (localStorage["selectedMultipleM2"]) {
+        this.selectedMultipleM2 = localStorage["selectedMultipleM2"];
+      }
+    }
+    //SATA
+    // if (this.ssdhddarray.length > 0) {
+    //   this.selectedSataSSD.forEach(x => {
+    //     this.buildPrice += Number.parseFloat(x.basic?.regular_price || "");
+    //   })
+    //   this.selectedSataHDD.forEach(x => {
+    //     this.buildPrice += Number.parseFloat(x.basic?.regular_price || "");
+    //   })
+    // }
+
+    if (localStorage["selectedCooler"]) {
+      this.selectedCooler = localStorage["selectedCooler"];
+    }
+    if (localStorage["selectedCASE"]) {
+      this.selectedCASE = localStorage["selectedCASE"];
+    }
+    if (localStorage["selectedPowerSupply"]) {
+      this.selectedPowerSupply = localStorage["selectedPowerSupply"];
+    }
+    this.clearLocalStorage();
+  }
+  ngOnInit() {
     // this.productService.getAllProducts().subscribe(product => {
     //   this.processors=product
     //   console.log(product);
@@ -137,6 +235,8 @@ export class BuildComponent implements OnInit {
       this.productService.processorsFactory(products);
       this.processors = JSON.parse(sessionStorage["processors"]);
     });
+
+    this.loadBuildFromLocal();
   }
 
   // processorChanged(selectedprocessor:any){
