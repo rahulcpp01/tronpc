@@ -1,7 +1,9 @@
-const url = 'https://tronpc.com/api/wp-json/wc/v3';
-const authUrl = 'https://tronpc.com/api/wp-json/jwt-auth/v1/token';
-const tokenVerifyUrl = 'https://tronpc.com/api/wp-json/jwt-auth/v1/token/validate';
-const forgotPasswordUrl = 'https://tronpc.com/api/wp-json/bdpwr/v1';
+//const base= 'https://tronpc.com/api';
+const base = 'http://skyblu.xyz/api';
+const url = base + '/wp-json/wc/v3';
+const authUrl = base + '/wp-json/jwt-auth/v1/token';
+const tokenVerifyUrl = base + '/wp-json/jwt-auth/v1/token/validate';
+const forgotPasswordUrl = base + '/wp-json/bdpwr/v1';
 
 
 // noinspection DuplicatedCode
@@ -13,14 +15,15 @@ export const environment = {
     forgotPasswordUrl: forgotPasswordUrl,
     secretCode: 'dCbrUWQSjUSnfinJcsR+Tw==',
     readOnlyKeys: {
-        consumer_key: 'ck_98bb1dbdb0cb80097c9b57f0a9ab027add861504',
-        consumer_secret: 'cs_2f1c050e71d3b15ff9e65508a787c9337aab9879'
+        consumer_key: 'ck_ad3309970ab3bef3aa854ec8d54b5e7a6133cd7f',
+        consumer_secret: 'cs_ecb725e516d291d37f1abef28525c001142681ac'
     },
     writableKeys: {
-        consumer_key: 'ck_98bb1dbdb0cb80097c9b57f0a9ab027add861504',
-        consumer_secret: 'cs_2f1c050e71d3b15ff9e65508a787c9337aab9879'
+        consumer_key: 'ck_ad3309970ab3bef3aa854ec8d54b5e7a6133cd7f',
+        consumer_secret: 'cs_ecb725e516d291d37f1abef28525c001142681ac'
     },
-    whatsapp_number: 9747968569,     
+    
+    whatsapp_number: 9747968569,     // TO DO: Change to their number
     states: [
         {value: 'AN', name: 'Andaman and Nicobar Islands'},
         {value: 'AP', name: 'Andhra Pradesh'},

@@ -18,6 +18,8 @@ import { DescriptionComponent } from './components/description/description.compo
 import { FormsModule } from '@angular/forms';
 
 import { AgmCoreModule } from '@agm/core';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { Product3dComponent } from './components/product3d/product3d.component';
 const INTERCEPTORS: {}[] = [
   {
     provide: HTTP_INTERCEPTORS,
@@ -36,7 +38,8 @@ const INTERCEPTORS: {}[] = [
     BuildComponent,
     PageNotFoundComponent,
     ProductComponent,
-    DescriptionComponent
+    DescriptionComponent,
+    Product3dComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ const INTERCEPTORS: {}[] = [
   ],
   providers: [
     INTERCEPTORS,
-    WoocommerceService
+    WoocommerceService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

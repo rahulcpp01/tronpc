@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Case } from 'src/models/custommodels/case.model';
 import { Cooler } from 'src/models/custommodels/cooler.model';
 import { GPU } from 'src/models/custommodels/gpu.model';
@@ -34,17 +34,18 @@ export class HomeComponent implements OnInit {
 
   public showGadget:  boolean = false;
   public showSquare: boolean = true;
+
+
   constructor(private productService :WoocommerceService) { }
+
 
   async ngOnInit() {
 
     setTimeout(()=>{
-      debugger;
       this.showGadget= true;
     },2000);
 
     setTimeout(()=>{
-      debugger;
       this.showSquare= false;
     },2400);
     
@@ -110,9 +111,13 @@ export class HomeComponent implements OnInit {
         }
       }
     }
+
+
+    
   }
   findCategory(product: Product){
     return product.categories?.[0].name;
   } 
 
+  
 }

@@ -436,6 +436,7 @@ input:checked + .slider:before {
     width: 175px;
     background: transparent;   
     margin-top: 10px;
+    margin-bottom: 10px;
   }
 }
 
@@ -443,9 +444,9 @@ input:checked + .slider:before {
 //*****************************************************//
 .header2 {
   //background-color: var(--gray-color);
-  background-color: transparent;
+  background-color: var(--primary-color);
   box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
-  position: absolute;
+  position: sticky;
   width: 100%;
   z-index: 3;
   height: 80px;
@@ -474,6 +475,29 @@ input:checked + .slider:before {
           background: var(--primary-color);
         }
       }
+    }
+  }
+
+  .menurow2{
+    .menu{
+      background-color: #efefef;     
+    }   
+    ul{
+      width: 100%;
+      a{
+        color: var(--primary-color);
+        &:hover{
+          color: var(--primary-color);
+          background-color: unset;
+          font-size: 1.12rem;
+        }
+      }
+      
+    }   
+    input{
+      position: absolute;
+      right: 10px;
+      top: 92px;
     }
   }
   

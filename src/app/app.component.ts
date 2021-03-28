@@ -24,7 +24,7 @@ export class AppComponent implements OnInit{
   }
   ngOnInit(): void {
 
-    this.productService.LoadFeaturedProducts();
+    //this.productService.LoadFeaturedProducts();
     this.productService.getAllProcessors().subscribe(product => {
       this.productService.processorsFactory(product);
 
