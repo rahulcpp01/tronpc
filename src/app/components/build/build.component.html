@@ -82,7 +82,8 @@
 <div class="total-price">
     <h1>Total Price = {{buildPrice}}</h1>
     <h4>Total TDP {{totalTDP}}</h4>
-    <button *ngIf="buildPrice > 0" (click)=" this.popup = !this.popup;this.popupSelectedItem = 'checkout';">CheckOut the Order</button>
+    <button (click)=" this.popup = !this.popup;this.popupSelectedItem = 'checkout';">CheckOut the Order</button>  
+    <!-- *ngIf="buildPrice > 0"-->
 </div>
 
 <div class="container-fluid building">

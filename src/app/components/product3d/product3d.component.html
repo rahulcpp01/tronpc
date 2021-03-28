@@ -1,0 +1,25 @@
+<div class="cardcontainer" 
+(mousemove)="containerMouseMove($event)"
+(mouseenter)="containerMouseEnter($event)"
+(mouseleave)="containerMouseLeave($event)">
+<div class="card" #card>
+    <div class="sneaker">
+        <div class="circle" #circle></div>
+        <img #productimage src="../../../assets/images/i3.jpeg" alt="adidas">
+    </div>
+    <div class="info">
+        <h1 class="title" #title>RYZON 5 2600X</h1>
+        <h3 #description>6 CORE 12 THREAD.</h3>
+        <!-- <div class="sizes">
+            <button>39</button>
+            <button>40</button>
+            <button class="active">42</button>
+            <button>44</button>
+        </div> -->
+        <div class="price" #price><del>₹ 2500.00 </del> &nbsp; ₹ 2000.00/- </div>
+        <div class="purchase">
+            <button> ADD TO CART <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+        </div>
+    </div>
+</div>
+</div>
