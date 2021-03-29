@@ -103,6 +103,7 @@ export class BuildComponent implements OnInit, OnDestroy {
     this.saveBuildLocally()
   }
   saveBuildLocally() {
+    debugger;
     if (this.selectedProcessor && Object.keys(this.selectedProcessor).length > 0) {
       localStorage["selectedProcessor"]=JSON.stringify(this.selectedProcessor);
     }
@@ -113,19 +114,25 @@ export class BuildComponent implements OnInit, OnDestroy {
       localStorage["selectedRam"]= JSON.stringify(this.selectedRam);
     }
     localStorage["multiplem2"]= this.multiplem2;
+    localStorage ["multiplem2array"] = JSON.stringify(this.multiplem2array);
+
     if (!this.multiplem2) {
       if (this.selectedM2 && Object.keys(this.selectedM2).length > 0) {
         localStorage["selectedM2"]= JSON.stringify(this.selectedM2);
       }
     } else {
-      if (this.selectedMultipleM2) {
+      if (this.selectedMultipleM2 && Object.keys(this.selectedMultipleM2).length > 0) {
+        
         localStorage["selectedMultipleM2"]= JSON.stringify(this.selectedMultipleM2);
       }
     }
     //SATA
     localStorage["ssdhddarray"]= this.ssdhddarray;
     if (this.ssdhddarray.length > 0) {
+      if (this.selectedSataSSD && Object.keys(this.selectedSataSSD).length > 0)
       localStorage["selectedSataSSD"]= JSON.stringify(this.selectedSataSSD);
+
+      if (this.selectedSataHDD && Object.keys(this.selectedSataHDD).length > 0)
       localStorage["selectedSataHDD"]= JSON.stringify(this.selectedSataHDD);      
     }
 
@@ -156,6 +163,7 @@ export class BuildComponent implements OnInit, OnDestroy {
   }
 
   loadBuildFromLocal(){
+    debugger;
     if(localStorage["selectedProcessor"]){
       //this.selectedProcessor = JSON.parse(localStorage["selectedProcessor"]);
       this.procecessorSelected(JSON.parse(localStorage["selectedProcessor"]));
@@ -167,6 +175,9 @@ export class BuildComponent implements OnInit, OnDestroy {
     if (localStorage["selectedRam"]) {
       this.selectedRam = JSON.parse(localStorage["selectedRam"]);
     }
+    
+    this.multiplem2array = JSON.parse(localStorage["multiplem2array"]);
+
     if (localStorage["multiplem2"]=="false") {
       if (localStorage["selectedRam"]) {
         this.selectedM2 = localStorage["selectedM2"];
@@ -187,23 +198,24 @@ export class BuildComponent implements OnInit, OnDestroy {
     // }
 
     if (localStorage["selectedCooler"]) {
-      this.selectedCooler = localStorage["selectedCooler"];
+      this.selectedCooler = JSON.parse(localStorage["selectedCooler"]);
+      //this.selectCooler()
     }
     if (localStorage["selectedCASE"]) {
-      this.selectedCASE = localStorage["selectedCASE"];
+      this.selectedCASE = JSON.parse(localStorage["selectedCASE"]);
     }
     if (localStorage["selectedPowerSupply"]) {
-      this.selectedPowerSupply = localStorage["selectedPowerSupply"];
+      this.selectedPowerSupply = JSON.parse(localStorage["selectedPowerSupply"]);
     }
     this.clearLocalStorage();
   }
-  ngOnInit() {
+  async ngOnInit() {
     // this.productService.getAllProducts().subscribe(product => {
     //   this.processors=product
     //   console.log(product);
     // })
-    // await this.productService.waitForSession('processors');
-    // this.processors = JSON.parse(sessionStorage["processors"]);
+    await this.productService.waitForSession('processors');
+    this.processors = JSON.parse(sessionStorage["processors"]);
 
     // await this.productService.waitForSession('cases');
     // this.cases = JSON.parse(sessionStorage["cases"]);
@@ -231,10 +243,11 @@ export class BuildComponent implements OnInit, OnDestroy {
 
     // await this.productService.waitForSession('ssds');
     // this.ssds = JSON.parse(sessionStorage["ssds"]);
-    this.productService.getAllProcessors().subscribe(products => {
-      this.productService.processorsFactory(products);
-      this.processors = JSON.parse(sessionStorage["processors"]);
-    });
+
+    // this.productService.getAllProcessors().subscribe(products => {
+    //   this.productService.processorsFactory(products);
+    //   this.processors = JSON.parse(sessionStorage["processors"]);
+    // });
 
     this.loadBuildFromLocal();
   }
@@ -275,31 +288,37 @@ export class BuildComponent implements OnInit, OnDestroy {
 
   // }
 
-  selectM2BasedOnMotherBoard(supportedm2: string) {
+  async selectM2BasedOnMotherBoard(supportedm2: string) {
     let tempmsids = supportedm2.split(' ').join().toLocaleString().toUpperCase();
 
+    await this.productService.waitForSession('m2s');
     let tempm2: M2[] = JSON.parse(sessionStorage["m2s"]);
     this.m2s = tempm2.filter(x => tempmsids.indexOf(x.FORM_FACT || '') != -1);
   }
-  selectCaseBasedOnMotherBoard(comptype: string) {
+  async selectCaseBasedOnMotherBoard(comptype: string) {
     this.cases = [];
+    await this.productService.waitForSession('cases');
     let tempcases: Case[] = JSON.parse(sessionStorage["cases"]);
     this.cases = tempcases.filter(x => x.COMP_TYPE === comptype);
 
   }
 
-  selectHDDs() {
+  async selectHDDs() {
+    await this.productService.waitForSession('hdds');
     this.hdds = JSON.parse(sessionStorage["hdds"]);
   }
-  selectSSDs() {
+  async selectSSDs() {
+    await this.productService.waitForSession('ssds');
     this.ssds = JSON.parse(sessionStorage["ssds"]);
   }
-  selectCases() {
+  async selectCases() {
     //this.cases = JSON.parse(sessionStorage["cases"]);
+    await this.productService.waitForSession('cases');
     let tempcases: Case[] = JSON.parse(sessionStorage["cases"]);
     this.cases = tempcases.filter(x => x.COMP_TYPE === this.selectedMotherBoard.FORMFACT_MOB);
   }
-  selectPowerSupplies() {
+  async selectPowerSupplies() {
+    await this.productService.waitForSession('powersupplies');
     this.powersupplys = JSON.parse(sessionStorage["powersupplies"]);
   }
   calculateTotalPrice() {
@@ -348,7 +367,7 @@ export class BuildComponent implements OnInit, OnDestroy {
       this.buildPrice += Number.parseFloat(this.selectedPowerSupply.basic?.regular_price || "");
     }
   }
-  procecessorSelected(selected: Processor) {
+  async procecessorSelected(selected: Processor) {
     this.selectedProcessor = selected;
     this.popup = false;
     this.clearSelectedMotherBoard();
@@ -358,6 +377,8 @@ export class BuildComponent implements OnInit, OnDestroy {
     // this.clearSelectedCase();
     // this.clearSelectedCooler();
     this.motherboards = [];
+
+    await this.productService.waitForSession('motherboards');
     let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
 
     let dummyprocessor = selected.model?.toUpperCase().split(" ").join("");
@@ -374,7 +395,7 @@ export class BuildComponent implements OnInit, OnDestroy {
     this.calculateTotalTDP();
   }
 
-  motherboardSelected(selected: MotherBoard) {
+  async motherboardSelected(selected: MotherBoard) {
     this.clearSelectedRAM();
     this.clearSelectedM2();
     this.clearSelectedSATA();
@@ -384,6 +405,7 @@ export class BuildComponent implements OnInit, OnDestroy {
     this.selectedMotherBoard = selected;
     this.popup = false;
     this.m2selectable = true;
+    await this.productService.waitForSession('motherboards');
     let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
     // let tempselectedmotherboard = dummymotherboards.find(x=>x.MODEL_NO_MOB === selected.basic?.name);
     // let m2count = tempselectedmotherboard?.M2COUNT;  
@@ -480,9 +502,10 @@ export class BuildComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateRAM() {
+  async updateRAM() {
     if (this.selectedMotherBoard) {
       this.ramArray = new Array(this.selectedMotherBoard?.MEM_SLOTS);
+      await this.productService.waitForSession('rams');
       let tempram: RAM[] = JSON.parse(sessionStorage["rams"]);
       this.rams = tempram.filter(x => x.MEM_TYPE_RAM === this.selectedMotherBoard.MEM_TYPE_MOB);
     }
@@ -607,8 +630,9 @@ export class BuildComponent implements OnInit, OnDestroy {
     this.calculateTotalPrice();
     this.calculateTotalTDP();
   }
-  updateCooler() {
+  async updateCooler() {
     this.coolers = [];
+    await this.productService.waitForSession('coolers');
     let tempcooler: Cooler[] = JSON.parse(sessionStorage["coolers"]);
 
     tempcooler.forEach(cooler => {

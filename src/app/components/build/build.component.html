@@ -171,8 +171,8 @@
                     <div class="row h-100per">
                         <div class="col-6 subm2s" (click)="showM2()" *ngFor="let i of multiplem2array; let ind = index">
                             <span>{{ ind +1 }}</span>
-                            <img *ngIf="selectedMultipleM2 && selectedMultipleM2.length > ind" 
-                            [scr]="selectedMultipleM2[ind].basic.images.length > 0 ? selectedMultipleM2[ind].basic.images[0].src : ''">
+                            <!-- <img *ngIf="selectedMultipleM2 && selectedMultipleM2.length > ind" 
+                            [scr]="selectedMultipleM2[ind].basic.images.length > 0 ? selectedMultipleM2[ind].basic.images[0].src : ''"> -->
                         </div>
                     </div>
                 </div>               

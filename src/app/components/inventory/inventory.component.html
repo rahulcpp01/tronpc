@@ -1,11 +1,12 @@
 <div class="container-fluid">    
     <h3>Processors</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let processor of processors">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let processor of processors">
            <product 
                 *ngIf="processor.basic" 
                 [id]="processor.id!"
                 [type]='"processors"'
+                [prdctdescription]='processor.core + " CORE "+  processor.thread +" THREAD"'
                 routerLink="/description/processors/{{processor.id!}}">
 
            </product>        
@@ -14,7 +15,7 @@
 
     <h3>Case</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let case of cases">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let case of cases">
             <!-- {{cases | json}} -->
             <product 
                 *ngIf="case.basic" 
@@ -27,7 +28,7 @@
 
     <h3>Cooler</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let cooler of coolers">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let cooler of coolers">
             <!-- {{coolers | json}} -->
             <product 
             *ngIf="cooler.basic" 
@@ -40,7 +41,7 @@
 
     <h3>GPU</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let gpu of gpus">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let gpu of gpus">
             <!-- {{gpu | json}} -->
             <product 
             *ngIf="gpu.basic" 
@@ -52,7 +53,7 @@
     </div>
     <h3>HDD</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let hdd of hdds">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let hdd of hdds">
             <!-- {{hdd | json}} -->
             <product 
             *ngIf="hdd.basic" 
@@ -64,7 +65,7 @@
     </div>
     <h3>M2s</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let m2 of m2s">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let m2 of m2s">
             <!-- {{hdd | json}} -->
             <product 
             *ngIf="m2.basic" 
@@ -76,7 +77,7 @@
     </div>
     <h3>Mother Board</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let motherboard of motherboards">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let motherboard of motherboards">
             <!-- {{motherboard | json}} -->
             <product 
             *ngIf="motherboard.basic" 
@@ -89,7 +90,7 @@
 
     <h3>Power Supplies</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let powersupply of powersupplys">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let powersupply of powersupplys">
             <!-- {{powersupply | json}} -->
             <product 
             *ngIf="powersupply.basic" 
@@ -101,7 +102,7 @@
     </div>
     <h3>RAM</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let ram of rams">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let ram of rams">
             <!-- {{ram | json}} -->
             <product 
             *ngIf="ram.basic" 
@@ -113,7 +114,7 @@
     </div>
     <h3>SSD</h3>
     <div class="row w-100per m-0px">
-        <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let ssd of ssds">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let ssd of ssds">
             <!-- {{ssd | json}} -->
             <product 
             *ngIf="ssd.basic" 

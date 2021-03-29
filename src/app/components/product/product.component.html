@@ -1,4 +1,4 @@
-<div class="w-100per" *ngIf="productAvailable">
+<!-- <div class="w-100per" *ngIf="productAvailable">
     <h6 *ngIf="false">SALE</h6>
     <div class="img">        
         <img [src]="image" alt="No Image found">               
@@ -6,5 +6,34 @@
     <h5>{{product_name}}</h5>
     <div>
         {{regularprice | currency:"&#8377;"}}
+    </div>
+</div> -->
+<!-- <div class="w-100per" *ngIf="productAvailable">
+    <h6 *ngIf="false">SALE</h6>
+    <div class="img">        
+        <img [src]="image" alt="No Image found">               
+    </div>
+    <h5>{{product_name}}</h5>
+    <div>
+        {{regularprice | currency:"&#8377;"}}
+    </div>
+</div> -->
+
+<div  *ngIf="productAvailable" class="cardcontainer" (mousemove)="containerMouseMove($event)" (mouseenter)="containerMouseEnter($event)"
+    (mouseleave)="containerMouseLeave($event)">
+    <div class="card" #card>
+        <div class="productimg">
+            <div class="circle" #circle></div>
+            <!-- <img #productimage src="../../../assets/images/i3.jpeg" alt="image"> -->
+            <img #productimage [src]="image" alt="image">
+        </div>
+        <div class="info">
+            <h1 class="title" #title>{{product_name}}</h1>
+            <h3 *ngIf="prdctdescription" #description>{{prdctdescription ? prdctdescription : "No Description" }}.</h3>        
+            <div class="price" #price><del>{{regularprice | currency:"&#8377;"}} </del> &nbsp; {{regularprice | currency:"&#8377;"}} /- </div>
+            <div class="purchase">
+                <button> ADD TO CART <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+            </div>
+        </div>
     </div>
 </div>

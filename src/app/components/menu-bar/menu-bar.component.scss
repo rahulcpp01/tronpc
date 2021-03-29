@@ -494,6 +494,20 @@ input:checked + .slider:before {
       }
       
     }   
+    .contact{
+      display: inline-flex;
+      // flex-direction: column;
+      position: absolute;
+      background-color: transparent;
+      right: 20px;
+      margin-right: 20px;
+      margin-top: 20px;
+      div{
+        
+      background-color: transparent;
+      color: var(--primary-color);
+      }
+    }
     input{
       position: absolute;
       right: 10px;
