@@ -21,7 +21,7 @@ export class AppInterceptor implements HttpInterceptor {
   private setHeaders(request: HttpRequest<any>): HttpRequest<any> {
     if (request.url.search('/jwt-auth/v1/token') === -1 && request.url.search('/bdpwr/v1') === -1) {
       request = request.clone({
-        headers: request.headers.set('Content-Type', 'application/json')
+        headers: request.headers.set('Content-Type', 'application/json').set('Access-Control-Allow-Origin','*')
       });
       request = request.clone({
         setParams: {

@@ -1,6 +1,6 @@
 //const base= 'https://tronpc.com/api';
 
-const base = 'http://skyblu.xyz/api';
+const base = 'https://skyblu.xyz/api';
 const url = base + '/wp-json/wc/v3';
 const authUrl = base + '/wp-json/jwt-auth/v1/token';
 const tokenVerifyUrl = base + '/wp-json/jwt-auth/v1/token/validate';
