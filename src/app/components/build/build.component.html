@@ -99,7 +99,7 @@
                 
                 <div *ngIf="selectedProcessor">                    
                     <div class="img">
-                        <img [src]="selectedProcessor.basic?.images.length > 0? selectedProcessor.basic?.images[0].src : ''" alt="No img">
+                        <img loading="lazy" [src]="selectedProcessor.basic?.images.length > 0? selectedProcessor.basic?.images[0].src : ''" alt="No img">
                     </div>
                     {{selectedProcessor.model}}
                     {{selectedProcessor.basic?.regular_price | currency:"&#8377;" }}
@@ -117,7 +117,7 @@
                 
                 <div *ngIf="selectedMotherBoard">
                     <div class="img">
-                        <img [src]="selectedMotherBoard.basic?.images.length > 0 ? selectedMotherBoard.basic?.images[0].src: ''" alt="No img">
+                        <img loading="lazy" [src]="selectedMotherBoard.basic?.images.length > 0 ? selectedMotherBoard.basic?.images[0].src: ''" alt="No img">
                     </div>
                     {{selectedMotherBoard.MODEL_NO_MOB}}
                     {{selectedMotherBoard.basic?.regular_price | currency:"&#8377;" }}
@@ -139,7 +139,7 @@
                             <div class="col-6 subm2s" (click)="this.popup=!this.popup;this.popupSelectedItem='rams'"
                              *ngFor="let i of ramArray; let ind = index">
                                 <span>{{ ind +1 }}</span>
-                                <img *ngIf="selectedRam && selectedRam.length > ind"
+                                <img *ngIf="selectedRam && selectedRam.length > ind" loading="lazy"
                                 [src]="selectedRam[ind].basic?.images.length > 0 ? selectedRam[ind].basic?.images[0].src: ''">
                                 <div *ngIf="selectedRam && selectedRam.length > ind">{{selectedRam[ind].basic?.name}}</div>
                                 <div *ngIf="selectedRam && selectedRam.length > ind">
@@ -193,7 +193,7 @@
                     <div class="row h-100per">                        
                         <div class="col-6 satas" (click)="this.popup=!this.popup;this.popupSelectedItem='sata'" *ngFor="let i of ssdhddarray; let ind = index">
                             <span>{{ ind +1 }}</span>
-                            <img *ngIf="selectedSataSSD && selectedSataSSD.length > ind" 
+                            <img *ngIf="selectedSataSSD && selectedSataSSD.length > ind"  loading="lazy"
                             [scr]="selectedSataSSD[ind].basic.images.length > 0 ? selectedSataSSD[ind].basic.images[0].src : ''">
                             <div *ngIf="ind>selectedSataSSD.length">
                                 <img *ngIf="selectedSataHDD && selectedSataHDD.length + selectedSataSSD.length > ind" 
@@ -215,7 +215,7 @@
                 
                 <div *ngIf="selectedCooler">
                     <div class="img">
-                        <img [src]="selectedCooler.basic?.images.length > 0? selectedCooler.basic?.images[0].src : ''" alt="No img">
+                        <img loading="lazy" [src]="selectedCooler.basic?.images.length > 0? selectedCooler.basic?.images[0].src : ''" alt="No img">
                     </div>
                     {{selectedCooler.MODEL}}
                     {{selectedCooler.basic?.regular_price | currency:"&#8377;" }}
@@ -232,7 +232,7 @@
                 
                 <div *ngIf="selectedCASE">
                     <div class="img">
-                        <img [src]="selectedCASE.basic?.images.length > 0? selectedCASE.basic?.images[0].src : ''" alt="No img">
+                        <img loading="lazy" [src]="selectedCASE.basic?.images.length > 0? selectedCASE.basic?.images[0].src : ''" alt="No img">
                     </div>
                     {{selectedCASE.MODEL}}
                     {{selectedCASE.basic?.regular_price | currency:"&#8377;" }}
@@ -249,7 +249,7 @@
                 
                 <div *ngIf="selectedPowerSupply">
                     <div class="img">
-                        <img [src]="selectedPowerSupply.basic?.images.length > 0? selectedPowerSupply.basic?.images[0].src : ''" alt="No img">
+                        <img loading="lazy" [src]="selectedPowerSupply.basic?.images.length > 0? selectedPowerSupply.basic?.images[0].src : ''" alt="No img">
                     </div>
                     {{selectedPowerSupply.MODEL}}
                     {{selectedPowerSupply.basic?.regular_price | currency:"&#8377;" }}
@@ -275,7 +275,7 @@
                     <div *ngFor="let processor of processors" class="processor">
 
                         <div class="img">        
-                            <img [src]="processor.basic?.images.length > 0 ? processor.basic?.images[0]!.src:''" alt="No Image">               
+                            <img loading="lazy" [src]="processor.basic?.images.length > 0 ? processor.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
                         {{processor.basic?.name}}
                         {{processor.basic?.regular_price | currency:"&#8377;"}}
@@ -305,7 +305,7 @@
                     <div *ngFor="let ram of rams" class="rams">
 
                         <div class="img">        
-                            <img [src]="ram.basic?.images.length > 0 ? ram.basic?.images[0]!.src:''" alt="No Image">               
+                            <img loading="lazy" [src]="ram.basic?.images.length > 0 ? ram.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
 
                         {{ram.basic?.name}}
@@ -321,7 +321,7 @@
                     <div *ngFor="let m2 of m2s" class="m2s">
 
                         <div class="img">        
-                            <img [src]="m2.basic?.images.length > 0 ? m2.basic?.images[0]!.src:''" alt="No Image">               
+                            <img loading="lazy" [src]="m2.basic?.images.length > 0 ? m2.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
 
                         {{m2.basic?.name}}
@@ -337,7 +337,7 @@
                     <div *ngFor="let ssd of ssds" class="ssds">
 
                         <div class="img">        
-                            <img [src]="ssd.basic?.images.length > 0 ? ssd.basic?.images[0]!.src:''" alt="No Image">               
+                            <img loading="lazy" [src]="ssd.basic?.images.length > 0 ? ssd.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
 
                         {{ssd.basic?.name}}
@@ -351,7 +351,7 @@
                     <div *ngFor="let hdd of hdds" class="hdds">
 
                         <div class="img">        
-                            <img [src]="hdd.basic?.images.length > 0 ? hdd.basic?.images[0]!.src:''" alt="No Image">               
+                            <img loading="lazy" [src]="hdd.basic?.images.length > 0 ? hdd.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
 
                         {{hdd.basic?.name}}
@@ -367,7 +367,7 @@
                     <div *ngFor="let cooler of coolers" class="cooler">
 
                         <div class="img">        
-                            <img [src]="cooler.basic?.images.length > 0 ? cooler.basic?.images[0]!.src:''" alt="No Image">               
+                            <img loading="lazy" [src]="cooler.basic?.images.length > 0 ? cooler.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
 
                         {{cooler.basic?.name}}
@@ -383,7 +383,7 @@
                     <div *ngFor="let case of cases" class="cases">
 
                         <div class="img">        
-                            <img [src]="case.basic?.images.length > 0 ? case.basic?.images[0]!.src:''" alt="No Image">               
+                            <img loading="lazy" [src]="case.basic?.images.length > 0 ? case.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
 
                         {{case.basic?.name}}
@@ -399,7 +399,7 @@
                     <div *ngFor="let powersply of powersupplys" class="powersupply">
 
                         <div class="img">        
-                            <img [src]="powersply.basic?.images.length > 0 ? powersply.basic?.images[0]!.src:''" alt="No Image">               
+                            <img loading="lazy" [src]="powersply.basic?.images.length > 0 ? powersply.basic?.images[0]!.src:''" alt="No Image">               
                         </div>
 
                         {{powersply.basic?.name}}

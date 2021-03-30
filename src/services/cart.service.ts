@@ -54,9 +54,10 @@ export class CartService {
             const index = this.cartDataArray.productData.findIndex(p => p.id === product.id);
             // If there is a match, that means the index is not equal to -1
             if (index > -1) {
+                this.cartDataArray.productData[index].in_cart=(this.cartDataArray.productData[index].in_cart ||0)+1;
                 this.calculateTotal();
                 //this.storage.set('cart', this.cartDataArray).then();
-                localStorage["cart"] = this.cartDataArray;
+                localStorage["cart"] = JSON.stringify(this.cartDataArray);
                 //await toast.present().then();
                 this.cartData$.next(this.cartDataArray);
             }
@@ -69,7 +70,7 @@ export class CartService {
                 //await toast.present().then();
                 this.cartDataArray.count = this.cartDataArray.productData.length;
                 //this.storage.set('cart', this.cartDataArray).then();
-                localStorage["cart"] = this.cartDataArray;
+                localStorage["cart"] = JSON.stringify(this.cartDataArray);
                 this.cartData$.next(this.cartDataArray);
             }
         }
@@ -81,7 +82,7 @@ export class CartService {
             this.cartDataArray.count = this.cartDataArray.productData.length;
             this.calculateTotal();
             //this.storage.set('cart', this.cartDataArray).then();
-            localStorage["cart"] = this.cartDataArray;
+            localStorage["cart"] = JSON.stringify(this.cartDataArray);
             // await alert.present().then();
             this.cartData$.next(this.cartDataArray);
             // Related and Upselling Product
@@ -96,7 +97,7 @@ export class CartService {
         this.cartData$.next(this.cartDataArray);
         this.totalAmount$.next(this.totalAmount);
         //this.storage.set('cart', this.cartDataArray).then();
-        localStorage["cart"] = this.cartDataArray;
+        localStorage["cart"] = JSON.stringify(this.cartDataArray);
         let updatedIds: number[] = []; 
         this.associatedProductIds = updatedIds;
         this.$associatedProductIds.next(updatedIds);
@@ -121,7 +122,7 @@ export class CartService {
         this.cartDataArray.productData[indexOfProduct].in_cart = newInCartValue;
         this.calculateTotal();
         //this.storage.set('cart', this.cartDataArray).then();
-        localStorage["cart"] = this.cartDataArray;
+        localStorage["cart"] = JSON.stringify(this.cartDataArray);
         this.cartData$.next(this.cartDataArray);
         this.totalAmount$.next(this.totalAmount);
     }
@@ -132,7 +133,7 @@ export class CartService {
             productData: []
         };
         //this.storage.set('cart', this.cartDataArray).then();
-        localStorage["cart"] = this.cartDataArray;
+        localStorage["cart"] = JSON.stringify(this.cartDataArray);
         this.calculateTotal();
         this.cartData$.next(this.cartDataArray);
     }
