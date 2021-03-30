@@ -1,6 +1,12 @@
-import { Product } from './product/product';
 import { ProductModel } from './ProductModel';
 export interface CartModel {
     count: number;
-    productData: Product[];
+    productData: TronPCProduct[];
+}
+
+
+export interface TronPCProduct{
+    id?: number;
+    type?: string;
+    in_cart?: number;
 }

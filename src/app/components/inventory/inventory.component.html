@@ -7,7 +7,8 @@
                 [id]="processor.id!"
                 [type]='"processors"'
                 [prdctdescription]='processor.core + " CORE "+  processor.thread +" THREAD"'
-                routerLink="/description/processors/{{processor.id!}}">
+                (addToCartEvent)="addToCart($event)"
+                >
 
            </product>        
         </div>        
@@ -16,12 +17,13 @@
     <h3>Case</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let case of cases">
-            <!-- {{cases | json}} -->
+            <!-- {{cases | json}} routerLink="/description/cases/{{case.id!}}"-->
             <product 
                 *ngIf="case.basic" 
                 [id]="case.id!"
                 [type]='"cases"'
-                routerLink="/description/cases/{{case.id!}}">
+                (addToCartEvent)="addToCart($event)"
+                >
             </product>           
         </div>
     </div>
@@ -29,12 +31,13 @@
     <h3>Cooler</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let cooler of coolers">
-            <!-- {{coolers | json}} -->
+            <!-- {{coolers | json}} routerLink="/description/coolers/{{cooler.id!}}"-->
             <product 
             *ngIf="cooler.basic" 
             [id]="cooler.id!"
             [type]='"coolers"'
-            routerLink="/description/coolers/{{cooler.id!}}">
+            (addToCartEvent)="addToCart($event)"
+            >
         </product>  
         </div>
     </div>
@@ -42,48 +45,52 @@
     <h3>GPU</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let gpu of gpus">
-            <!-- {{gpu | json}} -->
+            <!-- {{gpu | json}} routerLink="/description/gpu/{{gpu.id!}}"-->
             <product 
             *ngIf="gpu.basic" 
             [id]="gpu.id!"
             [type]='"gpu"'
-            routerLink="/description/gpu/{{gpu.id!}}">
+            (addToCartEvent)="addToCart($event)"
+            >
         </product>  
         </div>
     </div>
     <h3>HDD</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let hdd of hdds">
-            <!-- {{hdd | json}} -->
+            <!-- {{hdd | json}} routerLink="/description/hdds/{{hdd.id!}}"-->
             <product 
             *ngIf="hdd.basic" 
             [id]="hdd.id!"
             [type]='"hdds"'
-            routerLink="/description/hdds/{{hdd.id!}}">
+            (addToCartEvent)="addToCart($event)"
+            >
         </product> 
         </div>
     </div>
     <h3>M2s</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let m2 of m2s">
-            <!-- {{hdd | json}} -->
+            <!-- {{hdd | json}} routerLink="/description/m2s/{{m2.id!}}"-->
             <product 
             *ngIf="m2.basic" 
             [id]="m2.id!"
             [type]='"m2s"'
-            routerLink="/description/m2s/{{m2.id!}}">
+            (addToCartEvent)="addToCart($event)"
+            >
         </product> 
         </div>
     </div>
     <h3>Mother Board</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let motherboard of motherboards">
-            <!-- {{motherboard | json}} -->
+            <!-- {{motherboard | json}} routerLink="/description/motherboards/{{motherboard.id!}}"-->
             <product 
             *ngIf="motherboard.basic" 
             [id]="motherboard.id!"
             [type]='"motherboards"'
-            routerLink="/description/motherboards/{{motherboard.id!}}">
+            (addToCartEvent)="addToCart($event)"
+            >
         </product> 
         </div>
     </div>
@@ -91,36 +98,39 @@
     <h3>Power Supplies</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let powersupply of powersupplys">
-            <!-- {{powersupply | json}} -->
+            <!-- {{powersupply | json}} routerLink="/description/powersupplies/{{powersupply.id!}}"-->
             <product 
             *ngIf="powersupply.basic" 
             [id]="powersupply.id!"
             [type]='"powersupplies"'
-            routerLink="/description/powersupplies/{{powersupply.id!}}">
+            (addToCartEvent)="addToCart($event)"
+            >
         </product> 
         </div>
     </div>
     <h3>RAM</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let ram of rams">
-            <!-- {{ram | json}} -->
+            <!-- {{ram | json}} routerLink="/description/rams/{{ram.id!}}"-->
             <product 
             *ngIf="ram.basic" 
             [id]="ram.id!"
             [type]='"rams"'
-            routerLink="/description/rams/{{ram.id!}}">
+            (addToCartEvent)="addToCart($event)"
+            >
         </product> 
         </div>
     </div>
     <h3>SSD</h3>
     <div class="row w-100per m-0px">
         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-6" *ngFor="let ssd of ssds">
-            <!-- {{ssd | json}} -->
+            <!-- {{ssd | json}} routerLink="/description/ssds/{{ssd.id!}}"-->
             <product 
             *ngIf="ssd.basic" 
             [id]="ssd.id!"
             [type]='"ssds"'
-            routerLink="/description/ssds/{{ssd.id!}}">
+            (addToCartEvent)="addToCart($event)"
+            >
         </product> 
         </div>
     </div>

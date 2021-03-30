@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
-import { CartModel } from 'src/models/cartModel';
+import { CartModel, TronPCProduct } from 'src/models/cartModel';
 import { Product } from 'src/models/product/product';
 import { Order } from 'src/models/orders/orders';
 
@@ -42,12 +42,12 @@ export class CartService {
     get checkoutError(): Observable<string> {
         return this.checkouterror$.asObservable();
     }
-    get associatedProductList(): Observable<number[]> {
-        return this.$associatedProductIds.asObservable();
-    }
+    // get associatedProductList(): Observable<number[]> {
+    //     return this.$associatedProductIds.asObservable();
+    // }
 
-    async addToCart(product: Product) {
-
+    async addToCart(product: TronPCProduct) {
+        debugger;
         // When the cart is not completely empty
         if (this.cartDataArray && this.cartDataArray.count !== 0) {
             // Calculate Index
@@ -88,7 +88,7 @@ export class CartService {
         }
     }
 
-     removeFromCart(product: Product) {
+     removeFromCart(product: TronPCProduct) {
         this.cartDataArray.productData = this.cartDataArray.productData.filter(p => p.id !== product.id);
         this.cartDataArray.count = this.cartDataArray.productData.length;
         this.calculateTotal();

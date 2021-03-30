@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TronPCProduct } from 'src/models/cartModel';
 import { Case } from 'src/models/custommodels/case.model';
 import { Cooler } from 'src/models/custommodels/cooler.model';
 import { GPU } from 'src/models/custommodels/gpu.model';
@@ -13,6 +14,7 @@ import { Processor } from 'src/models/custommodels/processor.model';
 import { RAM } from 'src/models/custommodels/ram.model';
 import { SSD } from 'src/models/custommodels/ssd.model';
 import { Product } from 'src/models/product/product';
+import { CartService } from 'src/services/cart.service';
 import { WoocommerceService } from 'src/services/woocommerce.service';
 
 @Component({
@@ -34,7 +36,8 @@ export class InventoryComponent implements OnInit {
   public ssds: SSD[] = [];
 
   constructor(private productService: WoocommerceService,
-    private router: Router) {    
+              private router: Router,
+              private cartService: CartService) {    
   }
   async ngOnInit() {
 
@@ -172,4 +175,7 @@ export class InventoryComponent implements OnInit {
     this.ssds = JSON.parse(sessionStorage["ssds"]);
   }
   
+  addToCart(product: TronPCProduct) {    
+      this.cartService.addToCart(product);    
+  }
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { CartModel, TronPCProduct } from 'src/models/cartModel';
+import { CartService } from 'src/services/cart.service';
 import { WoocommerceService } from 'src/services/woocommerce.service';
 
 @Component({
@@ -8,6 +11,10 @@ import { WoocommerceService } from 'src/services/woocommerce.service';
 })
 export class AppComponent implements OnInit{
   title = 'tronpc';
+  cartcount: number = 0;
+  public popup: boolean = false;
+  public cart!: CartModel;
+  public total: number=0;
   // public processors: Processor[]=[];
   // public cases: Case[] = [];
   // public coolers: Cooler[] = [];
@@ -19,10 +26,31 @@ export class AppComponent implements OnInit{
   // public rams: RAM[] = [];
   // public ssds: SSD[] = [];
 
-  constructor(private productService: WoocommerceService) {
+  constructor(private productService: WoocommerceService,
+    private cartService: CartService) {
         
   }
   ngOnInit(): void {
+
+    this.cartService.cartData.pipe(map(data => {
+      let totalproductcount = 0;
+      if (data) {
+        data.productData.forEach(products => {
+          totalproductcount += products.in_cart ? products.in_cart: 0;
+        });
+      }
+      console.log("Total Product"+ totalproductcount);
+      return totalproductcount;
+    })
+    ).subscribe(count => {
+      console.log("Subscribe Count"+ count);
+      this.cartcount = count;
+    });
+    this.cartService.cartData.subscribe(data => {
+      this.cart = data;
+    });
+    this.cartService.cartTotal.subscribe(total => this.total = total);
+
 
     //this.productService.LoadFeaturedProducts();
     this.productService.getAllProcessors().subscribe(product => {
@@ -67,6 +95,10 @@ export class AppComponent implements OnInit{
         })
       })
     });
+  }
+
+  addToCart(product: TronPCProduct) {
+    this.cartService.addToCart(product);  
   }
  
 }

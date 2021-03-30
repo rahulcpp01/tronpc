@@ -22,18 +22,19 @@
 <div  *ngIf="productAvailable" class="cardcontainer" (mousemove)="containerMouseMove($event)" (mouseenter)="containerMouseEnter($event)"
     (mouseleave)="containerMouseLeave($event)">
     <div class="card" #card>
-        <div class="productimg">
+        <div class="productimg" [routerLink]="['/description/'+type+'/'+id]">
             <div class="circle" #circle></div>
             <!-- <img #productimage src="../../../assets/images/i3.jpeg" alt="image"> -->
             <img #productimage [src]="image" alt="image">
         </div>
-        <div class="info">
+        <div class="info" [routerLink]="['/description/'+type+'/'+id]">
             <h1 class="title" #title>{{product_name}}</h1>
-            <h3 *ngIf="prdctdescription" #description>{{prdctdescription ? prdctdescription : "No Description" }}.</h3>        
+            <h3 #description>{{prdctdescription ? prdctdescription : "No Description" }}.</h3>        
             <div class="price" #price><del>{{regularprice | currency:"&#8377;"}} </del> &nbsp; {{regularprice | currency:"&#8377;"}} /- </div>
-            <div class="purchase">
-                <button> ADD TO CART <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
-            </div>
+            
+        </div>
+        <div class="purchase">
+            <button (click)="addToCart()"> ADD TO CART <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
         </div>
     </div>
 </div>
