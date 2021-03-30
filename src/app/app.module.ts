@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { Product3dComponent } from './components/product3d/product3d.component';
+import { CartComponent } from './components/cart/cart.component';
 const INTERCEPTORS: {}[] = [
   {
     provide: HTTP_INTERCEPTORS,
@@ -39,7 +40,8 @@ const INTERCEPTORS: {}[] = [
     PageNotFoundComponent,
     ProductComponent,
     DescriptionComponent,
-    Product3dComponent
+    Product3dComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

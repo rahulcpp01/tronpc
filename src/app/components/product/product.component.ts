@@ -1,4 +1,5 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { TronPCProduct } from 'src/models/cartModel';
 import { Processor } from 'src/models/custommodels/processor.model';
 import { Product } from 'src/models/product/product';
 import { ProductImage } from 'src/models/product/product.image';
@@ -15,11 +16,13 @@ export class ProductComponent implements OnInit {
   public regularprice: number= 0;
   public productAvailable: boolean = false;
   public product_name: string = "";
+  public productcart: TronPCProduct={};
+  public product!: Product;
 
   @Input() id : number= 0;
-  @Input() type : string =  "";
-  @Input() product!: Product;
-  @Input() prdctdescription! : string;
+  @Input() type : string =  "";  
+  @Input() prdctdescription : string ="";
+  @Output() addToCartEvent = new EventEmitter<TronPCProduct>();
 
   @ViewChild("card") card!: ElementRef;
   @ViewChild("circle") circle!: ElementRef;
@@ -76,4 +79,9 @@ export class ProductComponent implements OnInit {
     this.price.nativeElement.style.transform = "translateZ(0px)";
   }
 
+  addToCart(): void {
+    this.productcart.id = this.id;
+    this.productcart.type = this.type;
+    this.addToCartEvent.emit(this.productcart);
+  }
 }
