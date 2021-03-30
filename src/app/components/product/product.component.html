@@ -25,7 +25,7 @@
         <div class="productimg" [routerLink]="['/description/'+type+'/'+id]">
             <div class="circle" #circle></div>
             <!-- <img #productimage src="../../../assets/images/i3.jpeg" alt="image"> -->
-            <img #productimage [src]="image" alt="image">
+            <img #productimage loading="lazy" [src]="image" alt="image">
         </div>
         <div class="info" [routerLink]="['/description/'+type+'/'+id]">
             <h1 class="title" #title>{{product_name}}</h1>
