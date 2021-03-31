@@ -26,3 +26,15 @@
     float: right;
     margin-right: 30px;
 }
+.cart{
+    position: fixed;
+    bottom: 80px;
+    right : 20px;
+    width: 70px;
+    height: 70px;
+    z-index: 10;
+    .count{
+        background-color: red;
+        color: #ffffff;
+    }
+}

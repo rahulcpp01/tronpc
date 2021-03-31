@@ -10,7 +10,10 @@
     </div>
 </div>
 <router-outlet></router-outlet>
-<button (click)="this.popup=true">CART</button>
+<button class="cart" (click)="this.popup=true">    
+    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    <span class="count">{{cartcount}}</span>
+</button>
 <div class="modal transparent" [ngClass]="popup?'d-block':''">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">

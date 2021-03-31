@@ -1,0 +1,12 @@
+<div class="w-100per" *ngIf="productAvailable">   
+    <div class="img">        
+        <img width="100px" height="100px" loading="lazy" [src]="image" alt="No Image found">               
+    </div>
+    <h5>{{product_name}}</h5>
+    <div>
+        {{regularprice | currency:"&#8377;"}}
+    </div>
+    <div>
+        CART Count: {{cartcount}}
+    </div>
+</div> 

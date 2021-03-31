@@ -21,6 +21,7 @@ import { AgmCoreModule } from '@agm/core';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { Product3dComponent } from './components/product3d/product3d.component';
 import { CartComponent } from './components/cart/cart.component';
+import { CartProductComponent } from './components/cart-product/cart-product.component';
 const INTERCEPTORS: {}[] = [
   {
     provide: HTTP_INTERCEPTORS,
@@ -41,7 +42,8 @@ const INTERCEPTORS: {}[] = [
     ProductComponent,
     DescriptionComponent,
     Product3dComponent,
-    CartComponent
+    CartComponent,
+    CartProductComponent
   ],
   imports: [
     BrowserModule,
