@@ -1,3 +1,9 @@
-<div *ngFor="let p of productsInCart; index as i">
-    {{p | json}}
+<div *ngFor="let p of productsInCart; index as i" style="border-bottom: 2px solid black;">
+    <!-- {{p | json}} -->
+    <app-cart-product             
+            [id]="p.id!"
+            [type]='p.type'
+            [cartcount]="p.in_cart"            
+            >
+        </app-cart-product>
 </div>
