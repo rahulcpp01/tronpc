@@ -47,7 +47,6 @@ export class CartService {
     // }
 
     async addToCart(product: TronPCProduct) {
-        debugger;
         // When the cart is not completely empty
         if (this.cartDataArray && this.cartDataArray.count !== 0) {
             // Calculate Index
@@ -161,11 +160,9 @@ export class CartService {
 
         this.httpClient.post(`/orders`, { ...orderData })
             .subscribe(async (newOrderDetails: any) => {
-                debugger;
                 this.emptyCart();
                 
             }, async error => {
-                debugger;
                 console.log(error);              
                 this.checkouterror$.next(error.error.message);
             });

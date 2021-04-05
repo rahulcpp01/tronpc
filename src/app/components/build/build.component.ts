@@ -16,6 +16,8 @@ import { Order } from 'src/models/orders/orders';
 import { Product } from 'src/models/product/product';
 import { Customer } from 'src/models/user/customer';
 import { CartService } from 'src/services/cart.service';
+import { EncryptDecryptService } from 'src/services/encrypt-decrypt.service';
+import { UserService } from 'src/services/user.service';
 import { WoocommerceService } from 'src/services/woocommerce.service';
 
 @Component({
@@ -97,13 +99,14 @@ export class BuildComponent implements OnInit, OnDestroy {
   };
 
   constructor(private productService: WoocommerceService,
-    private cartService: CartService) {
+    private cartService: CartService,
+    private userService: UserService,
+    private encryptDecryptService:EncryptDecryptService) {
   }
   ngOnDestroy(): void {
     this.saveBuildLocally()
   }
   saveBuildLocally() {
-    debugger;
     if (this.selectedProcessor && Object.keys(this.selectedProcessor).length > 0) {
       localStorage["selectedProcessor"]=JSON.stringify(this.selectedProcessor);
     }
@@ -163,7 +166,6 @@ export class BuildComponent implements OnInit, OnDestroy {
   }
 
   loadBuildFromLocal(){
-    debugger;
     if(localStorage["selectedProcessor"]){
       //this.selectedProcessor = JSON.parse(localStorage["selectedProcessor"]);
       this.procecessorSelected(JSON.parse(localStorage["selectedProcessor"]));
@@ -248,6 +250,24 @@ export class BuildComponent implements OnInit, OnDestroy {
     //   this.productService.processorsFactory(products);
     //   this.processors = JSON.parse(sessionStorage["processors"]);
     // });
+
+    let userData = this.userService.getUserInfo();
+      debugger;
+      if (userData) {
+          this.userdetails = this.encryptDecryptService.decryptData(userData);
+          // this.isRegisteredUser = true;
+          // this.edit_shipping_address = false;
+          // this.shippingstate = this.indianStates.find(x => x.value == this.userdetails.shipping.state).name;
+          // this.cartService.cartData.subscribe(data => {
+          //     this.cartitems = data;
+          // });
+         
+
+      } else {
+          //this.edit_shipping_address = true;
+      }
+
+ 
 
     this.loadBuildFromLocal();
   }
@@ -816,14 +836,13 @@ export class BuildComponent implements OnInit, OnDestroy {
     //   line_items: lineItems,
 
     // };
-    debugger;
 
     formData = {
       set_paid: false,
       //payment_method: this.paymentGateway[0].id,
       //payment_method_title: this.paymentGateway[0].method_title,
 
-      customer_id:0,
+      //customer_id:0,
       billing: {
           address_1: this.userdetails.billing?.address_1||"",
           address_2: this.userdetails.billing?.address_2||"",
@@ -850,9 +869,20 @@ export class BuildComponent implements OnInit, OnDestroy {
       line_items: lineItems,
 
   };
-   
-    //this.cartService.createOrder(formData).then(() => {
-
-    //});
+  this.userService.getUserInfo().then((data: any) => {
+    if (data) { //user available      
+        const savedUser = this.encryptDecryptService.decryptData(data);
+        formData.customer_id = savedUser.id;
+        this.cartService.createOrder(formData).then(() => {
+          alert("Order Placed Successfully");
+      });
+    } else {  // user not available 
+        formData.customer_id = 0;
+        this.cartService.createOrder(formData).then(() => {
+          alert("Order Placed Successfully");
+      });
+    }
+});
+  
   }
 }

@@ -8,15 +8,17 @@ import { environment } from 'src/environments/environment';
 export class EncryptDecryptService {
 
     encryptData(data: any) {
-        return data ? CryptoJS.AES.encrypt(JSON.stringify(data), environment.secretCode).toString() : '';
+        // return data ? CryptoJS.AES.encrypt(JSON.stringify(data), environment.secretCode).toString() : '';
+        return data;
     }
 
     decryptData(data: any) {
-        if (data) {
-            const bytes = CryptoJS.AES.decrypt(data, environment.secretCode);
-            if (bytes.toString()) {
-                return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-            }
-        }
+        // if (data) {
+        //     const bytes = CryptoJS.AES.decrypt(data, environment.secretCode);
+        //     if (bytes.toString()) {
+        //         return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        //     }
+        // }
+        return data
     }
 }
