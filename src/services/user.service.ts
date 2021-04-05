@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { Customer } from 'src/models/user/customer';
 import { EncryptDecryptService } from './encrypt-decrypt.service';
 @Injectable({
@@ -7,18 +6,19 @@ import { EncryptDecryptService } from './encrypt-decrypt.service';
 })
 export class UserService {
 
-  constructor(private storage: Storage) { }
+  constructor() { }
 
   getUserInfo() {
-    return this.storage.get('user');
+   // return this.storage.get('user');
+   return JSON.parse(localStorage["user"]);
   }
 
   setUserInfo(user: Customer | string) {
-    this.storage.set('user', user).then();
+    localStorage["user"]= JSON.stringify(user);
   }
 
   clearUser() {
-    this.storage.remove('user');
+    localStorage.removeItem('user;')
   }
 
 }

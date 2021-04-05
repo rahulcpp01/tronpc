@@ -23,7 +23,7 @@
   
 
   <!-- <header class="header">
-    <!-- <a class="logo" [ngClass]="this.darkmode?'dark':''">
+     <a class="logo" [ngClass]="this.darkmode?'dark':''">
         <img src="../../../assets//images/logo.svg" alt="logo"> 
     </a> --
     <input class="menu-btn" type="checkbox" id="menu-btn" />
@@ -49,8 +49,8 @@
     <div class="main-logo">
       <img loading="lazy" src="../../../assets/images/logo-white.svg" alt="logo">
       <ul class="menu">
-        <li><a>Login</a></li>
-        <li><a>Register</a></li>        
+        <li><a (click)="this.loginpopup=true">Login</a></li>
+        <li><a (click)="this.registerpopup=true">Register</a></li>        
       </ul>
     </div> 
     <div class="menurow2">
@@ -76,3 +76,119 @@
 
 
 
+  <div class="modal transparent" *ngIf="registerpopup" [ngClass]="registerpopup?'d-block':''">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Register USER</h5>
+          <button type="button" class="close" (click)="this.registerpopup=!this.registerpopup">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form #userinfo="ngForm">
+            <h5>Personal Details</h5>
+            <div class="input-section">
+              <input #fname="ngModel" name="firstname" [(ngModel)]="userdetails.first_name" required type="text"
+                placeholder="First Name">
+            </div>
+    
+            <div class="input-section">
+              <input #lname="ngModel" name="lastname" [(ngModel)]="userdetails.last_name" class="optional" type="text"
+                placeholder="Last name">
+            </div>
+    
+            <div class="input-section">
+              <input #email="ngModel" name="email" [class.invalid]="true" [(ngModel)]="userdetails.email" required
+                type="email" pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.[a-zA-Z]+([-.][a-zA-Z]+)*$" placeholder="Email"
+                [readonly]="isEditMode">
+            </div>
+    
+            <div class="input-section">
+              <input #phone="ngModel" name="phone" [(ngModel)]="userdetails.billing!.phone" required type="tel"
+                pattern="^\d{10}$" maxlength="10" [readonly]="isEditMode" placeholder="Phone">
+            </div>
+    
+            <div class="input-section" *ngIf="!isEditMode">
+              <input #password="ngModel" name="password" [(ngModel)]="userdetails.password" required placeholder="Password"
+                [type]="fieldTextType ? 'text' : 'password'">
+            </div>
+            <h5>Enter Your Address</h5>
+    
+            <div class="input-section">
+              <input #b_address_line_1="ngModel" name="b_address_line_1" [(ngModel)]="userdetails.billing!.address_1"
+                required type="text" placeholder="Address line 1">
+            </div>
+    
+            <div class="input-section">
+              <input #b_address_line_2="ngModel" name="b_address_line_2" [(ngModel)]="userdetails.billing!.address_2"
+                class="optional" placeholder="Address line 2" type="text">
+            </div>
+    
+            <div class="input-section">
+              <input #b_city="ngModel" name="b_city" [(ngModel)]="userdetails.billing!.city" required placeholder="City"
+                type="text">
+            </div>
+    
+            <div class="input-section">
+              <select #b_state="ngModel" name="b_state" [(ngModel)]="userdetails.billing!.state" required>
+                <option value="" disabled>State</option>
+                <option *ngFor="let s of indianStates; index as i" [value]="s.value">
+                  {{ s.name }}
+                </option>
+              </select>
+            </div>
+    
+            <div class="input-section">
+              <input #b_postcode="ngModel" name="b_postcode" [(ngModel)]="userdetails.billing!.postcode" required type="tel"
+                pattern="^\d{5,6}$" maxlength="6" placeholder="Pin code">
+            </div>
+    
+            <div class="input-section">
+              <input (click)="saveUserInfo(userinfo)" [disabled]="userinfo.invalid || userinfo.pending" type="button"
+                [value]="isEditMode? 'UPDATE' : 'REGISTER'">
+            </div>
+    
+          </form>  
+        </div>        
+      </div>
+    </div>
+</div>
+
+
+
+<div class="modal transparent" *ngIf="loginpopup" [ngClass]="loginpopup?'d-block':''">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> USER Login</h5>
+        <button type="button" class="close" (click)="this.loginpopup=!this.loginpopup">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="box" style="margin-top: 50px">
+          <h2>Login</h2>
+    
+          <div class="input-section">
+            <input [(ngModel)]="username" placeholder="Phone or Email" required type="text">
+          </div>
+    
+          <div class="input-section">
+            <input [(ngModel)]="password" placeholder="Password" required [type]="fieldTextType ? 'text' : 'password'">
+        
+          </div>
+    
+          <div class="input-section">
+            <input type="button" (click)="loginUser()" [disabled]="username.length==0 || password.length==0" value="LOG IN">
+          </div>
+    
+          <div class="input-section text-center">
+            <a class="forgot-password">FORGOT YOUR PASSWORD?</a>
+          </div>
+    
+        </div>
+      </div>        
+    </div>
+  </div>
+</div>
