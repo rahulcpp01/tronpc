@@ -484,11 +484,41 @@ export class BuildComponent implements OnInit, OnDestroy {
     this.selectedMotherBoard = selected;
     this.popup = false;
     this.m2selectable = true;
-    await this.productService.waitForSession('motherboards');
-    let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
-    // let tempselectedmotherboard = dummymotherboards.find(x=>x.MODEL_NO_MOB === selected.basic?.name);
-    // let m2count = tempselectedmotherboard?.M2COUNT;  
-    // this.ssdhddarray = new Array(tempselectedmotherboard?.SATA_SPD_CNT);
+
+    //#OL
+    // await this.productService.waitForSession('motherboards');
+    // let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
+    // // let tempselectedmotherboard = dummymotherboards.find(x=>x.MODEL_NO_MOB === selected.basic?.name);
+    // // let m2count = tempselectedmotherboard?.M2COUNT;  
+    // // this.ssdhddarray = new Array(tempselectedmotherboard?.SATA_SPD_CNT);
+
+    // let m2count = selected.M2COUNT;
+    // this.ssdhddarray = new Array(selected.SATA_SPD_CNT);
+
+    // if (m2count === 0) {
+    //   this.m2selectable = false;
+    //   this.multiplem2 = false;
+    //   this.multiplem2array = new Array(m2count);
+
+    // } else {
+    //   this.multiplem2 = true;
+    //   this.multiplem2array = new Array(m2count);
+    // }
+
+    // //this.selectCaseBasedOnMotherBoard(tempselectedmotherboard?.FORMFACT_MOB!);
+    // this.selectCaseBasedOnMotherBoard(selected?.FORMFACT_MOB!);
+    // this.selectM2BasedOnMotherBoard(selected.M2!);
+
+    // this.selectHDDs();
+    // this.selectSSDs();
+    // this.selectCases();
+    // this.selectPowerSupplies();
+
+    // this.updateRAM();
+    // this.checkCompatibility();
+    // this.calculateTotalPrice();
+    // this.calculateTotalTDP();
+    //#OL
 
     let m2count = selected.M2COUNT;
     this.ssdhddarray = new Array(selected.SATA_SPD_CNT);

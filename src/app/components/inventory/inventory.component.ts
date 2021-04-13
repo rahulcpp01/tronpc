@@ -148,35 +148,38 @@ export class InventoryComponent implements OnInit {
     //     })
     //   })
     // });
-    await this.productService.waitForSession('processors');
-    this.processors = JSON.parse(sessionStorage["processors"]);
+
+    //#OL
+    // await this.productService.waitForSession('processors');
+    // this.processors = JSON.parse(sessionStorage["processors"]);
     
-    await this.productService.waitForSession('cases');
-    this.cases = JSON.parse(sessionStorage["cases"]);
+    // await this.productService.waitForSession('cases');
+    // this.cases = JSON.parse(sessionStorage["cases"]);
 
-    await this.productService.waitForSession('coolers');
-    this.coolers = JSON.parse(sessionStorage["coolers"]);
+    // await this.productService.waitForSession('coolers');
+    // this.coolers = JSON.parse(sessionStorage["coolers"]);
 
-    await this.productService.waitForSession('gpu');
-    this.gpus = JSON.parse(sessionStorage["gpu"]);
+    // await this.productService.waitForSession('gpu');
+    // this.gpus = JSON.parse(sessionStorage["gpu"]);
 
-    await this.productService.waitForSession('hdds');
-    this.hdds = JSON.parse(sessionStorage["hdds"]);
+    // await this.productService.waitForSession('hdds');
+    // this.hdds = JSON.parse(sessionStorage["hdds"]);
 
-    await this.productService.waitForSession('m2s');
-    this.m2s = JSON.parse(sessionStorage["m2s"]);
+    // await this.productService.waitForSession('m2s');
+    // this.m2s = JSON.parse(sessionStorage["m2s"]);
 
-    await this.productService.waitForSession('motherboards');
-    this.motherboards = JSON.parse(sessionStorage["motherboards"]);
+    // await this.productService.waitForSession('motherboards');
+    // this.motherboards = JSON.parse(sessionStorage["motherboards"]);
 
-    await this.productService.waitForSession('powersupplies');
-    this.powersupplys = JSON.parse(sessionStorage["powersupplies"]);
+    // await this.productService.waitForSession('powersupplies');
+    // this.powersupplys = JSON.parse(sessionStorage["powersupplies"]);
 
-    await this.productService.waitForSession('rams');
-    this.rams = JSON.parse(sessionStorage["rams"]);
+    // await this.productService.waitForSession('rams');
+    // this.rams = JSON.parse(sessionStorage["rams"]);
 
-    await this.productService.waitForSession('ssds');
-    this.ssds = JSON.parse(sessionStorage["ssds"]);
+    // await this.productService.waitForSession('ssds');
+    // this.ssds = JSON.parse(sessionStorage["ssds"]);
+    //#OL
   }
   
   addToCart(product: TronPCProduct) {    
