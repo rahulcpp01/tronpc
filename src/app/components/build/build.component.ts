@@ -216,8 +216,17 @@ export class BuildComponent implements OnInit, OnDestroy {
     //   this.processors=product
     //   console.log(product);
     // })
-    await this.productService.waitForSession('processors');
-    this.processors = JSON.parse(sessionStorage["processors"]);
+
+    //#OL
+    // await this.productService.waitForSession('processors');
+    // this.processors = JSON.parse(sessionStorage["processors"]);
+    //#OL
+
+    //#NL
+    this.productService.getAllProcessors().subscribe(product =>{
+      this.processors = this.productService.processorsFactoryMain(product);
+    });
+    //#NL
 
     // await this.productService.waitForSession('cases');
     // this.cases = JSON.parse(sessionStorage["cases"]);
@@ -251,8 +260,7 @@ export class BuildComponent implements OnInit, OnDestroy {
     //   this.processors = JSON.parse(sessionStorage["processors"]);
     // });
 
-    let userData = this.userService.getUserInfo();
-      debugger;
+    let userData = this.userService.getUserInfo();     
       if (userData) {
           this.userdetails = this.encryptDecryptService.decryptData(userData);
           // this.isRegisteredUser = true;
@@ -311,35 +319,68 @@ export class BuildComponent implements OnInit, OnDestroy {
   async selectM2BasedOnMotherBoard(supportedm2: string) {
     let tempmsids = supportedm2.split(' ').join().toLocaleString().toUpperCase();
 
-    await this.productService.waitForSession('m2s');
-    let tempm2: M2[] = JSON.parse(sessionStorage["m2s"]);
-    this.m2s = tempm2.filter(x => tempmsids.indexOf(x.FORM_FACT || '') != -1);
+    //#OL
+    // await this.productService.waitForSession('m2s');
+    // let tempm2: M2[] = JSON.parse(sessionStorage["m2s"]);
+    // this.m2s = tempm2.filter(x => tempmsids.indexOf(x.FORM_FACT || '') != -1);
+    //#OL
+    this.productService.getAllM2s().subscribe(product =>{
+      let tempm2 = this.productService.M2sFactoryMain(product);
+      this.m2s = tempm2.filter(x => tempmsids.indexOf(x.FORM_FACT || '') != -1);
+    });
+
   }
   async selectCaseBasedOnMotherBoard(comptype: string) {
     this.cases = [];
-    await this.productService.waitForSession('cases');
-    let tempcases: Case[] = JSON.parse(sessionStorage["cases"]);
-    this.cases = tempcases.filter(x => x.COMP_TYPE === comptype);
+
+    //#OL
+    // await this.productService.waitForSession('cases');
+    // let tempcases: Case[] = JSON.parse(sessionStorage["cases"]);
+    // this.cases = tempcases.filter(x => x.COMP_TYPE === comptype);
+    //#OL
+    this.productService.getAllCases().subscribe(product =>{
+      let tempcases = this.productService.casesFactoryMain(product);
+      this.cases = tempcases.filter(x => x.COMP_TYPE === comptype);
+    });
 
   }
 
   async selectHDDs() {
-    await this.productService.waitForSession('hdds');
-    this.hdds = JSON.parse(sessionStorage["hdds"]);
+    //#OL
+    // await this.productService.waitForSession('hdds');
+    // this.hdds = JSON.parse(sessionStorage["hdds"]);
+    //#OL
+    this.productService.getAllHDDs().subscribe(product =>{
+      this.hdds = this.productService.hddsFactoryMain(product);
+    });
   }
   async selectSSDs() {
-    await this.productService.waitForSession('ssds');
-    this.ssds = JSON.parse(sessionStorage["ssds"]);
+    //#OL
+    // await this.productService.waitForSession('ssds');
+    // this.ssds = JSON.parse(sessionStorage["ssds"]);
+    //#OL
+    this.productService.getAllSSDs().subscribe(product =>{
+      this.ssds = this.productService.SSDsFactoryMain(product);
+    });
   }
   async selectCases() {
-    //this.cases = JSON.parse(sessionStorage["cases"]);
-    await this.productService.waitForSession('cases');
-    let tempcases: Case[] = JSON.parse(sessionStorage["cases"]);
-    this.cases = tempcases.filter(x => x.COMP_TYPE === this.selectedMotherBoard.FORMFACT_MOB);
+    //#OL
+    // await this.productService.waitForSession('cases');
+    // let tempcases: Case[] = JSON.parse(sessionStorage["cases"]);
+    // this.cases = tempcases.filter(x => x.COMP_TYPE === this.selectedMotherBoard.FORMFACT_MOB);
+    //#OL
+    this.productService.getAllCases().subscribe(product =>{
+      let tempcases = this.productService.casesFactoryMain(product);
+      this.cases = tempcases.filter(x => x.COMP_TYPE === this.selectedMotherBoard.FORMFACT_MOB);
+    });
+
   }
   async selectPowerSupplies() {
-    await this.productService.waitForSession('powersupplies');
-    this.powersupplys = JSON.parse(sessionStorage["powersupplies"]);
+    // await this.productService.waitForSession('powersupplies');
+    // this.powersupplys = JSON.parse(sessionStorage["powersupplies"]);
+    this.productService.getAllPowerSupplies().subscribe(product =>{
+      this.powersupplys = this.productService.processorsFactoryMain(product);
+    });
   }
   calculateTotalPrice() {
     this.buildPrice = 0;
@@ -398,10 +439,27 @@ export class BuildComponent implements OnInit, OnDestroy {
     // this.clearSelectedCooler();
     this.motherboards = [];
 
-    await this.productService.waitForSession('motherboards');
-    let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
+    //#OL
+    // await this.productService.waitForSession('motherboards');
+    // let dummymotherboards: MotherBoard[] = JSON.parse(sessionStorage["motherboards"]);
 
-    let dummyprocessor = selected.model?.toUpperCase().split(" ").join("");
+    // let dummyprocessor = selected.model?.toUpperCase().split(" ").join("");
+    // for (let i = 0; i < dummymotherboards.length; i++) {
+    //   let list = dummymotherboards[i].CPU_SUPPORTED_LIST?.toUpperCase().split(" ").join("");
+    //   if (list?.indexOf(dummyprocessor || '') != -1) {
+    //     this.motherboards.push(dummymotherboards[i]);
+    //   }
+    // }
+
+    // this.updateCooler();
+    // this.checkCompatibility();
+    // this.calculateTotalPrice();
+    // this.calculateTotalTDP();
+    //#OL
+
+    this.productService.getAllMotherBoards().subscribe(product =>{
+      let dummymotherboards = this.productService.motherBoardsFactoryMain(product);
+      let dummyprocessor = selected.model?.toUpperCase().split(" ").join("");
     for (let i = 0; i < dummymotherboards.length; i++) {
       let list = dummymotherboards[i].CPU_SUPPORTED_LIST?.toUpperCase().split(" ").join("");
       if (list?.indexOf(dummyprocessor || '') != -1) {
@@ -413,6 +471,7 @@ export class BuildComponent implements OnInit, OnDestroy {
     this.checkCompatibility();
     this.calculateTotalPrice();
     this.calculateTotalTDP();
+    });
   }
 
   async motherboardSelected(selected: MotherBoard) {
@@ -525,9 +584,15 @@ export class BuildComponent implements OnInit, OnDestroy {
   async updateRAM() {
     if (this.selectedMotherBoard) {
       this.ramArray = new Array(this.selectedMotherBoard?.MEM_SLOTS);
-      await this.productService.waitForSession('rams');
-      let tempram: RAM[] = JSON.parse(sessionStorage["rams"]);
-      this.rams = tempram.filter(x => x.MEM_TYPE_RAM === this.selectedMotherBoard.MEM_TYPE_MOB);
+      //#OL
+      // await this.productService.waitForSession('rams');
+      // let tempram: RAM[] = JSON.parse(sessionStorage["rams"]);
+      // this.rams = tempram.filter(x => x.MEM_TYPE_RAM === this.selectedMotherBoard.MEM_TYPE_MOB);
+      //#OL
+      this.productService.getAllRAMs().subscribe(product =>{
+        let tempram = this.productService.RAMsFactoryMain(product);
+        this.rams = tempram.filter(x => x.MEM_TYPE_RAM === this.selectedMotherBoard.MEM_TYPE_MOB);
+      });
     }
   }
   clearSelectedProcessor() {
@@ -652,14 +717,26 @@ export class BuildComponent implements OnInit, OnDestroy {
   }
   async updateCooler() {
     this.coolers = [];
-    await this.productService.waitForSession('coolers');
-    let tempcooler: Cooler[] = JSON.parse(sessionStorage["coolers"]);
+    //#OL
+    // await this.productService.waitForSession('coolers');
+    // let tempcooler: Cooler[] = JSON.parse(sessionStorage["coolers"]);
 
-    tempcooler.forEach(cooler => {
-      if ((cooler.CPU_SOCKET_LIST?.toUpperCase().split(" ").join("").indexOf(this.selectedProcessor.socket?.toUpperCase().split(" ").join("") || '')) != -1) {
-        this.coolers.push(cooler);
-      }
-    })
+    // tempcooler.forEach(cooler => {
+    //   if ((cooler.CPU_SOCKET_LIST?.toUpperCase().split(" ").join("").indexOf(this.selectedProcessor.socket?.toUpperCase().split(" ").join("") || '')) != -1) {
+    //     this.coolers.push(cooler);
+    //   }
+    // })
+    //#OL
+
+    this.productService.getAllCoolers().subscribe(product =>{
+      let tempcooler = this.productService.coolersFactoryMain(product);
+
+      tempcooler.forEach(cooler => {
+        if ((cooler.CPU_SOCKET_LIST?.toUpperCase().split(" ").join("").indexOf(this.selectedProcessor.socket?.toUpperCase().split(" ").join("") || '')) != -1) {
+          this.coolers.push(cooler);
+        }
+      })
+    });
 
   }
 
