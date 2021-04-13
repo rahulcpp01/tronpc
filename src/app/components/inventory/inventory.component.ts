@@ -35,6 +35,10 @@ export class InventoryComponent implements OnInit {
   public rams: RAM[] = [];
   public ssds: SSD[] = [];
 
+
+  public inventorycollections: string[] = ["processors","motherboards","cases","coolers","gpu","hdds","m2s","powersupplies",
+                                          "rams","ssds"];
+
   constructor(private productService: WoocommerceService,
               private router: Router,
               private cartService: CartService) {    

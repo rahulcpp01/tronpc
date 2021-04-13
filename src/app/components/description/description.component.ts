@@ -19,7 +19,7 @@ import { WoocommerceService } from 'src/services/woocommerce.service';
   styleUrls: ['./description.component.scss']
 })
 export class DescriptionComponent implements OnInit {
-
+  public image: string = "";
   public product: any={};
   public display_product: any={}
   // public case: Case={};
@@ -40,6 +40,11 @@ export class DescriptionComponent implements OnInit {
     if(sessionStorage[this.route.snapshot.params["type"]]){
       this.product=this.productService.getProductFromSession(this.route.snapshot.params["id"],
       this.route.snapshot.params["type"]);
+      if(this.product.basic.images.length > 0){
+        this.image = this.product.basic.images[0].src;
+      }else{
+        this.image = "../../../assets/images/i3.jpeg";
+      }
     }else{
       this.product=this.productService.getProductFromSession(this.route.snapshot.params["id"],
       "featured_products");

@@ -869,20 +869,25 @@ export class BuildComponent implements OnInit, OnDestroy {
       line_items: lineItems,
 
   };
-  this.userService.getUserInfo().then((data: any) => {
-    if (data) { //user available      
-        const savedUser = this.encryptDecryptService.decryptData(data);
-        formData.customer_id = savedUser.id;
+//   this.userService.getUserInfo().then((data: any) => {
+//     if (data) { //user available      
+//         const savedUser = this.encryptDecryptService.decryptData(data);
+//         formData.customer_id = savedUser.id;
+//         this.cartService.createOrder(formData).then(() => {
+//           alert("Order Placed Successfully");
+//       });
+//     } else {  // user not available 
+//         formData.customer_id = 0;
+//         this.cartService.createOrder(formData).then(() => {
+//           alert("Order Placed Successfully");
+//       });
+//     }
+// });
+
+      formData.customer_id = 0;
         this.cartService.createOrder(formData).then(() => {
           alert("Order Placed Successfully");
       });
-    } else {  // user not available 
-        formData.customer_id = 0;
-        this.cartService.createOrder(formData).then(() => {
-          alert("Order Placed Successfully");
-      });
-    }
-});
   
   }
 }
