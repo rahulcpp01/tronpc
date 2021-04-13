@@ -152,6 +152,14 @@ export class WoocommerceService {
     };
     return processor;       
   }
+
+  processorsFactoryMain(products: Product[]){
+    let processors: Processor[]=[];
+    for(let i = 0; i< products.length; i++){
+      processors.push(this.createProcessor(products[i]));           
+    } 
+    return processors;
+  }
  
   getAllCases(){
     return this.httpClient.get<Product[]>(`/products?category=`+ this.caseCategoryId);
@@ -212,7 +220,14 @@ export class WoocommerceService {
     };
     return casev;       
   }
-
+  casesFactoryMain(products: Product[]){
+    let cases: Case[] = [];
+    for(let i = 0; i< products.length; i++){
+      cases.push(this.createCase(products[i]));           
+    } 
+    //console.log(cases);    
+    return cases;
+  }
   getAllCoolers(){
     return this.httpClient.get<Product[]>(`/products?category=`+ this.coolerCategoryId);
   }
@@ -225,7 +240,15 @@ export class WoocommerceService {
     sessionStorage["coolers"] = JSON.stringify(coolers);
     // return coolers;
   }
-
+  coolersFactoryMain(products: Product[]){
+    let coolers: Cooler[] = [];
+    for(let i = 0; i< products.length; i++){
+      coolers.push(this.createCooler(products[i]));           
+    } 
+    //console.log(coolers);
+    //sessionStorage["coolers"] = JSON.stringify(coolers);
+    return coolers;
+  }
   createCooler(product: Product): Cooler{
     let desc: string = product.description;    
     let regex = /(<([^>]+)>)/ig       //to remove html tag
@@ -262,6 +285,15 @@ export class WoocommerceService {
     //console.log(gpu);
     sessionStorage["gpu"] = JSON.stringify(gpu);
     // return gpu;
+  }
+  gpusFactoryMain(products: Product[]){
+    let gpu: GPU[] = [];
+    for(let i = 0; i< products.length; i++){
+      gpu.push(this.createGPU(products[i]));           
+    } 
+    //console.log(gpu);
+    //sessionStorage["gpu"] = JSON.stringify(gpu);
+    return gpu;
   }
 
   createGPU(product: Product): GPU{
@@ -309,7 +341,15 @@ export class WoocommerceService {
     sessionStorage["hdds"] = JSON.stringify(hdds);
     // return hdds;
   }
-
+  hddsFactoryMain(products: Product[]){
+    let hdds: HDD[] = [];
+    for(let i = 0; i< products.length; i++){
+      hdds.push(this.createHDD(products[i]));           
+    } 
+    //console.log(hdds);
+    //sessionStorage["hdds"] = JSON.stringify(hdds);
+    return hdds;
+  }
   createHDD(product: Product): HDD{
     let desc: string = product.description;    
     let regex = /(<([^>]+)>)/ig       //to remove html tag
@@ -345,7 +385,15 @@ export class WoocommerceService {
     sessionStorage["m2s"] = JSON.stringify(m2s);
     // return m2s;
   }
-
+  M2sFactoryMain(products: Product[]){
+    let m2s: M2[] = [];
+    for(let i = 0; i< products.length; i++){
+      m2s.push(this.createM2(products[i]));           
+    } 
+    //console.log(m2s);    
+    //sessionStorage["m2s"] = JSON.stringify(m2s);
+    return m2s;
+  }
   createM2(product: Product): M2{
     let desc: string = product.description;    
     let regex = /(<([^>]+)>)/ig       //to remove html tag
@@ -381,7 +429,15 @@ export class WoocommerceService {
     sessionStorage["motherboards"] = JSON.stringify(motherboards);
     // return motherboards;
   }
-
+  motherBoardsFactoryMain(products: Product[]){
+    let motherboards: MotherBoard[] = [];
+    for(let i = 0; i< products.length; i++){
+      motherboards.push(this.createMotherBoard(products[i]));           
+    } 
+    //console.log(motherboards);    
+    //sessionStorage["motherboards"] = JSON.stringify(motherboards);
+    return motherboards;
+  }
   createMotherBoard(product: Product): MotherBoard{
     let desc: string = product.description;    
     let regex = /(<([^>]+)>)/ig       //to remove html tag
@@ -445,7 +501,15 @@ export class WoocommerceService {
     sessionStorage["powersupplies"] = JSON.stringify(powersupplies);
     // return powersupplies;
   }
-
+  PowerSuppliesFactoryMain(products: Product[]){
+    let powersupplies: PowerSupply[] = [];
+    for(let i = 0; i< products.length; i++){
+      powersupplies.push(this.createPowerSupply(products[i]));           
+    } 
+    //console.log(powersupplies);
+    //sessionStorage["powersupplies"] = JSON.stringify(powersupplies);
+    return powersupplies;
+  }
   createPowerSupply(product: Product): PowerSupply{
     let desc: string = product.description;    
     let regex = /(<([^>]+)>)/ig       //to remove html tag
@@ -492,7 +556,15 @@ export class WoocommerceService {
     sessionStorage["rams"] = JSON.stringify(rams);
     // return rams;
   }
-
+  RAMsFactoryMain(products: Product[]){
+    let rams: RAM[] = [];
+    for(let i = 0; i< products.length; i++){
+      rams.push(this.createRAM(products[i]));           
+    } 
+    //console.log(rams);    
+    //sessionStorage["rams"] = JSON.stringify(rams);
+    return rams;
+  }
   createRAM(product: Product): RAM{
     let desc: string = product.description;    
     let regex = /(<([^>]+)>)/ig       //to remove html tag
@@ -534,6 +606,16 @@ export class WoocommerceService {
     //console.log(ssds);
     sessionStorage["ssds"] = JSON.stringify(ssds);
     // return ssds;
+  }
+
+  SSDsFactoryMain(products: Product[]){
+    let ssds: SSD[] = [];
+    for(let i = 0; i< products.length; i++){
+      ssds.push(this.createSSD(products[i]));           
+    } 
+    //console.log(ssds);
+    //sessionStorage["ssds"] = JSON.stringify(ssds);
+   return ssds;
   }
 
   createSSD(product: Product): SSD{

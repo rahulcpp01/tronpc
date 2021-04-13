@@ -19,8 +19,10 @@
     </div>
 </div> -->
 
-<div  *ngIf="productAvailable" class="cardcontainer" (mousemove)="containerMouseMove($event)" (mouseenter)="containerMouseEnter($event)"
-    (mouseleave)="containerMouseLeave($event)">
+<div  *ngIf="productAvailable" class="cardcontainer">
+    <!-- (mousemove)="containerMouseMove($event)" 
+    (mouseenter)="containerMouseEnter($event)"
+       (mouseleave)="containerMouseLeave($event)" -->
     <div class="card" #card>
         <div class="productimg" [routerLink]="['/description/'+type+'/'+id]">
             <div class="circle" #circle></div>

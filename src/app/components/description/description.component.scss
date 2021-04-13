@@ -1,0 +1,21 @@
+.product-image{
+    padding: 76px 101px;
+    img{
+        width: 300px;
+        height: 300px;
+        margin-left: 68px;
+    }
+}
+table{
+    margin-top: 74px;
+    margin-left: 40px;
+    th:nth-child(1){
+        width: 40%;
+    }
+    th:nth-of-type(2){
+        width: 60%
+    }
+    td{
+        word-break: break-all;
+    }
+}
