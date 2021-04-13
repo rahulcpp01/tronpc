@@ -37,20 +37,53 @@ export class DescriptionComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(sessionStorage[this.route.snapshot.params["type"]]){
-      this.product=this.productService.getProductFromSession(this.route.snapshot.params["id"],
-      this.route.snapshot.params["type"]);
-      if(this.product.basic.images.length > 0){
-        this.image = this.product.basic.images[0].src;
-      }else{
+    // if(sessionStorage[this.route.snapshot.params["type"]]){
+    //   this.product=this.productService.getProductFromSession(this.route.snapshot.params["id"],
+    //   this.route.snapshot.params["type"]);
+    //   if(this.product.basic.images.length > 0){
+    //     this.image = this.product.basic.images[0].src;
+    //   }else{
+    //     this.image = "../../../assets/images/i3.jpeg";
+    //   }
+    // }else{
+    //   this.product=this.productService.getProductFromSession(this.route.snapshot.params["id"],
+    //   "featured_products");
+      
+    // }
+
+    this.productService.getSingleProduct(this.route.snapshot.params["id"]).subscribe(product => {
+      debugger;
+      console.log(product);
+      if (this.route.snapshot.params["type"] == "processors") {        
+        this.product = this.productService.createProcessor(product);
+      } else if (this.route.snapshot.params["type"] == "cases") {
+        this.product = this.productService.createCase(product);
+      } else if (this.route.snapshot.params["type"] == "coolers") {
+        this.product = this.productService.createCooler(product);
+      } else if (this.route.snapshot.params["type"] == "gpu") {
+        this.product = this.productService.createGPU(product);
+      } else if (this.route.snapshot.params["type"] == "hdds") {
+        this.product = this.productService.createHDD(product);
+      } else if (this.route.snapshot.params["type"] == "m2s") {
+        this.product = this.productService.createM2(product);
+      } else if (this.route.snapshot.params["type"] == "motherboards") {
+        this.product = this.productService.createMotherBoard(product);  
+      } else if (this.route.snapshot.params["type"] == "powersupplies") {
+        this.product = this.productService.createPowerSupply(product);
+      } else if (this.route.snapshot.params["type"] == "rams") {
+        this.product = this.productService.createRAM(product);
+      } else if (this.route.snapshot.params["type"] == "ssds") {
+        this.product = this.productService.createSSD(product);
+      }
+      if (product.images!.length > 0) {
+        this.image = product.images![0].src||"";
+      } else {
         this.image = "../../../assets/images/i3.jpeg";
       }
-    }else{
-      this.product=this.productService.getProductFromSession(this.route.snapshot.params["id"],
-      "featured_products");
-      
-    }
-    this.fillDisplayCategory();
+      this.fillDisplayCategory();     
+    })
+
+    //this.fillDisplayCategory();
     // this.processor=this.productService.getProductFromSession(this.route.snapshot.params["id"],"processors");
       
 
