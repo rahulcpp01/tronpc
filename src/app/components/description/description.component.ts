@@ -24,6 +24,7 @@ export class DescriptionComponent implements OnInit {
   public display_product: any={}
   public selectedtype: string = "";
   public productname: string = "";
+  public imagesarray: string[] = [];
   // public case: Case={};
   // public cooler: Cooler={};
   // public gpu: GPU={};
@@ -80,6 +81,11 @@ export class DescriptionComponent implements OnInit {
       }
       if (product.images!.length > 0) {
         this.image = product.images![0].src||"";
+
+        product.images?.forEach(pdt =>{
+          this.imagesarray.push(pdt.src||"");
+        })
+
       } else {
         this.image = "../../../assets/images/i3.jpeg";
       }

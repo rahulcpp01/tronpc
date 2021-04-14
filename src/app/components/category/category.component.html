@@ -1,10 +1,10 @@
 <div class="breadcrumbs">
     <a routerLink="/inventory">Inventory</a> >>  {{selectedcat}}
     <div class="search">
-        <select>
-            <option>Sort by Price</option>
-            <option>Price High to Low</option>
-            <option>Price Low to high</option>
+        <select (change)="sortCategory($event.target.value)">
+            <option value="" disabled selected>Sort by Price</option>
+            <option value="hightolow">Price High to Low</option>
+            <option value="lowtohigh">Price Low to high</option>
         </select>
     </div>
 </div>

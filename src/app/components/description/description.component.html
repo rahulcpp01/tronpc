@@ -7,12 +7,17 @@
 </div>
 <div class="continer-fluid">
     <div class="row">
-        <div class="col-6">
+        <div class="col-md-6 col-12">
             <div class="product-image">
                 <img loading="lazy" [src]="image" alt="image">
             </div>
+            <div *ngIf="imagesarray.length>0" class="imgcollection">
+                <div class="productimges" *ngFor="let img of imagesarray">
+                    <img [src]="img" alt="not available" (click)="this.image=img">
+                </div>                
+            </div>
         </div>
-        <div class="col-6">
+        <div class="col-md-6 col-12">
             <table class="table table-striped">
                 <thead>
                     <tr>

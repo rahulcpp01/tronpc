@@ -109,6 +109,96 @@ export class CategoryComponent implements OnInit {
 
   addToCart(product: TronPCProduct) {    
     this.cartService.addToCart(product);    
-}
+  }
+
+  sortCategory(sortoption: string){    
+    debugger;
+    console.log(sortoption);
+    if(sortoption == "lowtohigh"){
+      if (this.selectedcat == "processors") {
+          this.processors = this.processors.sort((x, y)=> {
+            return Number.parseInt(x.basic?.regular_price||"") - Number.parseInt(y.basic?.regular_price||"")
+          })
+      } else if (this.selectedcat == "cases") {        
+          this.cases = this.cases.sort((x, y)=> {
+            return Number.parseInt(x.basic?.regular_price||"") - Number.parseInt(y.basic?.regular_price||"")
+          })       
+      } else if (this.selectedcat == "coolers") {
+          this.coolers = this.coolers.sort((x, y)=> {
+            return Number.parseInt(x.basic?.regular_price||"") - Number.parseInt(y.basic?.regular_price||"")
+          })        
+      } else if (this.selectedcat == "gpu") {       
+          this.gpus = this.gpus.sort((x, y)=> {
+            return Number.parseInt(x.basic?.regular_price||"") - Number.parseInt(y.basic?.regular_price||"")
+          })         
+      } else if (this.selectedcat == "hdds") {       
+          this.hdds = this.hdds.sort((x, y)=> {
+            return Number.parseInt(x.basic?.regular_price||"") - Number.parseInt(y.basic?.regular_price||"")
+          })          
+      } else if (this.selectedcat == "m2s") {       
+          this.m2s = this.m2s.sort((x, y)=> {
+            return Number.parseInt(x.basic?.regular_price||"") - Number.parseInt(y.basic?.regular_price||"")
+          })          
+      } else if (this.selectedcat == "motherboards") {        
+          this.motherboards = this.motherboards.sort((x, y)=> {
+            return Number.parseInt(x.basic?.regular_price||"") - Number.parseInt(y.basic?.regular_price||"")
+          })       
+      } else if (this.selectedcat == "powersupplies") {        
+          this.powersupplys = this.powersupplys.sort((x, y)=> {
+            return Number.parseInt(x.basic?.regular_price||"") - Number.parseInt(y.basic?.regular_price||"")
+          })           
+      } else if (this.selectedcat == "rams") {       
+          this.rams = this.rams.sort((x, y)=> {
+            return Number.parseInt(x.basic?.regular_price||"") - Number.parseInt(y.basic?.regular_price||"")
+          })          
+      } else if (this.selectedcat == "ssds") {        
+          this.ssds = this.ssds.sort((x, y)=> {
+            return Number.parseInt(x.basic?.regular_price||"") - Number.parseInt(y.basic?.regular_price||"")
+          })         
+      }
+    }else if(sortoption == "hightolow"){
+      if (this.selectedcat == "processors") {
+        this.processors = this.processors.sort((x, y)=> {
+          return Number.parseInt(y.basic?.regular_price||"") - Number.parseInt(x.basic?.regular_price||"")
+        })
+    } else if (this.selectedcat == "cases") {        
+        this.cases = this.cases.sort((x, y)=> {
+          return Number.parseInt(y.basic?.regular_price||"") - Number.parseInt(x.basic?.regular_price||"")
+        })       
+    } else if (this.selectedcat == "coolers") {
+        this.coolers = this.coolers.sort((x, y)=> {
+          return Number.parseInt(y.basic?.regular_price||"") - Number.parseInt(x.basic?.regular_price||"")
+        })        
+    } else if (this.selectedcat == "gpu") {       
+        this.gpus = this.gpus.sort((x, y)=> {
+          return Number.parseInt(y.basic?.regular_price||"") - Number.parseInt(x.basic?.regular_price||"")
+        })         
+    } else if (this.selectedcat == "hdds") {       
+        this.hdds = this.hdds.sort((x, y)=> {
+          return Number.parseInt(y.basic?.regular_price||"") - Number.parseInt(x.basic?.regular_price||"")
+        })          
+    } else if (this.selectedcat == "m2s") {       
+        this.m2s = this.m2s.sort((x, y)=> {
+          return Number.parseInt(y.basic?.regular_price||"") - Number.parseInt(x.basic?.regular_price||"")
+        })          
+    } else if (this.selectedcat == "motherboards") {        
+        this.motherboards = this.motherboards.sort((x, y)=> {
+          return Number.parseInt(y.basic?.regular_price||"") - Number.parseInt(x.basic?.regular_price||"")
+        })       
+    } else if (this.selectedcat == "powersupplies") {        
+        this.powersupplys = this.powersupplys.sort((x, y)=> {
+          return Number.parseInt(y.basic?.regular_price||"") - Number.parseInt(x.basic?.regular_price||"")
+        })           
+    } else if (this.selectedcat == "rams") {       
+        this.rams = this.rams.sort((x, y)=> {
+          return Number.parseInt(y.basic?.regular_price||"") - Number.parseInt(x.basic?.regular_price||"")
+        })          
+    } else if (this.selectedcat == "ssds") {        
+        this.ssds = this.ssds.sort((x, y)=> {
+          return Number.parseInt(y.basic?.regular_price||"") - Number.parseInt(x.basic?.regular_price||"")
+        })         
+    }
+    }
+  }
 
 }
