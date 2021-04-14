@@ -1,6 +1,10 @@
 //const base= 'https://tronpc.com/api';
+
 const base = 'https://skyblu.xyz/api';
+const basewww = 'https://www.skyblu.xyz/api'; 
 const url = base + '/wp-json/wc/v3';
+const urlwww = basewww + '/wp-json/wc/v3';
+
 const authUrl = base + '/wp-json/jwt-auth/v1/token';
 const tokenVerifyUrl = base + '/wp-json/jwt-auth/v1/token/validate';
 const forgotPasswordUrl = base + '/wp-json/bdpwr/v1';
@@ -10,6 +14,7 @@ const forgotPasswordUrl = base + '/wp-json/bdpwr/v1';
 export const environment = {
     production: false,
     backend_api_url: url,
+    backend_api_url_www: urlwww,
     auth_url: authUrl,
     token_verify_url: tokenVerifyUrl,
     forgotPasswordUrl: forgotPasswordUrl,

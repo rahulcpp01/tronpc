@@ -19,6 +19,7 @@ export class AppInterceptor implements HttpInterceptor {
   }
 
   private setHeaders(request: HttpRequest<any>): HttpRequest<any> {
+    
     if (request.url.search('/jwt-auth/v1/token') === -1 && request.url.search('/bdpwr/v1') === -1) {
       request = request.clone({
         headers: request.headers.set('Content-Type', 'application/json').set('Access-Control-Allow-Origin','*')
@@ -29,11 +30,21 @@ export class AppInterceptor implements HttpInterceptor {
           consumer_secret: environment.readOnlyKeys.consumer_secret
         }
       });
+       //for www
+    if(location.origin.indexOf("://www.")!=-1){
+      request = request.clone({
+        url: environment.backend_api_url_www + request.url,
+        withCredentials: true
+      });
+    }else{
       request = request.clone({
         url: environment.backend_api_url + request.url,
         withCredentials: true
       });
     }
+      //for www
+    }
+   
     return request;
   }
 
