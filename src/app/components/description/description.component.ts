@@ -22,6 +22,8 @@ export class DescriptionComponent implements OnInit {
   public image: string = "";
   public product: any={};
   public display_product: any={}
+  public selectedtype: string = "";
+  public productname: string = "";
   // public case: Case={};
   // public cooler: Cooler={};
   // public gpu: GPU={};
@@ -52,27 +54,28 @@ export class DescriptionComponent implements OnInit {
     // }
 
     this.productService.getSingleProduct(this.route.snapshot.params["id"]).subscribe(product => {
-      debugger;
-      console.log(product);
-      if (this.route.snapshot.params["type"] == "processors") {        
+      this.selectedtype = this.route.snapshot.params["type"]; 
+      this.productname = product.name||"";
+      //console.log(product);
+      if (this.selectedtype == "processors") {        
         this.product = this.productService.createProcessor(product);
-      } else if (this.route.snapshot.params["type"] == "cases") {
+      } else if (this.selectedtype == "cases") {
         this.product = this.productService.createCase(product);
-      } else if (this.route.snapshot.params["type"] == "coolers") {
+      } else if (this.selectedtype == "coolers") {
         this.product = this.productService.createCooler(product);
-      } else if (this.route.snapshot.params["type"] == "gpu") {
+      } else if (this.selectedtype == "gpu") {
         this.product = this.productService.createGPU(product);
-      } else if (this.route.snapshot.params["type"] == "hdds") {
+      } else if (this.selectedtype == "hdds") {
         this.product = this.productService.createHDD(product);
-      } else if (this.route.snapshot.params["type"] == "m2s") {
+      } else if (this.selectedtype == "m2s") {
         this.product = this.productService.createM2(product);
-      } else if (this.route.snapshot.params["type"] == "motherboards") {
+      } else if (this.selectedtype == "motherboards") {
         this.product = this.productService.createMotherBoard(product);  
-      } else if (this.route.snapshot.params["type"] == "powersupplies") {
+      } else if (this.selectedtype == "powersupplies") {
         this.product = this.productService.createPowerSupply(product);
-      } else if (this.route.snapshot.params["type"] == "rams") {
+      } else if (this.selectedtype == "rams") {
         this.product = this.productService.createRAM(product);
-      } else if (this.route.snapshot.params["type"] == "ssds") {
+      } else if (this.selectedtype == "ssds") {
         this.product = this.productService.createSSD(product);
       }
       if (product.images!.length > 0) {

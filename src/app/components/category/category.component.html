@@ -1,3 +1,13 @@
+<div class="breadcrumbs">
+    <a routerLink="/inventory">Inventory</a> >>  {{selectedcat}}
+    <div class="search">
+        <select>
+            <option>Sort by Price</option>
+            <option>Price High to Low</option>
+            <option>Price Low to high</option>
+        </select>
+    </div>
+</div>
 <div class="container-fluid">    
     <div *ngIf="processors.length >0" class="row w-100per m-0px row-cols-5">
         <div class="col" *ngFor="let processor of processors">
