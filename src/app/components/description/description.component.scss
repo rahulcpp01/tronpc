@@ -6,6 +6,14 @@
         margin-left: 68px;
     }
 }
+@media (max-width:1000px) {
+    .product-image{
+        padding: 0px;
+    }
+    table{
+        margin-left: 0px;
+    }
+}
 table{
     margin-top: 74px;
     margin-left: 40px;
@@ -23,4 +31,20 @@ table{
     color: var(--primary-color);
     margin-top: 70px;    
     padding-left: 38px;
+}
+
+.imgcollection{
+    display: flex;
+    overflow: auto;
+    .productimges {
+        width: 100px;
+        height: 100px;
+        display: inline-block;
+        margin: 20px;
+        img{
+            width: 100px;
+            height: 100px; 
+        }
+    
+    }
 }
