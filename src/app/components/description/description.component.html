@@ -2,6 +2,9 @@
 <!-- <div *ngFor="let item of processor | keyvalue">
     {{item.key}}:{{item.value}}
 </div> -->
+<div class="breadcrumbs">
+    <a routerLink="/inventory">Inventory</a> >> <a [routerLink]="['/category/'+ selectedtype ]">{{selectedtype}}</a>  >> {{productname}}  
+</div>
 <div class="continer-fluid">
     <div class="row">
         <div class="col-6">
