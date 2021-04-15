@@ -49,7 +49,6 @@ export class ProductComponent implements OnInit {
 
 
     this.productService.getSingleProduct(this.id).subscribe(product => {
-      debugger;
       console.log(product);
      
         this.regularprice = Number.parseInt(product.regular_price || "");
