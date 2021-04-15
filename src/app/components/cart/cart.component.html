@@ -3,7 +3,9 @@
     <app-cart-product             
             [id]="p.id!"
             [type]='p.type'
-            [cartcount]="p.in_cart"            
+            [cartcount]="p.in_cart"   
+            (addToCartEvent)="addToCart($event)"
+            (removeFromCartEvent)="removeItemFromCart($event)"         
             >
         </app-cart-product>
 </div>
