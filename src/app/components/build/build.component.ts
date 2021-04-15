@@ -284,6 +284,8 @@ export class BuildComponent implements OnInit, OnDestroy {
                   if(ramid != ""){
                     this.productService.getSingleProduct(ramid).subscribe( sram =>{
                       this.selectedRam.push(this.productService.createRAM(sram));
+                      this.calculateTotalPrice();
+                      this.calculateTotalTDP();
                     })
                   }                      
                 });
@@ -298,6 +300,8 @@ export class BuildComponent implements OnInit, OnDestroy {
                   let selectedm2id = config.find((x:string)=>x.indexOf('m2')!=-1).substr(3);
                   this.productService.getSingleProduct(selectedm2id).subscribe(sm2 =>{
                     this.selectedM2 = this.productService.createM2(sm2);
+                    this.calculateTotalPrice();
+                    this.calculateTotalTDP();
                   })
                   //this.selectedM2 = localStorage["selectedM2"];
                 }
@@ -309,6 +313,8 @@ export class BuildComponent implements OnInit, OnDestroy {
                       if(m2id != ""){
                         this.productService.getSingleProduct(m2id).subscribe( ssm2 =>{
                           this.selectedMultipleM2.push(this.productService.createM2(ssm2));
+                          this.calculateTotalPrice();
+                          this.calculateTotalTDP();
                         })
                       }                      
                     });
@@ -325,6 +331,8 @@ export class BuildComponent implements OnInit, OnDestroy {
                   if(ssdid != ""){
                     this.productService.getSingleProduct(ssdid).subscribe( sssd =>{
                       this.selectedSataSSD.push(this.productService.createSSD(sssd));
+                      this.calculateTotalPrice();
+                      this.calculateTotalTDP();
                     })
                   }                      
                 });
@@ -337,6 +345,8 @@ export class BuildComponent implements OnInit, OnDestroy {
                   if(hddid != ""){
                     this.productService.getSingleProduct(hddid).subscribe( shdd =>{
                       this.selectedSataHDD.push(this.productService.createHDD(shdd));
+                      this.calculateTotalPrice();
+                      this.calculateTotalTDP();
                     })
                   }                      
                 });
@@ -348,6 +358,8 @@ export class BuildComponent implements OnInit, OnDestroy {
                 let selectedcoolerid = config.find((x:string)=>x.indexOf('cooler')!=-1).substr(7);
                 this.productService.getSingleProduct(selectedcoolerid).subscribe( scooler =>{
                   this.selectedCooler = this.productService.createCooler(scooler);
+                  this.calculateTotalPrice();
+                  this.calculateTotalTDP();
                 })
               }
 
@@ -356,6 +368,8 @@ export class BuildComponent implements OnInit, OnDestroy {
                 let selectedcaseid = config.find((x:string)=>x.indexOf('case')!=-1).substr(5);
                 this.productService.getSingleProduct(selectedcaseid).subscribe( scase =>{
                   this.selectedCASE = this.productService.createCase(scase);
+                  this.calculateTotalPrice();
+                  this.calculateTotalTDP();
                 })
               }
 
@@ -365,6 +379,8 @@ export class BuildComponent implements OnInit, OnDestroy {
                 let selectedpowerid = config.find((x:string)=>x.indexOf('power')!=-1).substr(6);
                 this.productService.getSingleProduct(selectedpowerid).subscribe( spower =>{
                   this.selectedPowerSupply = this.productService.createPowerSupply(spower);
+                  this.calculateTotalPrice();
+                  this.calculateTotalTDP();
                 })
               }
 
@@ -487,7 +503,7 @@ export class BuildComponent implements OnInit, OnDestroy {
     let buildquery = this.route
     .queryParams
     .subscribe(params => {
-      debugger;
+      
       // Defaults to 0 if no query param provided.
       let buildvar = params['build'] || "";
 
