@@ -22,10 +22,10 @@ export class CartComponent implements OnInit {
   }
 
   removeItemFromCart(prod: TronPCProduct) {
-    this.productsInCart = this.cartService.removeFromCart(prod);
+    this.cartService.removeFromCart(prod);
   }
 
-  addToCart(prod: TronPCProduct) {
-    this.addToCartEvent.emit(prod);
+  addToCart(product: TronPCProduct) {    
+    this.cartService.addToCart(product);    
   }
 }

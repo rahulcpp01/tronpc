@@ -117,8 +117,9 @@ export class CartService {
         this.totalAmount$.next(this.totalAmount);
     }
 
-    updateQuantity(indexOfProduct: number, newInCartValue: number) {
-        this.cartDataArray.productData[indexOfProduct].in_cart = newInCartValue;
+    updateQuantity(indexOfProduct: number, newInCartValue: number) {        
+        const index = this.cartDataArray.productData.findIndex(p => p.id === indexOfProduct);
+        this.cartDataArray.productData[index].in_cart = newInCartValue;
         this.calculateTotal();
         //this.storage.set('cart', this.cartDataArray).then();
         localStorage["cart"] = JSON.stringify(this.cartDataArray);
