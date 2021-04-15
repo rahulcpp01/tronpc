@@ -84,6 +84,8 @@
     <h4>Total TDP {{totalTDP}}</h4>
     <button (click)=" this.popup = !this.popup;this.popupSelectedItem = 'checkout';">CheckOut the Order</button>  
     <!-- *ngIf="buildPrice > 0"-->
+    <button (click)="copyBuildUrl()">Copy build URL</button>
+    <p>{{buildurl}}</p>
 </div>
 
 <div class="container-fluid building">

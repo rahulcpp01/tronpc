@@ -1,5 +1,6 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import { Case } from 'src/models/custommodels/case.model';
 import { Cooler } from 'src/models/custommodels/cooler.model';
@@ -72,6 +73,9 @@ export class BuildComponent implements OnInit, OnDestroy {
   public buildPrice: number = 0;
   public totalTDP: number = 0;
 
+
+  public buildurl: string = "";
+
   indianStates = environment.states;
   public userdetails: Customer = {
     first_name: "",
@@ -101,53 +105,96 @@ export class BuildComponent implements OnInit, OnDestroy {
   constructor(private productService: WoocommerceService,
     private cartService: CartService,
     private userService: UserService,
-    private encryptDecryptService:EncryptDecryptService) {
+    private encryptDecryptService:EncryptDecryptService,
+    private route: ActivatedRoute,
+    private router: Router) {
   }
   ngOnDestroy(): void {
-    this.saveBuildLocally()
+    this.saveBuildLocally();
   }
   saveBuildLocally() {
+    let motherboardselected = false;
+    let querystring= "";
     if (this.selectedProcessor && Object.keys(this.selectedProcessor).length > 0) {
-      localStorage["selectedProcessor"]=JSON.stringify(this.selectedProcessor);
+      //localStorage["selectedProcessor"]=JSON.stringify(this.selectedProcessor);
+      querystring+="proc="+this.selectedProcessor.id;
     }
     if (this.selectedMotherBoard && Object.keys(this.selectedMotherBoard).length > 0) {
-      localStorage["selectedMotherBoard"]= JSON.stringify(this.selectedMotherBoard);
+      //localStorage["selectedMotherBoard"]= JSON.stringify(this.selectedMotherBoard);
+      querystring+="&motr="+this.selectedMotherBoard.id;
+      motherboardselected=true;
     }
     if (this.selectedRam && Object.keys(this.selectedRam).length > 0) {
-      localStorage["selectedRam"]= JSON.stringify(this.selectedRam);
+      //localStorage["selectedRam"]= JSON.stringify(this.selectedRam);
+      querystring+="&rams=";
+      this.selectedRam.forEach(sram => {
+        querystring+=sram.id+"+";
+      })
     }
-    localStorage["multiplem2"]= this.multiplem2;
-    localStorage ["multiplem2array"] = JSON.stringify(this.multiplem2array);
+    if(motherboardselected)
+      querystring+="&mulm2flag="+this.multiplem2;
+    //localStorage["multiplem2"]= this.multiplem2;
+
+
+    //localStorage ["multiplem2array"] = JSON.stringify(this.multiplem2array);
 
     if (!this.multiplem2) {
       if (this.selectedM2 && Object.keys(this.selectedM2).length > 0) {
-        localStorage["selectedM2"]= JSON.stringify(this.selectedM2);
+        //localStorage["selectedM2"]= JSON.stringify(this.selectedM2);
+        querystring+="&m2="+this.selectedM2.id;
       }
     } else {
       if (this.selectedMultipleM2 && Object.keys(this.selectedMultipleM2).length > 0) {
         
-        localStorage["selectedMultipleM2"]= JSON.stringify(this.selectedMultipleM2);
+        //localStorage["selectedMultipleM2"]= JSON.stringify(this.selectedMultipleM2);
+        querystring+="&m2arr=";
+        this.selectedMultipleM2.forEach(m2 => {
+          querystring+=m2.id+"+";
+        })
+
       }
     }
     //SATA
-    localStorage["ssdhddarray"]= this.ssdhddarray;
+    //localStorage["ssdhddarray"]= this.ssdhddarray;   
     if (this.ssdhddarray.length > 0) {
-      if (this.selectedSataSSD && Object.keys(this.selectedSataSSD).length > 0)
-      localStorage["selectedSataSSD"]= JSON.stringify(this.selectedSataSSD);
+      if (this.selectedSataSSD && Object.keys(this.selectedSataSSD).length > 0){
+        //localStorage["selectedSataSSD"]= JSON.stringify(this.selectedSataSSD);        
+        querystring+="&ssdarr=";
+        this.selectedSataSSD.forEach(ssd => {
+          querystring+=ssd.id+"+";
+        })
+      }
+      
 
-      if (this.selectedSataHDD && Object.keys(this.selectedSataHDD).length > 0)
-      localStorage["selectedSataHDD"]= JSON.stringify(this.selectedSataHDD);      
+      if (this.selectedSataHDD && Object.keys(this.selectedSataHDD).length > 0){
+        //localStorage["selectedSataHDD"]= JSON.stringify(this.selectedSataHDD); 
+        querystring+="&hddarr=";
+        this.selectedSataHDD.forEach(hdd => {
+          querystring+=hdd.id+"+";
+        })  
+      }
+         
     }
 
     if (this.selectedCooler && Object.keys(this.selectedCooler).length > 0) {
-      localStorage["selectedCooler"]= JSON.stringify(this.selectedCooler);
+      //localStorage["selectedCooler"]= JSON.stringify(this.selectedCooler);
+      querystring+="&cooler="+this.selectedCooler.id;
     }
     if (this.selectedCASE && Object.keys(this.selectedCASE).length > 0) {
-      localStorage["selectedCASE"]= JSON.stringify(this.selectedCASE);
+      //localStorage["selectedCASE"]= JSON.stringify(this.selectedCASE);
+      querystring+="&case="+this.selectedCASE.id;
     }
     if (this.selectedPowerSupply && Object.keys(this.selectedPowerSupply).length > 0) {
-      localStorage["selectedPowerSupply"]= JSON.stringify(this.selectedPowerSupply);
+      //localStorage["selectedPowerSupply"]= JSON.stringify(this.selectedPowerSupply);
+      querystring+="&power="+this.selectedPowerSupply.id;
     }
+    localStorage["build"] = btoa(querystring);
+    this.buildurl = "https://skyblu.xyz/#/build?build="+ localStorage["build"];
+    console.log('URL : https://skyblu.xyz/#/build?build='+ btoa(querystring));
+  }
+
+  copyBuildUrl(){
+    this.saveBuildLocally();
   }
 
   clearLocalStorage(){
@@ -165,30 +212,192 @@ export class BuildComponent implements OnInit, OnDestroy {
     localStorage.removeItem("selectedPowerSupply");
   }
 
-  loadBuildFromLocal(){
-    if(localStorage["selectedProcessor"]){
-      //this.selectedProcessor = JSON.parse(localStorage["selectedProcessor"]);
-      this.procecessorSelected(JSON.parse(localStorage["selectedProcessor"]));
-    }
-    if(localStorage["selectedMotherBoard"]){
-      //this.selectedMotherBoard = JSON.parse(localStorage["selectedMotherBoard"]);
-      this.motherboardSelected(JSON.parse(localStorage["selectedMotherBoard"]));
-    }
-    if (localStorage["selectedRam"]) {
-      this.selectedRam = JSON.parse(localStorage["selectedRam"]);
-    }
+  // loadBuildFromLocal(){
+  //   if(localStorage["selectedProcessor"]){
+  //     //this.selectedProcessor = JSON.parse(localStorage["selectedProcessor"]);
+  //     this.procecessorSelected(JSON.parse(localStorage["selectedProcessor"]));
+  //   }
+  //   if(localStorage["selectedMotherBoard"]){
+  //     //this.selectedMotherBoard = JSON.parse(localStorage["selectedMotherBoard"]);
+  //     this.motherboardSelected(JSON.parse(localStorage["selectedMotherBoard"]));
+  //   }
+  //   if (localStorage["selectedRam"]) {
+  //     this.selectedRam = JSON.parse(localStorage["selectedRam"]);
+  //   }
     
-    this.multiplem2array = JSON.parse(localStorage["multiplem2array"]);
+  //   this.multiplem2array = JSON.parse(localStorage["multiplem2array"]);
 
-    if (localStorage["multiplem2"]=="false") {
-      if (localStorage["selectedRam"]) {
-        this.selectedM2 = localStorage["selectedM2"];
+  //   if (localStorage["multiplem2"]=="false") {
+  //     if (localStorage["selectedRam"]) {
+  //       this.selectedM2 = localStorage["selectedM2"];
+  //     }
+  //   } else {
+  //     if (localStorage["selectedMultipleM2"]) {
+  //       this.selectedMultipleM2 = localStorage["selectedMultipleM2"];
+  //     }
+  //   }
+  //   //SATA
+  //   // if (this.ssdhddarray.length > 0) {
+  //   //   this.selectedSataSSD.forEach(x => {
+  //   //     this.buildPrice += Number.parseFloat(x.basic?.regular_price || "");
+  //   //   })
+  //   //   this.selectedSataHDD.forEach(x => {
+  //   //     this.buildPrice += Number.parseFloat(x.basic?.regular_price || "");
+  //   //   })
+  //   // }
+
+  //   if (localStorage["selectedCooler"]) {
+  //     this.selectedCooler = JSON.parse(localStorage["selectedCooler"]);
+  //     //this.selectCooler()
+  //   }
+  //   if (localStorage["selectedCASE"]) {
+  //     this.selectedCASE = JSON.parse(localStorage["selectedCASE"]);
+  //   }
+  //   if (localStorage["selectedPowerSupply"]) {
+  //     this.selectedPowerSupply = JSON.parse(localStorage["selectedPowerSupply"]);
+  //   }
+  //   this.clearLocalStorage();
+  // }
+
+  
+  loadBuildFromLocal(build: any){
+    //let build = localStorage["build"];
+    if(build){
+      let config = build.split('&');
+
+      //For Processor
+      if(build.indexOf('proc')> -1){
+        let selectedprocessorid = config.find((x:string)=>x.indexOf('proc')!=-1).substr(5);
+        this.productService.getSingleProduct(selectedprocessorid).subscribe(proc =>{
+          this.procecessorSelected(this.productService.createProcessor(proc));
+
+          //For Mother Board
+          if(build.indexOf('motr')> -1){
+            let selectedmotherboardid = config.find((x:string)=>x.indexOf('motr')!=-1).substr(5);
+            this.productService.getSingleProduct(selectedmotherboardid).subscribe(proc =>{
+              this.motherboardSelected(this.productService.createMotherBoard(proc));
+
+              //For RAMS
+              if(build.indexOf('rams')> -1){
+                let selectedramids = config.find((x:string)=>x.indexOf('rams')!=-1).substr(5).split('+');                
+                selectedramids.forEach((ramid: any)=> {         
+                  if(ramid != ""){
+                    this.productService.getSingleProduct(ramid).subscribe( sram =>{
+                      this.selectedRam.push(this.productService.createRAM(sram));
+                    })
+                  }                      
+                });
+
+              }
+
+              if(build.indexOf('mulm2flag')> -1){
+                this.multiplem2 = config.find((x:string)=>x.indexOf('mulm2flag')!=-1).substr(10);
+              }
+              if (!this.multiplem2) {
+                if(build.indexOf('m2')> -1) {
+                  let selectedm2id = config.find((x:string)=>x.indexOf('m2')!=-1).substr(3);
+                  this.productService.getSingleProduct(selectedm2id).subscribe(sm2 =>{
+                    this.selectedM2 = this.productService.createM2(sm2);
+                  })
+                  //this.selectedM2 = localStorage["selectedM2"];
+                }
+              } else {
+                if(build.indexOf('m2arr')> -1) {
+                  
+                    let selectedm2arrids = config.find((x:string)=>x.indexOf('m2arr')!=-1).substr(6).split('+');                
+                    selectedm2arrids.forEach((m2id: any)=> {         
+                      if(m2id != ""){
+                        this.productService.getSingleProduct(m2id).subscribe( ssm2 =>{
+                          this.selectedMultipleM2.push(this.productService.createM2(ssm2));
+                        })
+                      }                      
+                    });
+    
+                  
+                  //this.selectedMultipleM2 = localStorage["selectedMultipleM2"];
+                }
+              }
+
+              //FOR SSD
+              if(build.indexOf('ssdarr')> -1){
+                let selectedssdarrids = config.find((x:string)=>x.indexOf('ssdarr')!=-1).substr(7).split('+');                
+                selectedssdarrids.forEach((ssdid: any)=> {         
+                  if(ssdid != ""){
+                    this.productService.getSingleProduct(ssdid).subscribe( sssd =>{
+                      this.selectedSataSSD.push(this.productService.createSSD(sssd));
+                    })
+                  }                      
+                });
+              }
+
+              //FOR HDD
+              if(build.indexOf('hddarr')> -1){
+                let selectedhddarrids = config.find((x:string)=>x.indexOf('hddarr')!=-1).substr(7).split('+');                
+                selectedhddarrids.forEach((hddid: any)=> {         
+                  if(hddid != ""){
+                    this.productService.getSingleProduct(hddid).subscribe( shdd =>{
+                      this.selectedSataHDD.push(this.productService.createHDD(shdd));
+                    })
+                  }                      
+                });
+              }
+
+
+              //For Cooler
+              if(build.indexOf('cooler')> -1){
+                let selectedcoolerid = config.find((x:string)=>x.indexOf('cooler')!=-1).substr(7);
+                this.productService.getSingleProduct(selectedcoolerid).subscribe( scooler =>{
+                  this.selectedCooler = this.productService.createCooler(scooler);
+                })
+              }
+
+               //For Case
+               if(build.indexOf('case')> -1){
+                let selectedcaseid = config.find((x:string)=>x.indexOf('case')!=-1).substr(5);
+                this.productService.getSingleProduct(selectedcaseid).subscribe( scase =>{
+                  this.selectedCASE = this.productService.createCase(scase);
+                })
+              }
+
+
+               //For Power Supply
+               if(build.indexOf('power')> -1){
+                let selectedpowerid = config.find((x:string)=>x.indexOf('power')!=-1).substr(6);
+                this.productService.getSingleProduct(selectedpowerid).subscribe( spower =>{
+                  this.selectedPowerSupply = this.productService.createPowerSupply(spower);
+                })
+              }
+
+            })
+          }
+
+        })
       }
-    } else {
-      if (localStorage["selectedMultipleM2"]) {
-        this.selectedMultipleM2 = localStorage["selectedMultipleM2"];
-      }
+     
     }
+    // if(localStorage["selectedProcessor"]){
+    //   //this.selectedProcessor = JSON.parse(localStorage["selectedProcessor"]);
+    //   this.procecessorSelected(JSON.parse(localStorage["selectedProcessor"]));
+    // }
+    // if(localStorage["selectedMotherBoard"]){
+    //   //this.selectedMotherBoard = JSON.parse(localStorage["selectedMotherBoard"]);
+    //   this.motherboardSelected(JSON.parse(localStorage["selectedMotherBoard"]));
+    // }
+    // if (localStorage["selectedRam"]) {
+    //   this.selectedRam = JSON.parse(localStorage["selectedRam"]);
+    // }
+    
+    //this.multiplem2array = JSON.parse(localStorage["multiplem2array"]);
+
+    // if (localStorage["multiplem2"]=="false") {
+    //   if (localStorage["selectedRam"]) {
+    //     this.selectedM2 = localStorage["selectedM2"];
+    //   }
+    // } else {
+    //   if (localStorage["selectedMultipleM2"]) {
+    //     this.selectedMultipleM2 = localStorage["selectedMultipleM2"];
+    //   }
+    // }
     //SATA
     // if (this.ssdhddarray.length > 0) {
     //   this.selectedSataSSD.forEach(x => {
@@ -199,17 +408,17 @@ export class BuildComponent implements OnInit, OnDestroy {
     //   })
     // }
 
-    if (localStorage["selectedCooler"]) {
-      this.selectedCooler = JSON.parse(localStorage["selectedCooler"]);
-      //this.selectCooler()
-    }
-    if (localStorage["selectedCASE"]) {
-      this.selectedCASE = JSON.parse(localStorage["selectedCASE"]);
-    }
-    if (localStorage["selectedPowerSupply"]) {
-      this.selectedPowerSupply = JSON.parse(localStorage["selectedPowerSupply"]);
-    }
-    this.clearLocalStorage();
+    // if (localStorage["selectedCooler"]) {
+    //   this.selectedCooler = JSON.parse(localStorage["selectedCooler"]);
+    //   //this.selectCooler()
+    // }
+    // if (localStorage["selectedCASE"]) {
+    //   this.selectedCASE = JSON.parse(localStorage["selectedCASE"]);
+    // }
+    // if (localStorage["selectedPowerSupply"]) {
+    //   this.selectedPowerSupply = JSON.parse(localStorage["selectedPowerSupply"]);
+    // }
+    //this.clearLocalStorage();
   }
   async ngOnInit() {
     // this.productService.getAllProducts().subscribe(product => {
@@ -260,24 +469,38 @@ export class BuildComponent implements OnInit, OnDestroy {
     //   this.processors = JSON.parse(sessionStorage["processors"]);
     // });
 
-    let userData = this.userService.getUserInfo();     
-      if (userData) {
-          this.userdetails = this.encryptDecryptService.decryptData(userData);
-          // this.isRegisteredUser = true;
-          // this.edit_shipping_address = false;
-          // this.shippingstate = this.indianStates.find(x => x.value == this.userdetails.shipping.state).name;
-          // this.cartService.cartData.subscribe(data => {
-          //     this.cartitems = data;
-          // });
+    // let userData = this.userService.getUserInfo();     
+    //   if (userData) {
+    //       this.userdetails = this.encryptDecryptService.decryptData(userData);
+    //       // this.isRegisteredUser = true;
+    //       // this.edit_shipping_address = false;
+    //       // this.shippingstate = this.indianStates.find(x => x.value == this.userdetails.shipping.state).name;
+    //       // this.cartService.cartData.subscribe(data => {
+    //       //     this.cartitems = data;
+    //       // });
          
 
-      } else {
-          //this.edit_shipping_address = true;
+    //   } else {
+    //       //this.edit_shipping_address = true;
+    //   }
+
+    let buildquery = this.route
+    .queryParams
+    .subscribe(params => {
+      debugger;
+      // Defaults to 0 if no query param provided.
+      let buildvar = params['build'] || "";
+
+
+      if(buildvar==""){
+        if(localStorage["build"]){
+          this.loadBuildFromLocal(atob(localStorage["build"]));
+        }        
+      }else{        
+        this.loadBuildFromLocal(atob(buildvar));
       }
-
- 
-
-    this.loadBuildFromLocal();
+    });
+    
   }
 
   // processorChanged(selectedprocessor:any){

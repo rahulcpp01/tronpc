@@ -112,7 +112,6 @@ export class CategoryComponent implements OnInit {
   }
 
   sortCategory(sortoption: string){    
-    debugger;
     console.log(sortoption);
     if(sortoption == "lowtohigh"){
       if (this.selectedcat == "processors") {
