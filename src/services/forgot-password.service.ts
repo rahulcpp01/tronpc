@@ -1,8 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
-import { LoadingController, ToastController } from '@ionic/angular';
-import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { ForgotPassword } from '../models/forgot-password/forgot-password';
 import { environment } from 'src/environments/environment';

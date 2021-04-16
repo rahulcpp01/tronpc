@@ -159,20 +159,24 @@ export class MenuBarComponent implements OnInit {
     //const userData = `username=8762801994&password=e1$VwhW(CRD0`; 
     let userData = `username=${this.username}&password=${this.password}`;
     return new Promise((resolve, reject) => {
-      this.http.post(environment.auth_url, userData).subscribe(async (res: any) => {
+      this.http.post(environment.auth_url, {username:this.username,password:this.password}).subscribe(async (res: any) => {
         debugger;
-        let respobj: any = JSON.parse(atob(res.token.split('.')[1]));
-        if (respobj && respobj.data) {
-          //For retreiving customer  
-          this.customerservice.getCustomerById(respobj.data.user.id).subscribe(async customer => {     
-            debugger;       
-            this.userService.setUserInfo(this.encryptDecryptService.encryptData(customer));     
-
-          }, async customer_retreiving_error => {
-            debugger;
-            console.log(customer_retreiving_error);
-          })
+        if(res.statusCode==200){          
+            //For retreiving customer  
+            this.customerservice.getCustomerById(res.data.id).subscribe(async customer => {     
+              debugger;       
+              alert("Hi" + res.data.displayName);
+              this.userService.setUserInfo(this.encryptDecryptService.encryptData(customer));     
+  
+            }, async customer_retreiving_error => {
+              debugger;
+              console.log(customer_retreiving_error);
+            })
+          
+        }else{
+          alert('Login failed :'+ res.code);
         }
+        
 
         //for retreiving customer
       },
