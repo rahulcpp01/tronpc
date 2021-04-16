@@ -485,20 +485,23 @@ export class BuildComponent implements OnInit, OnDestroy {
     //   this.processors = JSON.parse(sessionStorage["processors"]);
     // });
 
-    // let userData = this.userService.getUserInfo();     
-    //   if (userData) {
-    //       this.userdetails = this.encryptDecryptService.decryptData(userData);
-    //       // this.isRegisteredUser = true;
-    //       // this.edit_shipping_address = false;
-    //       // this.shippingstate = this.indianStates.find(x => x.value == this.userdetails.shipping.state).name;
-    //       // this.cartService.cartData.subscribe(data => {
-    //       //     this.cartitems = data;
-    //       // });
+    if(localStorage["user"]){
+      let userData = this.userService.getUserInfo();     
+      if (userData) {
+          this.userdetails = this.encryptDecryptService.decryptData(userData);
+          // this.isRegisteredUser = true;
+          // this.edit_shipping_address = false;
+          // this.shippingstate = this.indianStates.find(x => x.value == this.userdetails.shipping.state).name;
+          // this.cartService.cartData.subscribe(data => {
+          //     this.cartitems = data;
+          // });
          
 
-    //   } else {
-    //       //this.edit_shipping_address = true;
-    //   }
+      } else {
+          //this.edit_shipping_address = true;
+      }
+    }
+    
 
     let buildquery = this.route
     .queryParams
@@ -1230,10 +1233,29 @@ export class BuildComponent implements OnInit, OnDestroy {
 //     }
 // });
 
-      formData.customer_id = 0;
-        this.cartService.createOrder(formData).then(() => {
-          alert("Order Placed Successfully");
-      });
+  if(localStorage["user"]){
+  let userdatafromlocal =   this.userService.getUserInfo();
+      debugger;
+      if (userdatafromlocal) { //user available      
+          const savedUser = this.encryptDecryptService.decryptData(userdatafromlocal);
+          formData.customer_id = savedUser.id;
+          this.cartService.createOrder(formData).then(() => {
+            alert("Order Placed Successfully");
+        });
+      } else {  // user not available 
+          formData.customer_id = 0;
+          this.cartService.createOrder(formData).then(() => {
+            alert("Order Placed Successfully");
+        });
+      }
+
+  }else{
+  //   formData.customer_id = 0;
+  //   this.cartService.createOrder(formData).then(() => {
+  //     alert("Order Placed Successfully");
+  // });
+        alert("Please Login/ Register the user ");
+  }    
   
   }
 }
