@@ -59,7 +59,7 @@ export class WoocommerceService {
     return this.httpClient.get<Product>(`/products/${id}`);
   }
   searchProducts(keyword: string): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(`/products?search=${keyword}`);
+    return this.httpClient.get<Product[]>(`/products?search=${keyword}&per_page=100`);
   }
   getAllCategoriesbyId(id: number): Observable<Product[]> {
     //console.log(`${this.url}/products?category=${id}`);
@@ -657,4 +657,57 @@ export class WoocommerceService {
   delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
+
+
+  findCategory(cattype: string):string{
+    
+      console.log(cattype);
+      switch(cattype){
+        case 'motherboard':{
+          //await this.productService.waitForSession("motherboards");
+          return "motherboards";
+        }
+        case 'processor':{
+          //await this.productService.waitForSession("processors");
+          return "processors";
+        }
+        case 'case':{
+          //await this.productService.waitForSession("cases");
+          return "cases";
+        }
+        case 'cooler':{
+          //await this.productService.waitForSession("coolers");
+          return "coolers";
+        }
+        case 'gpu':{
+          //await this.productService.waitForSession("gpu");
+          return "gpu";
+        }
+        case 'hdd':{
+          //await this.productService.waitForSession("hdds");
+         return "hdds";
+        }
+        case 'm2':{
+          //await this.productService.waitForSession("m2s");
+          return "m2s";
+        }
+        case 'powersupply':{
+          //await this.productService.waitForSession("powersupplies");
+         return "powersupplies";
+        }
+        case 'ram':{
+          //await this.productService.waitForSession("rams");
+          return "rams";
+        }
+        case 'ssd':{
+          //await this.productService.waitForSession("ssds");
+          return "ssds";
+        }
+        default:{
+          return "";
+        }
+      }
+  } 
+
+  
 }

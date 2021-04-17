@@ -115,9 +115,9 @@ export class HomeComponent implements OnInit {
 
     
   }
-  findCategory(product: Product){
-    return product.categories?.[0].name;
-  } 
+  // findCategory(product: Product){
+  //   return product.categories?.[0].name;
+  // } 
 
   
 }

@@ -47,6 +47,13 @@ export class MenuBarComponent implements OnInit {
   public checkouterror!: string;
   
   public isEditMode: boolean = false;
+
+  public searchresult: string[]=[];
+  public searchresulturl : string[] = [];
+
+  public loggeduser: boolean = false;
+  public loggedinname: string = "";
+  public loggedavather: string = "";
   
   public fieldTextType: boolean = false;
   // Regex
@@ -79,6 +86,25 @@ export class MenuBarComponent implements OnInit {
     //   this.darkmode = false;
     //   sessionStorage['dark-mode']=false;
     // }
+    if(localStorage["user"]){
+      let userData = this.userService.getUserInfo();     
+      if (userData) {
+          this.userdetails = this.encryptDecryptService.decryptData(userData);
+          this.loggeduser= true;
+          this.loggedavather = userData.avatar_url|| "";
+          this.loggedinname = userData.first_name || "";
+          // this.isRegisteredUser = true;
+          // this.edit_shipping_address = false;
+          // this.shippingstate = this.indianStates.find(x => x.value == this.userdetails.shipping.state).name;
+          // this.cartService.cartData.subscribe(data => {
+          //     this.cartitems = data;
+          // });
+         
+
+      } else {
+          //this.edit_shipping_address = true;
+      }
+    }
   }
 
   toggleDarkmode(){
@@ -96,10 +122,24 @@ export class MenuBarComponent implements OnInit {
   }
 
   search(val: string){
-    this.productService.searchProducts(val).subscribe(x=>{
-      console.clear();
-      console.log(x);
-    })
+    if(val.length<2){
+      this.searchresult = [];      
+      this.searchresulturl = [];
+    }else{
+      this.productService.searchProducts(val).subscribe(x=>{
+        this.searchresult = [];
+        this.searchresulturl = [];
+       // console.clear();
+        //console.log("ALL: "+x);
+        //console.log(x.filter(y=>{return (y.name||"").toUpperCase().indexOf(val.toUpperCase()) != -1}));
+        let filteredresult = x.filter(y=>{return (y.name||"").toUpperCase().indexOf(val.toUpperCase()) != -1})
+        filteredresult.forEach(x=>{
+          this.searchresult.push(x.name||"");
+          this.searchresulturl.push("/description/"+this.productService.findCategory(x.categories?.[0].name||"")+"/"+x.id);
+          console.log(this.searchresulturl);
+        })
+      })
+    }    
   }
 
   async saveUserInfo(userinfo: NgForm) {
@@ -167,7 +207,7 @@ export class MenuBarComponent implements OnInit {
               debugger;       
               alert("Hi" + res.data.displayName);
               this.userService.setUserInfo(this.encryptDecryptService.encryptData(customer));     
-  
+              this.loggeduser= true;
             }, async customer_retreiving_error => {
               debugger;
               console.log(customer_retreiving_error);
@@ -188,4 +228,10 @@ export class MenuBarComponent implements OnInit {
       );
     });
   }
+
+  logOut(){
+    localStorage.removeItem("user");
+    this.loggeduser= false;
+  }
+  
 }
