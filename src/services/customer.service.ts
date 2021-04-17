@@ -42,9 +42,9 @@ export class CustomerService {
        
         this.userService.setUserInfo(this.encryptDecryptService.encryptData(newcustomer));
         //sessionStorage["skipRegistration"] = this.encryptDecryptService.encryptData("true");
-        this.router.navigateByUrl('/tabs/tab-home', { skipLocationChange: false }).then(() => {
-          this.router.navigate(['/tabs/tab-home']);
-        });
+        // this.router.navigateByUrl('/tabs/tab-home', { skipLocationChange: false }).then(() => {
+        //   this.router.navigate(['/tabs/tab-home']);
+        // });
 
       }, async err => {
         

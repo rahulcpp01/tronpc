@@ -48,7 +48,12 @@
   <header class="header2">   
     <div class="main-logo">
       <img loading="lazy" src="../../../assets/images/logo-white.svg" alt="logo">
-      <ul class="menu">
+      <ul class="menu" *ngIf="loggeduser">
+        <!-- <li><img [src]="loggedavather" width="100px" height="100px" alt=""></li> -->
+        <li class="username">Hi {{loggedinname}}</li>
+        <li><a (click)="logOut()">Log out</a></li>       
+      </ul>
+      <ul class="menu" *ngIf="!loggeduser">        
         <li><a (click)="this.loginpopup=true">Login</a></li>
         <li><a (click)="this.registerpopup=true">Register</a></li>        
       </ul>
@@ -68,7 +73,12 @@
         <div>
           tronpcofficial@gmail.com
         </div>
-        
+        <input (keyup)="search($event.target.value)" type="text">
+        <div class="searchresult" *ngIf="searchresult.length > 0">
+          <div class="search-items" *ngFor="let s of searchresult;let ind = index" [routerLink]="[searchresulturl[ind]]">
+            {{s}}
+          </div>
+        </div>
       </div>
     </div>
      
