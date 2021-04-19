@@ -1,0 +1,71 @@
+<!-- <div class="checkout">
+    <h1>TOOTAL Amount : {{total}}</h1>
+
+    <h3>
+        Checkout Form
+    </h3>
+    
+        <label>First Name</label>
+        <input #fname="ngModel" name="first_name" [(ngModel)]="userdetails.first_name" required type="text">
+
+        <label>Last Name</label>
+        <input #lname="ngModel" name="last_name" [(ngModel)]="userdetails.last_name" type="text">
+
+        <label>Email</label>
+        <input #email="ngModel" name="email" [(ngModel)]="userdetails.email" required type="email"
+        pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.[a-zA-Z]+([-.][a-zA-Z]+)*$">
+
+        <label>Phone</label>
+        <input #phone="ngModel" name="phone" [(ngModel)]="userdetails.billing.phone" required type="tel"
+        pattern="^\d{10}$" maxlength="10" >
+
+        <h4>Billing address </h4>
+
+        <label>Address Line 1</label>
+        <input #b_address_line_1="ngModel" name="b_address_line_1" [(ngModel)]="userdetails.billing.address_1"
+        required type="text">
+
+        <label>Address Line 2</label>
+        <input #b_address_line_2="ngModel" name="b_address_line_2" [(ngModel)]="userdetails.billing.address_2"
+        type="text">
+
+        <label>City</label>
+        <input #b_city="ngModel" name="b_city" [(ngModel)]="userdetails.billing.city" required type="text">
+
+        <label>State</label>
+        <select #b_state="ngModel" name="b_state" [(ngModel)]="userdetails.billing.state"
+        placeholder="Select State Here" required>
+            <option *ngFor="let s of indianStates; index as i" [value]="s.value">{{ s.name }}</option>
+        </select>
+
+        <label>Postal Code</label>
+        <input #b_postcode="ngModel" name="b_postcode" [(ngModel)]="userdetails.billing.postcode" required
+        type="tel" pattern="^\d{5,6}$" maxlength="6">
+
+        <h4>Shipping address </h4>
+        <label>Address Line 1</label>
+        <input #b_address_line_1="ngModel" name="b_address_line_1" [(ngModel)]="userdetails.shipping.address_1"
+        required type="text">
+
+        <label>Address Line 2</label>
+        <input #b_address_line_2="ngModel" name="b_address_line_2" [(ngModel)]="userdetails.shipping.address_2"
+        type="text">
+
+        <label>City</label>
+        <input #b_city="ngModel" name="b_city" [(ngModel)]="userdetails.shipping.city" required type="text">
+
+        <label>State</label>
+        <select #b_state="ngModel" name="b_state" [(ngModel)]="userdetails.shipping.state"
+        placeholder="Select State Here" required>
+            <option *ngFor="let s of indianStates; index as i" [value]="s.value">{{ s.name }}</option>
+        </select>
+
+        <label>Postal Code</label>
+        <input #b_postcode="ngModel" name="b_postcode" [(ngModel)]="userdetails.shipping.postcode" required
+        type="tel" pattern="^\d{5,6}$" maxlength="6">
+        
+   
+    <button (click)="placeOrder()" type="button">
+        Place the Order
+    </button>
+</div> -->

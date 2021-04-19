@@ -23,6 +23,7 @@ import { Product3dComponent } from './components/product3d/product3d.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CartProductComponent } from './components/cart-product/cart-product.component';
 import { CategoryComponent } from './components/category/category.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 const INTERCEPTORS: {}[] = [
   {
     provide: HTTP_INTERCEPTORS,
@@ -45,7 +46,8 @@ const INTERCEPTORS: {}[] = [
     Product3dComponent,
     CartComponent,
     CartProductComponent,
-    CategoryComponent
+    CategoryComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

@@ -17,7 +17,8 @@
             <ng-container *ngIf="cart.productData.length > 0; else showOther">
                 <app-cart [prod]="cart.productData" (addToCartEvent)="addToCart($event)">
 
-                </app-cart>                
+                </app-cart>   
+                <button routerLink="/checkout"> Checkout the order</button>             
             </ng-container>
         
             <ng-template #showOther>
