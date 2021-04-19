@@ -54,6 +54,7 @@ export class MenuBarComponent implements OnInit {
   public loggeduser: boolean = false;
   public loggedinname: string = "";
   public loggedavather: string = "";
+  public showsearch: boolean = false;
   
   public fieldTextType: boolean = false;
   // Regex

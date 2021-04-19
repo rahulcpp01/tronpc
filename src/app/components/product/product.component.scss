@@ -26,20 +26,23 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
   }
   .card {
     transform-style: preserve-3d;
     //min-height: 80vh;
-    width: 18rem;
+    // width: 18rem;
+    width: 160px;
     /* border-radius: 30px; */
-    padding: 0rem 1rem 1rem 1rem;
+    padding: 10px;
     // box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2), 0px 0px 20px rgba(0, 0, 0, 0.2);
-    margin: auto;
+    margin: 0;
     border: none;
   }
   
   .productimg {
-    min-height: 35vh;
+    min-height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -49,8 +52,8 @@
     }
   }
   .productimg img {
-    width: 12rem;
-    height: 12rem;
+    width: 120px;
+    height: 120px;
     z-index: 2;
     transition: all 0.75s ease-out;
   }

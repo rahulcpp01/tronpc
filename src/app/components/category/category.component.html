@@ -9,8 +9,8 @@
     </div>
 </div>
 <div class="container-fluid">    
-    <div *ngIf="processors.length >0" class="row w-100per m-0px row-cols-5">
-        <div class="col" *ngFor="let processor of processors">
+    <div *ngIf="processors.length >0" class="row w-100per m-0px">
+        <div *ngFor="let processor of processors">
            <product 
                 *ngIf="processor.basic" 
                 [id]="processor.id!"
@@ -22,8 +22,8 @@
            </product>        
         </div>        
     </div>
-    <div *ngIf="cases.length >0" class="row w-100per m-0px row-cols-5">
-        <div class="col" *ngFor="let case of cases">
+    <div *ngIf="cases.length >0" class="row w-100per m-0px">
+        <div *ngFor="let case of cases">
           
             <product 
                 *ngIf="case.basic" 
@@ -35,8 +35,8 @@
         </div>
     </div>
 
-    <div *ngIf="coolers.length >0" class="row w-100per m-0px row-cols-5">
-        <div class="col" *ngFor="let cooler of coolers">
+    <div *ngIf="coolers.length >0" class="row w-100per m-0px">
+        <div *ngFor="let cooler of coolers">
             
             <product 
             *ngIf="cooler.basic" 
@@ -48,8 +48,8 @@
         </div>
     </div>
 
-    <div *ngIf="gpus.length >0" class="row w-100per m-0px row-cols-5">
-        <div class="col" *ngFor="let gpu of gpus">
+    <div *ngIf="gpus.length >0" class="row w-100per m-0px">
+        <div *ngFor="let gpu of gpus">
             
             <product 
             *ngIf="gpu.basic" 
@@ -60,8 +60,8 @@
         </product>  
         </div>
     </div>
-    <div *ngIf="hdds.length >0" class="row w-100per m-0px row-cols-5">
-        <div class="col" *ngFor="let hdd of hdds">
+    <div *ngIf="hdds.length >0" class="row w-100per m-0px">
+        <div *ngFor="let hdd of hdds">
             
             <product 
             *ngIf="hdd.basic" 
@@ -72,8 +72,8 @@
         </product> 
         </div>
     </div>
-    <div *ngIf="m2s.length >0" class="row w-100per m-0px row-cols-5">
-        <div class="col" *ngFor="let m2 of m2s">
+    <div *ngIf="m2s.length >0" class="row w-100per m-0px">
+        <div *ngFor="let m2 of m2s">
             
             <product 
             *ngIf="m2.basic" 
@@ -84,8 +84,8 @@
         </product> 
         </div>
     </div>
-    <div *ngIf="motherboards.length >0" class="row w-100per m-0px row-cols-5">
-        <div class="col" *ngFor="let motherboard of motherboards">
+    <div *ngIf="motherboards.length >0" class="row w-100per m-0px">
+        <div *ngFor="let motherboard of motherboards">
            
             <product 
             *ngIf="motherboard.basic" 
@@ -97,8 +97,8 @@
         </div>
     </div>
 
-    <div *ngIf="powersupplys.length >0" class="row w-100per m-0px row-cols-5">
-        <div class="col" *ngFor="let powersupply of powersupplys">
+    <div *ngIf="powersupplys.length >0" class="row w-100per m-0px">
+        <div *ngFor="let powersupply of powersupplys">
            
             <product 
             *ngIf="powersupply.basic" 
@@ -109,8 +109,8 @@
         </product> 
         </div>
     </div>
-    <div *ngIf="rams.length >0" class="row w-100per m-0px row-cols-5">
-        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6" *ngFor="let ram of rams">
+    <div *ngIf="rams.length >0" class="row w-100per m-0px">
+        <div *ngFor="let ram of rams">
            
             <product 
             *ngIf="ram.basic" 
@@ -121,8 +121,8 @@
         </product> 
         </div>
     </div>
-    <div *ngIf="ssds.length >0" class="row w-100per m-0px row-cols-5">
-        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6" *ngFor="let ssd of ssds">
+    <div *ngIf="ssds.length >0" class="row w-100per m-0px">
+        <div *ngFor="let ssd of ssds">
             
             <product 
             *ngIf="ssd.basic" 
