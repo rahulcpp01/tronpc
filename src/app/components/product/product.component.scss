@@ -33,7 +33,7 @@
     transform-style: preserve-3d;
     //min-height: 80vh;
     // width: 18rem;
-    width: 160px;
+    width: 220px;
     /* border-radius: 30px; */
     padding: 10px;
     // box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2), 0px 0px 20px rgba(0, 0, 0, 0.2);
@@ -52,8 +52,8 @@
     }
   }
   .productimg img {
-    width: 120px;
-    height: 120px;
+    width: 170px;
+    height: 170px;
     z-index: 2;
     transition: all 0.75s ease-out;
   }
@@ -75,9 +75,12 @@
   .info {
     
     h1 {
-      font-size: 1.2rem;
+      font-size: 15px;
+      height: 50px;
+      padding-top: 20px;
       transition: all 0.75s ease-out;
       background: transparent;
+      text-align: center;
     }
     h3 {
       font-size: 1rem;
@@ -93,6 +96,7 @@
     }
   }
   .price{
+    font-size: 14px;
     transition: all 0.75s ease-out;
     background: transparent;
   }
