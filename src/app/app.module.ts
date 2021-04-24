@@ -24,6 +24,7 @@ import { CartComponent } from './components/cart/cart.component';
 import { CartProductComponent } from './components/cart-product/cart-product.component';
 import { CategoryComponent } from './components/category/category.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 const INTERCEPTORS: {}[] = [
   {
     provide: HTTP_INTERCEPTORS,
@@ -56,7 +57,8 @@ const INTERCEPTORS: {}[] = [
       apiKey: 'AIzaSyCjOBUeVzRsg2WIcCgD06Tye4sz8WC9S0A'
     }),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [
     INTERCEPTORS,

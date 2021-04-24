@@ -8,129 +8,139 @@
         </select>
     </div>
 </div>
-<div class="container-fluid">    
-    <div *ngIf="processors.length >0" class="row w-100per m-0px">
-        <div *ngFor="let processor of processors">
-           <product 
-                *ngIf="processor.basic" 
-                [id]="processor.id!"
-                [type]='"processors"'
-                [prdctdescription]='processor.core + " CORE "+  processor.thread +" THREAD"'
-                (addToCartEvent)="addToCart($event)"
-                >
+<div class="container-fluid">
+    <div class="row w-100per p-t-35px">
+        <div class="col-2">
 
-           </product>        
-        </div>        
-    </div>
-    <div *ngIf="cases.length >0" class="row w-100per m-0px">
-        <div *ngFor="let case of cases">
-          
-            <product 
-                *ngIf="case.basic" 
-                [id]="case.id!"
-                [type]='"cases"'
-                (addToCartEvent)="addToCart($event)"
-                >
-            </product>           
+        </div>
+        <div class="col-10">
+            <div *ngIf="processors.length >0" class="row w-100per m-0px">
+                <div *ngFor="let processor of processors">
+                   <product 
+                        *ngIf="processor.basic" 
+                        [id]="processor.id!"
+                        [type]='"processors"'
+                        [prdctdescription]='processor.core + " CORE "+  processor.thread +" THREAD"'
+                        (addToCartEvent)="addToCart($event)"
+                        >
+        
+                   </product>        
+                </div>        
+            </div>
+            <div *ngIf="cases.length >0" class="row w-100per m-0px">
+                <div *ngFor="let case of cases">
+                  
+                    <product 
+                        *ngIf="case.basic" 
+                        [id]="case.id!"
+                        [type]='"cases"'
+                        (addToCartEvent)="addToCart($event)"
+                        >
+                    </product>           
+                </div>
+            </div>
+        
+            <div *ngIf="coolers.length >0" class="row w-100per m-0px">
+                <div *ngFor="let cooler of coolers">
+                    
+                    <product 
+                    *ngIf="cooler.basic" 
+                    [id]="cooler.id!"
+                    [type]='"coolers"'
+                    (addToCartEvent)="addToCart($event)"
+                    >
+                </product>  
+                </div>
+            </div>
+        
+            <div *ngIf="gpus.length >0" class="row w-100per m-0px">
+                <div *ngFor="let gpu of gpus">
+                    
+                    <product 
+                    *ngIf="gpu.basic" 
+                    [id]="gpu.id!"
+                    [type]='"gpu"'
+                    (addToCartEvent)="addToCart($event)"
+                    >
+                </product>  
+                </div>
+            </div>
+            <div *ngIf="hdds.length >0" class="row w-100per m-0px">
+                <div *ngFor="let hdd of hdds">
+                    
+                    <product 
+                    *ngIf="hdd.basic" 
+                    [id]="hdd.id!"
+                    [type]='"hdds"'
+                    (addToCartEvent)="addToCart($event)"
+                    >
+                </product> 
+                </div>
+            </div>
+            <div *ngIf="m2s.length >0" class="row w-100per m-0px">
+                <div *ngFor="let m2 of m2s">
+                    
+                    <product 
+                    *ngIf="m2.basic" 
+                    [id]="m2.id!"
+                    [type]='"m2s"'
+                    (addToCartEvent)="addToCart($event)"
+                    >
+                </product> 
+                </div>
+            </div>
+            <div *ngIf="motherboards.length >0" class="row w-100per m-0px">
+                <div *ngFor="let motherboard of motherboards">
+                   
+                    <product 
+                    *ngIf="motherboard.basic" 
+                    [id]="motherboard.id!"
+                    [type]='"motherboards"'
+                    (addToCartEvent)="addToCart($event)"
+                    >
+                </product> 
+                </div>
+            </div>
+        
+            <div *ngIf="powersupplys.length >0" class="row w-100per m-0px">
+                <div *ngFor="let powersupply of powersupplys">
+                   
+                    <product 
+                    *ngIf="powersupply.basic" 
+                    [id]="powersupply.id!"
+                    [type]='"powersupplies"'
+                    (addToCartEvent)="addToCart($event)"
+                    >
+                </product> 
+                </div>
+            </div>
+            <div *ngIf="rams.length >0" class="row w-100per m-0px">
+                <div *ngFor="let ram of rams">
+                   
+                    <product 
+                    *ngIf="ram.basic" 
+                    [id]="ram.id!"
+                    [type]='"rams"'
+                    (addToCartEvent)="addToCart($event)"
+                    >
+                </product> 
+                </div>
+            </div>
+            <div *ngIf="ssds.length >0" class="row w-100per m-0px">
+                <div *ngFor="let ssd of ssds">
+                    
+                    <product 
+                    *ngIf="ssd.basic" 
+                    [id]="ssd.id!"
+                    [type]='"ssds"'
+                    (addToCartEvent)="addToCart($event)"
+                    >
+                </product> 
+                </div>
+            </div>
         </div>
     </div>
-
-    <div *ngIf="coolers.length >0" class="row w-100per m-0px">
-        <div *ngFor="let cooler of coolers">
-            
-            <product 
-            *ngIf="cooler.basic" 
-            [id]="cooler.id!"
-            [type]='"coolers"'
-            (addToCartEvent)="addToCart($event)"
-            >
-        </product>  
-        </div>
-    </div>
-
-    <div *ngIf="gpus.length >0" class="row w-100per m-0px">
-        <div *ngFor="let gpu of gpus">
-            
-            <product 
-            *ngIf="gpu.basic" 
-            [id]="gpu.id!"
-            [type]='"gpu"'
-            (addToCartEvent)="addToCart($event)"
-            >
-        </product>  
-        </div>
-    </div>
-    <div *ngIf="hdds.length >0" class="row w-100per m-0px">
-        <div *ngFor="let hdd of hdds">
-            
-            <product 
-            *ngIf="hdd.basic" 
-            [id]="hdd.id!"
-            [type]='"hdds"'
-            (addToCartEvent)="addToCart($event)"
-            >
-        </product> 
-        </div>
-    </div>
-    <div *ngIf="m2s.length >0" class="row w-100per m-0px">
-        <div *ngFor="let m2 of m2s">
-            
-            <product 
-            *ngIf="m2.basic" 
-            [id]="m2.id!"
-            [type]='"m2s"'
-            (addToCartEvent)="addToCart($event)"
-            >
-        </product> 
-        </div>
-    </div>
-    <div *ngIf="motherboards.length >0" class="row w-100per m-0px">
-        <div *ngFor="let motherboard of motherboards">
-           
-            <product 
-            *ngIf="motherboard.basic" 
-            [id]="motherboard.id!"
-            [type]='"motherboards"'
-            (addToCartEvent)="addToCart($event)"
-            >
-        </product> 
-        </div>
-    </div>
-
-    <div *ngIf="powersupplys.length >0" class="row w-100per m-0px">
-        <div *ngFor="let powersupply of powersupplys">
-           
-            <product 
-            *ngIf="powersupply.basic" 
-            [id]="powersupply.id!"
-            [type]='"powersupplies"'
-            (addToCartEvent)="addToCart($event)"
-            >
-        </product> 
-        </div>
-    </div>
-    <div *ngIf="rams.length >0" class="row w-100per m-0px">
-        <div *ngFor="let ram of rams">
-           
-            <product 
-            *ngIf="ram.basic" 
-            [id]="ram.id!"
-            [type]='"rams"'
-            (addToCartEvent)="addToCart($event)"
-            >
-        </product> 
-        </div>
-    </div>
-    <div *ngIf="ssds.length >0" class="row w-100per m-0px">
-        <div *ngFor="let ssd of ssds">
-            
-            <product 
-            *ngIf="ssd.basic" 
-            [id]="ssd.id!"
-            [type]='"ssds"'
-            (addToCartEvent)="addToCart($event)"
-            >
-        </product> 
-        </div>
-    </div>
-</div> 
+</div>
+<!-- <div class="container-fluid">    
+    
+</div>  -->
