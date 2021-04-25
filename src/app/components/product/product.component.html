@@ -31,7 +31,7 @@
         </div>
         <div class="info" [routerLink]="['/description/'+type+'/'+id]">
             <h1 class="title" #title>{{product_name}}</h1>
-            <h3 #description>{{prdctdescription ? prdctdescription : "No Description" }}.</h3>        
+            <!-- <h3 #description>{{prdctdescription ? prdctdescription : "No Description" }}.</h3>         -->
             <div class="price" #price>{{regularprice | currency:"&#8377;"}}/- </div>
             
         </div>

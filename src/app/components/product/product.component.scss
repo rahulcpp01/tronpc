@@ -52,8 +52,8 @@
     }
   }
   .productimg img {
-    width: 170px;
-    height: 170px;
+    width: 150px;
+    height: 150px;
     z-index: 2;
     transition: all 0.75s ease-out;
   }
@@ -75,7 +75,7 @@
   .info {
     
     h1 {
-      font-size: 15px;
+      font-size: 16px;
       height: 50px;
       padding-top: 20px;
       transition: all 0.75s ease-out;
@@ -107,16 +107,18 @@
   .purchase {
     margin-top: 2rem;
     transition: all 0.75s ease-out;
+    text-align: center;
   }
   .purchase button {
-    width: 100%;
-    padding: 1rem 0rem;
-    background: #288ACA;
+    width: 90%;
+    padding: 9px;
+    background: var(--primary-color);
     border: none;
     color: white;
     cursor: pointer;
     /* border-radius: 30px; */
-    font-weight: bolder;
+    font-weight: 500;
+    font-size: 14px;
   }
 
   .fa-shopping-cart{
