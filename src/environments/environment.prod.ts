@@ -12,7 +12,7 @@ const forgotPasswordUrl = base + '/wp-json/bdpwr/v1';
 
 // noinspection DuplicatedCode
 export const environment = {
-    production: false,
+    production: true,
     backend_api_url: url,
     backend_api_url_www: urlwww,
     auth_url: authUrl,
@@ -20,12 +20,12 @@ export const environment = {
     forgotPasswordUrl: forgotPasswordUrl,
     secretCode: 'dCbrUWQSjUSnfinJcsR+Tw==',
     readOnlyKeys: {
-        consumer_key: 'ck_ad3309970ab3bef3aa854ec8d54b5e7a6133cd7f',
-        consumer_secret: 'cs_ecb725e516d291d37f1abef28525c001142681ac'
+        consumer_key: 'ck_98bb1dbdb0cb80097c9b57f0a9ab027add861504',
+        consumer_secret: 'cs_2f1c050e71d3b15ff9e65508a787c9337aab9879'
     },
     writableKeys: {
-        consumer_key: 'ck_ad3309970ab3bef3aa854ec8d54b5e7a6133cd7f',
-        consumer_secret: 'cs_ecb725e516d291d37f1abef28525c001142681ac'
+        consumer_key: 'ck_98bb1dbdb0cb80097c9b57f0a9ab027add861504',
+        consumer_secret: 'cs_2f1c050e71d3b15ff9e65508a787c9337aab9879'
     },
     
     whatsapp_number: 9747968569,     // TO DO: Change to their number
