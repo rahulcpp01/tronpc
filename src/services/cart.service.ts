@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { CartModel, TronPCProduct } from 'src/models/cartModel';
 import { Product } from 'src/models/product/product';
 import { Order } from 'src/models/orders/orders';
+import { CustomerService } from './customer.service';
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +23,8 @@ export class CartService {
     private checkouterror$ = new BehaviorSubject<string>("");
 
     constructor(private httpClient: HttpClient,
-        private router: Router) {
+        private router: Router,
+        private customerService: CustomerService) {
         this.totalAmount = 0;
         // this.storage.get('cart').then(data => {
         //     if (data) {
@@ -57,6 +59,7 @@ export class CartService {
                 this.calculateTotal();
                 //this.storage.set('cart', this.cartDataArray).then();
                 localStorage["cart"] = JSON.stringify(this.cartDataArray);
+                this.customerService.addToServerCart();
                 //await toast.present().then();
                 this.cartData$.next(this.cartDataArray);
             }
@@ -70,6 +73,7 @@ export class CartService {
                 this.cartDataArray.count = this.cartDataArray.productData.length;
                 //this.storage.set('cart', this.cartDataArray).then();
                 localStorage["cart"] = JSON.stringify(this.cartDataArray);
+                this.customerService.addToServerCart();
                 this.cartData$.next(this.cartDataArray);
             }
         }
@@ -82,6 +86,7 @@ export class CartService {
             this.calculateTotal();
             //this.storage.set('cart', this.cartDataArray).then();
             localStorage["cart"] = JSON.stringify(this.cartDataArray);
+            this.customerService.addToServerCart();
             // await alert.present().then();
             this.cartData$.next(this.cartDataArray);
             // Related and Upselling Product
@@ -97,6 +102,7 @@ export class CartService {
         this.totalAmount$.next(this.totalAmount);
         //this.storage.set('cart', this.cartDataArray).then();
         localStorage["cart"] = JSON.stringify(this.cartDataArray);
+        this.customerService.addToServerCart();
         let updatedIds: number[] = []; 
         this.associatedProductIds = updatedIds;
         this.$associatedProductIds.next(updatedIds);
@@ -123,6 +129,7 @@ export class CartService {
         this.calculateTotal();
         //this.storage.set('cart', this.cartDataArray).then();
         localStorage["cart"] = JSON.stringify(this.cartDataArray);
+        this.customerService.addToServerCart();
         this.cartData$.next(this.cartDataArray);
         this.totalAmount$.next(this.totalAmount);
     }
@@ -134,6 +141,7 @@ export class CartService {
         };
         //this.storage.set('cart', this.cartDataArray).then();
         localStorage["cart"] = JSON.stringify(this.cartDataArray);
+        this.customerService.addToServerCart();
         this.calculateTotal();
         this.cartData$.next(this.cartDataArray);
     }

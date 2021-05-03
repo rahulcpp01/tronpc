@@ -19,22 +19,22 @@ export class CustomerService {
 
   async registerCustomer(userdetails: Customer) {
     debugger;
-    if (userdetails && userdetails.id! > 0) {
-      // Existing users
-      this.httpClient.put(`/customers/${userdetails.id}`, { ...userdetails }).subscribe(async existingcustomer => {
-        debugger;
-        this.userService.setUserInfo(this.encryptDecryptService.encryptData(existingcustomer));
-        //sessionStorage["skipRegistration"] = this.encryptDecryptService.encryptData("true");
-        // this.router.navigateByUrl('/tabs/tab-account', { skipLocationChange: false }).then(() => {
-        //   this.router.navigate(['/tabs/tab-account']);
-        // });
-        alert("User Created successfully");
+    // if (userdetails && userdetails.id! > 0) {
+    //   // Existing users
+    //   this.httpClient.put(`/customers/${userdetails.id}`, { ...userdetails }).subscribe(async existingcustomer => {
+    //     debugger;
+    //     this.userService.setUserInfo(this.encryptDecryptService.encryptData(existingcustomer));
+    //     //sessionStorage["skipRegistration"] = this.encryptDecryptService.encryptData("true");
+    //     // this.router.navigateByUrl('/tabs/tab-account', { skipLocationChange: false }).then(() => {
+    //     //   this.router.navigate(['/tabs/tab-account']);
+    //     // });
+    //     alert("User Created successfully");
 
-      }, async err => {
-        console.log("Error"+err);
+    //   }, async err => {
+    //     console.log("Error"+err);
 
-      });
-    } else {
+    //   });
+    // } else {
       // New users
       this.httpClient.post(`/customers`, { ...userdetails }).subscribe(async newcustomer => {
         debugger;
@@ -51,7 +51,28 @@ export class CustomerService {
         console.log(err);
         
       });
-    }
+    //}
+  }
+
+  addToServerCart(){
+    debugger;
+      let userdatafromlocal = this.userService.getUserInfo();
+      if (userdatafromlocal) { //user available      
+        const savedUser = this.encryptDecryptService.decryptData(userdatafromlocal);        
+         this.httpClient.put(`/customers/${savedUser.id}`, { meta_data :[
+           {
+            key: "tronpccart",
+            value: localStorage["cart"]
+           }
+         ] }).subscribe(resp =>{
+           debugger;
+
+         },err =>{
+           debugger;
+         })
+      }else{
+        alert("Please Login and try");
+      }
   }
 
   getCustomerById(id: number) {

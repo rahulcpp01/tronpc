@@ -200,16 +200,17 @@ export class MenuBarComponent implements OnInit {
     //const userData = `username=8762801994&password=e1$VwhW(CRD0`; 
     let userData = `username=${this.username}&password=${this.password}`;
     return new Promise((resolve, reject) => {
-      this.http.post(environment.auth_url, {username:this.username,password:this.password}).subscribe(async (res: any) => {
+      this.http.post(environment.auth_url, {username:this.username,password:this.password}).subscribe((res: any) => {
         debugger;
-        if(res.statusCode==200){          
+        if(res.token){          
             //For retreiving customer  
-            this.customerservice.getCustomerById(res.data.id).subscribe(async customer => {     
+            let responcedata: any =JSON.parse(atob(res.token.split('.')[1]));
+            this.customerservice.getCustomerById(responcedata.data.user.id).subscribe(customer => {     
               debugger;       
-              alert("Hi" + res.data.displayName);
+              alert("Hi" + res.user_display_name);
               this.userService.setUserInfo(this.encryptDecryptService.encryptData(customer));     
               this.loggeduser= true;
-            }, async customer_retreiving_error => {
+            }, customer_retreiving_error => {
               debugger;
               console.log(customer_retreiving_error);
             })
@@ -221,7 +222,7 @@ export class MenuBarComponent implements OnInit {
 
         //for retreiving customer
       },
-        async err => {
+        err => {
           debugger;
           resolve(err);
           console.log(err);          
