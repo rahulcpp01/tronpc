@@ -4,6 +4,7 @@ import { Component, Inject, OnInit,Renderer2, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { Customer } from 'src/models/user/customer';
+import { CartService } from 'src/services/cart.service';
 import { CustomerService } from 'src/services/customer.service';
 import { EncryptDecryptService } from 'src/services/encrypt-decrypt.service';
 import { UserService } from 'src/services/user.service';
@@ -74,36 +75,40 @@ export class MenuBarComponent implements OnInit {
   private customerservice: CustomerService,
   private http: HttpClient,
   private userService: UserService,
+  private cartService: CartService,
   private encryptDecryptService: EncryptDecryptService) { 
 
   }
 
   ngOnInit(): void {
-    // debugger;
-    // if(sessionStorage['dark-mode']){
-    //   console.log("darkmaode available");
-    //   this.darkmode = sessionStorage['dark-mode'];
-    // }else{
-    //   this.darkmode = false;
-    //   sessionStorage['dark-mode']=false;
-    // }
+   
     if(localStorage["user"]){
       let userData = this.userService.getUserInfo();     
       if (userData) {
-          this.userdetails = this.encryptDecryptService.decryptData(userData);
-          this.loggeduser= true;
-          this.loggedavather = userData.avatar_url|| "";
-          this.loggedinname = userData.first_name || "";
-          // this.isRegisteredUser = true;
-          // this.edit_shipping_address = false;
-          // this.shippingstate = this.indianStates.find(x => x.value == this.userdetails.shipping.state).name;
-          // this.cartService.cartData.subscribe(data => {
-          //     this.cartitems = data;
-          // });
-         
+          //this.userdetails = this.encryptDecryptService.decryptData(userData);
+          //this.loggeduser= true;
+          //this.loggedavather = userData.avatar_url|| "";
+          //this.loggedinname = userData.first_name || "";
 
+          //Load Cart data
+          this.customerservice.getCustomerById(userData.id).subscribe((resp: any) =>{
+            debugger;
+            this.userService.setUserInfo(this.encryptDecryptService.encryptData(resp));     
+            this.loggeduser= true;
+            this.loggedavather = userData.avatar_url|| "";
+            this.loggedinname = userData.first_name || "";
+
+            // localStorage.setItem("cart",resp.meta_data.find((x: any)=>x.key==="tronpccart").value);
+            
+            let tronpccart =  resp.meta_data.find((x: any)=>x.key==="tronpccart").value;
+
+            this.cartService.loadCartFromServer(tronpccart);
+          }, err =>{
+            debugger;
+          })
+          
       } else {
-          //this.edit_shipping_address = true;
+
       }
     }
   }
@@ -205,11 +210,14 @@ export class MenuBarComponent implements OnInit {
         if(res.token){          
             //For retreiving customer  
             let responcedata: any =JSON.parse(atob(res.token.split('.')[1]));
-            this.customerservice.getCustomerById(responcedata.data.user.id).subscribe(customer => {     
+            this.customerservice.getCustomerById(responcedata.data.user.id).subscribe((customer : any)=> {     
               debugger;       
-              alert("Hi" + res.user_display_name);
+              alert("Hi" + customer.first_name);
               this.userService.setUserInfo(this.encryptDecryptService.encryptData(customer));     
               this.loggeduser= true;
+              let tronpccart =  customer.meta_data.find((x: any)=>x.key==="tronpccart").value;
+
+              this.cartService.loadCartFromServer(tronpccart);
             }, customer_retreiving_error => {
               debugger;
               console.log(customer_retreiving_error);

@@ -55,7 +55,7 @@ export class CustomerService {
   }
 
   addToServerCart(){
-    debugger;
+    if(localStorage["user"]){
       let userdatafromlocal = this.userService.getUserInfo();
       if (userdatafromlocal) { //user available      
         const savedUser = this.encryptDecryptService.decryptData(userdatafromlocal);        
@@ -73,6 +73,8 @@ export class CustomerService {
       }else{
         alert("Please Login and try");
       }
+    }
+      
   }
 
   getCustomerById(id: number) {
