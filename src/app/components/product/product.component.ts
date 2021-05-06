@@ -8,7 +8,24 @@ import { WoocommerceService } from 'src/services/woocommerce.service';
 @Component({
   selector: 'product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+  styleUrls: ['./product.component.scss'],
+  styles: [`
+    .star {
+      position: relative;
+      display: inline-block;
+      font-size: 1.5rem;
+      color: #d3d3d3;
+    }
+    .full {
+      color: red;
+    }
+    .half {
+      position: absolute;
+      display: inline-block;
+      overflow: hidden;
+      color: red;
+    }
+  `]
 })
 export class ProductComponent implements OnInit {
 
@@ -18,6 +35,8 @@ export class ProductComponent implements OnInit {
   public product_name: string = "";
   public productcart: TronPCProduct = {};
   public product!: Product;
+  public currentRate: number = 0;
+  public rating_count: number = 0;
 
   @Input() id: number = 0;
   @Input() type: string = "";
@@ -60,6 +79,8 @@ export class ProductComponent implements OnInit {
       }
       this.product_name = product.name|| "";
       this.productAvailable = true;
+      this.currentRate = Number.parseFloat(product.average_rating||"");
+      this.rating_count = product.rating_count || 0;
     })
   }
 

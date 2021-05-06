@@ -16,7 +16,24 @@ import { WoocommerceService } from 'src/services/woocommerce.service';
 @Component({
   selector: 'description',
   templateUrl: './description.component.html',
-  styleUrls: ['./description.component.scss']
+  styleUrls: ['./description.component.scss'],
+  styles: [`
+    .star {
+      position: relative;
+      display: inline-block;
+      font-size: 1.5rem;
+      color: #d3d3d3;
+    }
+    .full {
+      color: red;
+    }
+    .half {
+      position: absolute;
+      display: inline-block;
+      overflow: hidden;
+      color: red;
+    }
+  `]
 })
 export class DescriptionComponent implements OnInit {
   public image: string = "";
@@ -24,7 +41,8 @@ export class DescriptionComponent implements OnInit {
   public display_product: any={}
   public selectedtype: string = "";
   public productname: string = "";
-  public imagesarray: string[] = [];
+  public imagesarray: string[] = [];  
+  public currentRate: number = 0;
   // public case: Case={};
   // public cooler: Cooler={};
   // public gpu: GPU={};
