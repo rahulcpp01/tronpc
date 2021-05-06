@@ -48,6 +48,13 @@ export class CartService {
     //     return this.$associatedProductIds.asObservable();
     // }
 
+    loadCartFromServer(servercart: string){
+        debugger;
+        this.cartDataArray = JSON.parse(servercart);
+        localStorage["cart"] = JSON.stringify(this.cartDataArray);
+        this.cartData$.next(this.cartDataArray);
+    }
+
     async addToCart(product: TronPCProduct) {
         // When the cart is not completely empty
         if (this.cartDataArray && this.cartDataArray.count !== 0) {
@@ -92,6 +99,7 @@ export class CartService {
             // Related and Upselling Product
         }
     }
+
 
      removeFromCart(product: TronPCProduct) {
         this.cartDataArray.productData = this.cartDataArray.productData.filter(p => p.id !== product.id);
