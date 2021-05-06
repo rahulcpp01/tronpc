@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
-
+@import '~bootstrap/scss/bootstrap';
 :root {
     --primary-color: #288ACA;
     --font-color: #424242;
@@ -44,3 +44,4 @@ body{
 .p-t-35px{
     padding-top: 35px;
 }
+

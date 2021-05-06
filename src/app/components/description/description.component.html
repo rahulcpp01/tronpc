@@ -16,6 +16,18 @@
                     <img [src]="img" alt="not available" (click)="this.image=img">
                 </div>                
             </div>
+
+            <h3>Reviews</h3>
+            <hr>
+            <ng-template #t let-fill="fill">
+                <span class="star" [class.full]="fill === 100">
+                  <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                </span>
+            </ng-template>              
+            <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [max]="5"></ngb-rating>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <button>Submit Review</button>
+
         </div>
         <div class="col-md-6 col-12">
             <table class="table table-striped">
