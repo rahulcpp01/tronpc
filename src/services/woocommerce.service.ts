@@ -708,6 +708,5 @@ export class WoocommerceService {
         }
       }
   } 
-
   
 }

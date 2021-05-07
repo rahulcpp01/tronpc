@@ -11,6 +11,7 @@ import { Processor } from 'src/models/custommodels/processor.model';
 import { RAM } from 'src/models/custommodels/ram.model';
 import { SSD } from 'src/models/custommodels/ssd.model';
 import { Product } from 'src/models/product/product';
+import { CustomerService } from 'src/services/customer.service';
 import { WoocommerceService } from 'src/services/woocommerce.service';
 
 @Component({
@@ -43,6 +44,7 @@ export class DescriptionComponent implements OnInit {
   public productname: string = "";
   public imagesarray: string[] = [];  
   public currentRate: number = 0;
+  public reviewText: string = "";
   // public case: Case={};
   // public cooler: Cooler={};
   // public gpu: GPU={};
@@ -54,7 +56,8 @@ export class DescriptionComponent implements OnInit {
   // public ssd: SSD={};
 
   constructor(private productService: WoocommerceService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private customerService: CustomerService) { }
 
   ngOnInit(): void {
 
@@ -131,6 +134,14 @@ export class DescriptionComponent implements OnInit {
         
       }
       
+  }
+
+  submitReview(){
+    debugger;
+    if(this.reviewText.length <=0 || this.currentRate == 0)
+      alert("Please enter the review");
+    else
+      this.customerService.giveProductReview(this.product.id,this.reviewText,this.currentRate);
   }
 
 }

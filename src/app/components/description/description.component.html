@@ -25,8 +25,8 @@
                 </span>
             </ng-template>              
             <ngb-rating [(rate)]="currentRate" [starTemplate]="t" [max]="5"></ngb-rating>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <button>Submit Review</button>
+            <textarea [(ngModel)]="reviewText" cols="30" rows="10"></textarea>
+            <button (click)="submitReview()">Submit Review</button>
 
         </div>
         <div class="col-md-6 col-12">

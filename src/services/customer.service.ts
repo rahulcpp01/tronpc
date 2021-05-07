@@ -80,4 +80,33 @@ export class CustomerService {
   getCustomerById(id: number) {
     return this.httpClient.get<CustomerModel>(`/customers/${id}`);
   }
+
+  giveProductReview(product_id: number,review: string, rating: number){
+    debugger;
+    if(localStorage["user"]){
+      let userdatafromlocal = this.userService.getUserInfo();  
+      if (userdatafromlocal) { //user available      
+        const savedUser = this.encryptDecryptService.decryptData(userdatafromlocal);
+        let reviewModel = {
+          product_id : product_id,
+          review : review,
+          reviewer : savedUser.first_name,
+          reviewer_email : savedUser.email,
+          rating : rating
+       }
+       this.httpClient.post(`/products/reviews`,{...reviewModel}).subscribe(resp =>{
+          debugger;
+          console.log(resp);
+          alert("Submitted review. wait for Approval");
+       },err =>{
+         debugger;
+         console.log(err);
+       })
+      } 
+      
+    } else{
+      alert("Only registered user can submit Review. If you are existing customer, please Login & Try again")
+    }
+    
+  }
 }
